@@ -92,7 +92,6 @@ class EmailAndPassword extends Component {
       showBackButton,
       emailPlaceholder,
       passwordPlaceholder,
-      showPasswordVerificationIntoTooltip,
     } = this.props
 
     const {
@@ -141,9 +140,7 @@ class EmailAndPassword extends Component {
                       passwordPlaceholder ||
                       translate('store/login.password.placeholder', intl)
                     }
-                    showPasswordVerificationIntoTooltip={
-                      showPasswordVerificationIntoTooltip
-                    }
+                    disablePasswordVerification="true"
                   />
                 )}
               </AuthState.Password>
@@ -190,22 +187,22 @@ class EmailAndPassword extends Component {
                   action: loginWithPassword,
                   validation: { validateEmail },
                 }) => (
-                    <Button
-                      variation="primary"
-                      size="small"
-                      type="submit"
-                      onClick={e => {
-                        e.preventDefault()
-                        this.handleOnSubmit(email, password, loginWithPassword)
-                      }}
-                      isLoading={loading}
-                      disabled={!validateEmail(email)}
-                    >
-                      <span className="t-small">
-                        {translate('store/login.signIn', intl)}
-                      </span>
-                    </Button>
-                  )}
+                  <Button
+                    variation="primary"
+                    size="small"
+                    type="submit"
+                    onClick={e => {
+                      e.preventDefault()
+                      this.handleOnSubmit(email, password, loginWithPassword)
+                    }}
+                    isLoading={loading}
+                    disabled={!validateEmail(email)}
+                  >
+                    <span className="t-small">
+                      {translate('store/login.signIn', intl)}
+                    </span>
+                  </Button>
+                )}
               </AuthService.LoginWithPassword>
             </div>
           </Fragment>

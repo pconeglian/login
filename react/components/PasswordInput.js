@@ -58,7 +58,7 @@ class PasswordInput extends Component {
       showPassword,
     } = this.state
 
-    const { intl, password, showPasswordVerificationIntoTooltip } = this.props
+    const { intl, password, showPasswordVerificationIntoTooltip, disablePasswordVerification } = this.props
 
     const fields = [
       {
@@ -98,7 +98,7 @@ class PasswordInput extends Component {
             translate('store/login.password.placeholder', intl)
           }
           onBlur={() => this.setState({ showVerification: false })}
-          onFocus={() => this.setState({ showVerification: true })}
+          onFocus={() => this.setState({ showVerification: !disablePasswordVerification })}
           suffixIcon={
             <span className="pointer" onClick={this.handleEyeIcon}>
               <IconEyeSight
@@ -129,6 +129,8 @@ PasswordInput.propTypes = {
   placeholder: PropTypes.string.isRequired,
   /** Set the type of password verification ui */
   showPasswordVerificationIntoTooltip: PropTypes.bool,
+  /** Disable password verification on ui */
+  disablePasswordVerification: PropTypes.bool,
   /** Function to change de active tab */
   onStateChange: PropTypes.func.isRequired,
   /** Intl object*/
