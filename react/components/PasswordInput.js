@@ -97,7 +97,7 @@ class PasswordInput extends Component {
             this.props.placeholder ||
             translate('store/login.password.placeholder', intl)
           }
-          onBlur={() => this.setState({ showVerification: false })}
+          onBlur={() => this.setState({ showVerification: !showPasswordVerificationIntoTooltip })}
           onFocus={() => this.setState({ showVerification: true })}
           suffixIcon={
             <span className="pointer" onClick={this.handleEyeIcon}>
