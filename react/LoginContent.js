@@ -340,7 +340,7 @@ class LoginContent extends Component {
       step = defaultOption
     }
 
-    const render = STEPS[step](
+    const renderForm = STEPS[step](
       {
         ...this.props,
         loginCallback: this.onLoginSuccess,
@@ -378,7 +378,7 @@ class LoginContent extends Component {
                   ? this.renderChildren()
                   : null}
                 <div className={formClassName}>
-                  {this.shouldRenderForm && render ? render() : null}
+                  {this.shouldRenderForm && renderForm ? renderForm() : null}
                 </div>
               </Fragment>
             )}
