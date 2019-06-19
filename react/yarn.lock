@@ -814,12 +814,6 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@babel/runtime@^7.0.0":
-  version "7.1.5"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.1.5.tgz#4170907641cf1f61508f563ece3725150cc6fe39"
-  dependencies:
-    regenerator-runtime "^0.12.0"
-
 "@babel/runtime@^7.1.5", "@babel/runtime@^7.3.1":
   version "7.3.4"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.3.4.tgz#73d12ba819e365fcf7fd152aed56d6df97d21c83"
@@ -4266,12 +4260,6 @@ react-outside-click-handler@^1.2.2:
     consolidated-events "^1.1.1 || ^2.0.0"
     object.values "^1.0.4"
     prop-types "^15.6.1"
-
-react-spring@^5.6.8:
-  version "5.9.2"
-  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-5.9.2.tgz#4c4e048ffce24755eaa60acd2f3fe4a3d686ef16"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
 
 react-testing-library@^6.0.0:
   version "6.0.0"
