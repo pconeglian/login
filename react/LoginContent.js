@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { graphql } from 'react-apollo'
 import { injectIntl } from 'react-intl'
-import { Transition } from 'react-spring'
 import { withSession, withRuntimeContext } from 'vtex.render-runtime'
 
 import Loading from './components/Loading'
@@ -157,7 +156,14 @@ class LoginContent extends Component {
   }
 
   get returnUrl() {
-    const { runtime: { page, history: { location: { pathname, search } } } } = this.props
+    const {
+      runtime: {
+        page,
+        history: {
+          location: { pathname, search },
+        },
+      },
+    } = this.props
     const currentUrl = page !== 'store.login' ? `${pathname}${search}` : '/'
     return path(['query', 'returnUrl'], this.props) || currentUrl
   }
@@ -239,7 +245,11 @@ class LoginContent extends Component {
         // components using authentication and relying
         // on the session cookie haven't been updated yet,
         // so the refresh is intentional.
-        location.assign(`/api/vtexid/pub/authentication/redirect?returnUrl=${encodeURIComponent(this.returnUrl)}`)
+        location.assign(
+          `/api/vtexid/pub/authentication/redirect?returnUrl=${encodeURIComponent(
+            this.returnUrl
+          )}`
+        )
       }
     })
   }
@@ -269,7 +279,7 @@ class LoginContent extends Component {
     } else if (isOnInitialScreen) {
       step = defaultOption
     }
-    
+
     return (
       <div style={style} key={0}>
         <AuthState.IdentityProviders>
@@ -330,7 +340,7 @@ class LoginContent extends Component {
       step = defaultOption
     }
 
-    const render = STEPS[step](
+    const renderForm = STEPS[step](
       {
         ...this.props,
         loginCallback: this.onLoginSuccess,
@@ -364,31 +374,11 @@ class LoginContent extends Component {
               <Loading />
             ) : (
               <Fragment>
-                <Transition
-                  keys={
-                    !profile && this.shouldRenderLoginOptions && !loading
-                      ? ['children']
-                      : []
-                  }
-                  from={{ opacity: 0, transform: 'translateX(-50%)' }}
-                  enter={{ opacity: 1, transform: 'translateX(0%)' }}
-                  leave={{ display: 'none' }}
-                >
-                  {!profile && this.shouldRenderLoginOptions && !loading
-                    ? [this.renderChildren]
-                    : []}
-                </Transition>
+                {!profile && this.shouldRenderLoginOptions && !loading
+                  ? this.renderChildren()
+                  : null}
                 <div className={formClassName}>
-                  <Transition
-                    keys={
-                      this.shouldRenderForm && render ? ['children'] : []
-                    }
-                    from={{ opacity: 0, transform: 'translateX(50%)' }}
-                    enter={{ opacity: 1, transform: 'translateX(0%)' }}
-                    leave={{ display: 'none' }}
-                  >
-                    {this.shouldRenderForm && render ? [render] : []}
-                  </Transition>
+                  {this.shouldRenderForm && renderForm ? renderForm() : null}
                 </div>
               </Fragment>
             )}
