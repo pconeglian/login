@@ -156,7 +156,14 @@ class LoginContent extends Component {
   }
 
   get returnUrl() {
-    const { runtime: { page, history: { location: { pathname, search } } } } = this.props
+    const {
+      runtime: {
+        page,
+        history: {
+          location: { pathname, search },
+        },
+      },
+    } = this.props
     const currentUrl = page !== 'store.login' ? `${pathname}${search}` : '/'
     return path(['query', 'returnUrl'], this.props) || currentUrl
   }
@@ -238,7 +245,11 @@ class LoginContent extends Component {
         // components using authentication and relying
         // on the session cookie haven't been updated yet,
         // so the refresh is intentional.
-        location.assign(`/api/vtexid/pub/authentication/redirect?returnUrl=${encodeURIComponent(this.returnUrl)}`)
+        location.assign(
+          `/api/vtexid/pub/authentication/redirect?returnUrl=${encodeURIComponent(
+            this.returnUrl
+          )}`
+        )
       }
     })
   }
@@ -268,7 +279,7 @@ class LoginContent extends Component {
     } else if (isOnInitialScreen) {
       step = defaultOption
     }
-    
+
     return (
       <div style={style} key={0}>
         <AuthState.IdentityProviders>
@@ -363,7 +374,7 @@ class LoginContent extends Component {
               <Loading />
             ) : (
               <Fragment>
-                  {!profile && this.shouldRenderLoginOptions && !loading
+                {!profile && this.shouldRenderLoginOptions && !loading
                   ? this.renderChildren()
                   : null}
                 <div className={formClassName}>
