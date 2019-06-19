@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { graphql } from 'react-apollo'
 import { injectIntl } from 'react-intl'
-import { Transition } from 'react-spring'
 import { withSession, withRuntimeContext } from 'vtex.render-runtime'
 
 import Loading from './components/Loading'
@@ -364,31 +363,11 @@ class LoginContent extends Component {
               <Loading />
             ) : (
               <Fragment>
-                <Transition
-                  keys={
-                    !profile && this.shouldRenderLoginOptions && !loading
-                      ? ['children']
-                      : []
-                  }
-                  from={{ opacity: 0, transform: 'translateX(-50%)' }}
-                  enter={{ opacity: 1, transform: 'translateX(0%)' }}
-                  leave={{ display: 'none' }}
-                >
                   {!profile && this.shouldRenderLoginOptions && !loading
-                    ? [this.renderChildren]
-                    : []}
-                </Transition>
+                  ? this.renderChildren()
+                  : null}
                 <div className={formClassName}>
-                  <Transition
-                    keys={
-                      this.shouldRenderForm && render ? ['children'] : []
-                    }
-                    from={{ opacity: 0, transform: 'translateX(50%)' }}
-                    enter={{ opacity: 1, transform: 'translateX(0%)' }}
-                    leave={{ display: 'none' }}
-                  >
-                    {this.shouldRenderForm && render ? [render] : []}
-                  </Transition>
+                  {this.shouldRenderForm && render ? render() : null}
                 </div>
               </Fragment>
             )}
