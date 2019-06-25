@@ -9,7 +9,7 @@
     "store/login.send": "Enviar",
     "store/login.create": "Crear",
     "store/login.confirm": "Confirmar",
-    "store/login.accessCodeTitle": "Informar el código recibido en su correo electrónico",
+    "store/login.accessCodeTitle": "Ingrese el código de acceso enviado a su correo",
     "store/login.myAccount": "Mi Cuenta",
     "store/login.hello": "Hola,",
     "store/login.logoutLabel": "Cerrar sesión",
