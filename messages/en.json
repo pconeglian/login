@@ -9,7 +9,7 @@
     "store/login.send": "Send",
     "store/login.create": "Create",
     "store/login.confirm": "Confirm",
-    "store/login.accessCodeTitle": "Inform the code received on your email",
+    "store/login.accessCodeTitle": "Enter the access code sent to your email",
     "store/login.myAccount": "My Account",
     "store/login.hello": "Hello,",
     "store/login.logoutLabel": "Logout",
