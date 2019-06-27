@@ -389,7 +389,7 @@ class LoginContent extends Component {
   }
 }
 
-const options = {
+const config = {
   name: 'session',
   options: () => ({ ssr: false }),
 }
@@ -398,7 +398,7 @@ const content = withSession()(
   compose(
     injectIntl,
     graphql(LOGIN_OPTIONS_QUERY),
-    graphql(session, options)
+    graphql(session, config)
   )(LoginContent)
 )
 
