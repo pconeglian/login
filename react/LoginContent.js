@@ -391,7 +391,7 @@ class LoginContent extends Component {
 
 const config = {
   name: 'session',
-  options: () => ({ ssr: false }),
+  options: () => ({ ssr: false, fetchPolicy: 'no-cache' }),
 }
 
 const content = withSession()(
