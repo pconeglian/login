@@ -389,16 +389,16 @@ class LoginContent extends Component {
   }
 }
 
-const options = {
+const config = {
   name: 'session',
-  options: () => ({ ssr: false }),
+  options: () => ({ ssr: false, fetchPolicy: 'no-cache' }),
 }
 
 const content = withSession()(
   compose(
     injectIntl,
     graphql(LOGIN_OPTIONS_QUERY),
-    graphql(session, options)
+    graphql(session, config)
   )(LoginContent)
 )
 
