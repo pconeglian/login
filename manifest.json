@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "login",
-  "version": "2.13.5",
+  "version": "2.13.6",
   "title": "VTEX Login",
   "defaultLocale": "pt-BR",
   "description": "The VTEX Login app",
