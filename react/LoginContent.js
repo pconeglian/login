@@ -199,9 +199,13 @@ class LoginContent extends Component {
   }
 
   handleUpdateState = state => {
-    if (state.hasOwnProperty('step') && state.step === -1) {
-      state.step = 0
-      state.isOnInitialScreen = true
+    if (state.hasOwnProperty('step')) {
+      if (state.step === -1) {
+        state.step = 0
+        state.isOnInitialScreen = true
+      } else if (state.step !== this.props.defaultOption) {
+        state.isOnInitialScreen = false
+      }
     }
 
     this.setState({ ...state })
