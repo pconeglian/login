@@ -371,7 +371,7 @@ class LoginContent extends Component {
       [`${styles.contentFormVisible} db `]: this.shouldRenderForm,
     })
     return (
-      <AuthState scope="STORE" returnUrl={this.returnUrl}>
+      <AuthState skip={!!profile} scope="STORE" returnUrl={this.returnUrl}>
         {({ loading }) => (
           <div className={className}>
             {loading ? (
