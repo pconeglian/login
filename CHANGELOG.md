@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.13.8] - 2019-08-07
+
 ## [2.13.7] - 2019-07-01
 ### Fixed
 - Issue where user was unable to input auth token when the default login option was "0" (i.e. by token instead of email/password).
