@@ -48,6 +48,7 @@ class LoginOptions extends Component {
       title,
       fallbackTitle,
       options,
+      loginCallback,
       intl,
       isAlwaysShown,
     } = this.props
@@ -95,7 +96,7 @@ class LoginOptions extends Component {
                     className={`${styles.optionsListItem} mb3`}
                     key={`${providerName}-${index}`}
                   >
-                    <OAuth provider={providerName}>
+                    <OAuth provider={providerName} loginCallback={loginCallback}>
                       {hasIcon ? React.createElement(PROVIDERS_ICONS[providerName], null) : null}
                     </OAuth>
                   </li>
@@ -152,6 +153,8 @@ LoginOptions.propTypes = {
   isAlwaysShown: PropTypes.bool,
   /** Current option being displayed */
   currentStep: PropTypes.string,
+  /** Function called after login success */
+  loginCallback: PropTypes.func,
 }
 
 export default injectIntl(LoginOptions)
