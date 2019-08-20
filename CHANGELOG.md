@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- OAuth buttons now open a popup window instead of redirecting the user.
+
 ## [2.13.8] - 2019-08-07
 
 ## [2.13.7] - 2019-07-01
