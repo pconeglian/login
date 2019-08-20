@@ -17,18 +17,20 @@ class OAuth extends Component {
     provider: PropTypes.string,
     /** Actual button */
     children: PropTypes.node,
+    /** Function called after login success */
+    loginCallback: PropTypes.func,
   }
 
   render() {
-    const { intl, children, provider } = this.props
+    const { intl, children, provider, loginCallback } = this.props
     return (
       <div className={`${styles.button} ${styles.buttonSocial}`}>
-        <AuthService.OAuthRedirect useNewSession provider={provider} >
-          {({ loading, action: redirectToOAuthPage }) => (
+        <AuthService.OAuthPopup useNewSession provider={provider} onSuccess={() => loginCallback()}>
+          {({ loading, action: openOAuthPopup }) => (
             <Button
               isLoading={loading}
               variation="tertiary"
-              onClick={redirectToOAuthPage}
+              onClick={openOAuthPopup}
             >
               {children}
               <span className={`t-action--small ${styles.oauthLabel} relative normal`}>
@@ -37,7 +39,7 @@ class OAuth extends Component {
               </span>
             </Button>
           )}
-        </AuthService.OAuthRedirect>
+        </AuthService.OAuthPopup>
       </div>
     )
   }

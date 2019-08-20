@@ -312,6 +312,7 @@ class LoginContent extends Component {
                 isAlwaysShown={!isInitialScreenOptionOnly}
                 onOptionsClick={this.handleOptionsClick}
                 refetchOptions={this.refetchOptions}
+                loginCallback={this.onLoginSuccess}
               />
             )
           }}
