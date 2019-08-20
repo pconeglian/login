@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- OAuth buttons now open a popup window instead of redirecting the user.
+
 ## [2.14.0] - 2019-08-30
 ### Changed
 - Render type set to lazy
