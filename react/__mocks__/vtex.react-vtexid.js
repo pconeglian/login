@@ -25,6 +25,9 @@ export const AuthService = {
   OAuthRedirect: ({ children }) =>
     children({ loading: true, action: () => {} }),
 
+  OAuthPopup: ({ children }) =>
+    children({ loading: true, action: () => {} }),
+
   SetPassword: ({ children }) =>
     children({
       state: { password: 'password', token: 'token' },
