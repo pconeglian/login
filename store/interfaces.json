@@ -1,8 +1,10 @@
 {
   "login": {
-    "component": "Login"
+    "component": "Login",
+    "render": "lazy"
   },
   "login-content": {
-    "component": "LoginContent"
+    "component": "LoginContent",
+    "render": "lazy"
   }
 }
