@@ -23,7 +23,6 @@ import { LoginSchema } from './schema'
 import { LoginPropTypes } from './propTypes'
 import { getProfile } from './utils/profile'
 import { session } from 'vtex.store-resources/Queries'
-import LOGIN_OPTIONS_QUERY from './queries/loginOptions.gql'
 import { AuthState } from 'vtex.react-vtexid'
 
 import styles from './styles.css'
@@ -312,6 +311,7 @@ class LoginContent extends Component {
                 isAlwaysShown={!isInitialScreenOptionOnly}
                 onOptionsClick={this.handleOptionsClick}
                 refetchOptions={this.refetchOptions}
+                loginCallback={this.onLoginSuccess}
               />
             )
           }}
@@ -401,7 +401,6 @@ const config = {
 const content = withSession()(
   compose(
     injectIntl,
-    graphql(LOGIN_OPTIONS_QUERY),
     graphql(session, config)
   )(LoginContent)
 )
