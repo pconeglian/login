@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 
-import { Input, Button } from 'vtex.styleguide'
+import { Button } from 'vtex.styleguide'
 import { AuthState, AuthService } from 'vtex.react-vtexid'
 
 import { translate } from '../utils/translate'
@@ -12,6 +12,7 @@ import Form from './Form'
 import FormError from './FormError'
 import PasswordInput from './PasswordInput'
 import GoBackButton from './GoBackButton'
+import EmailInput from './EmailInput'
 
 import styles from '../styles.css'
 
@@ -111,19 +112,19 @@ class EmailAndPassword extends Component {
           <Fragment>
             <div className={`${styles.inputContainer} ${styles.inputContainerEmail}`}>
               <AuthState.Email>
-                {({ value, setValue }) => (
-                  <Input
-                    value={value || ''}
-                    onChange={e => {
-                      setValue(e.target.value)
-                      this.setState({ isInvalidEmail: false })
-                    }}
-                    placeholder={
-                      emailPlaceholder ||
-                      translate('store/login.email.placeholder', intl)
-                    }
-                  />
-                )}
+                {({ value, setValue }) => {
+                  return (
+                    <EmailInput
+                      value={value || ''}
+                      onChange={e => {
+                        setValue(e.target.value)
+                        this.setState({ isInvalidEmail: false })
+                      }}
+                      emailPlaceholder={emailPlaceholder ||
+                      translate('store/login.email.placeholder', intl)}
+                    />
+                  )
+                }}
               </AuthState.Email>
             </div>
             <FormError show={isInvalidEmail}>
@@ -190,22 +191,22 @@ class EmailAndPassword extends Component {
                   action: loginWithPassword,
                   validation: { validateEmail },
                 }) => (
-                    <Button
-                      variation="primary"
-                      size="small"
-                      type="submit"
-                      onClick={e => {
-                        e.preventDefault()
-                        this.handleOnSubmit(email, password, loginWithPassword)
-                      }}
-                      isLoading={loading}
-                      disabled={!validateEmail(email)}
-                    >
-                      <span className="t-small">
-                        {translate('store/login.signIn', intl)}
-                      </span>
-                    </Button>
-                  )}
+                  <Button
+                    variation="primary"
+                    size="small"
+                    type="submit"
+                    onClick={e => {
+                      e.preventDefault()
+                      this.handleOnSubmit(email, password, loginWithPassword)
+                    }}
+                    isLoading={loading}
+                    disabled={!validateEmail(email)}
+                  >
+                    <span className="t-small">
+                      {translate('store/login.signIn', intl)}
+                    </span>
+                  </Button>
+                )}
               </AuthService.LoginWithPassword>
             </div>
           </Fragment>
