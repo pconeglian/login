@@ -189,7 +189,6 @@ class EmailAndPassword extends Component {
                   state: { email, password },
                   loading,
                   action: loginWithPassword,
-                  validation: { validateEmail },
                 }) => (
                   <Button
                     variation="primary"
@@ -200,7 +199,6 @@ class EmailAndPassword extends Component {
                       this.handleOnSubmit(email, password, loginWithPassword)
                     }}
                     isLoading={loading}
-                    disabled={!validateEmail(email)}
                   >
                     <span className="t-small">
                       {translate('store/login.signIn', intl)}
