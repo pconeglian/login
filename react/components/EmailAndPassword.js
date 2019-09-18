@@ -92,9 +92,9 @@ class EmailAndPassword extends Component {
     }
   }
 
-  handleOnSubmit = (email, password, login, setEmail) => {
+  handleOnSubmit = async (email, password, login, setEmail) => {
     if (this.state.userIdentifierExtensionSubmitter) {
-      const emailResult = this.state.userIdentifierExtensionSubmitter()
+      const emailResult = await this.state.userIdentifierExtensionSubmitter()
       setEmail(emailResult, () => {
         this.trySubmit(emailResult, password, login)
       })
