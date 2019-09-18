@@ -2,8 +2,9 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 
-import { Button } from 'vtex.styleguide'
+import { Button, Input } from 'vtex.styleguide'
 import { AuthState, AuthService } from 'vtex.react-vtexid'
+import { ExtensionPoint, useChildBlock } from 'vtex.render-runtime'
 
 import { translate } from '../utils/translate'
 import { isValidEmail, isValidPassword } from '../utils/format-check'
@@ -12,7 +13,7 @@ import Form from './Form'
 import FormError from './FormError'
 import PasswordInput from './PasswordInput'
 import GoBackButton from './GoBackButton'
-import EmailInput from './EmailInput'
+import { USER_IDENTIFIER_INTERFACE_ID } from '../common/global'
 
 import styles from '../styles.css'
 
@@ -39,6 +40,8 @@ class EmailAndPassword extends Component {
     showBackButton: PropTypes.bool,
     /** Function called after login success */
     loginCallback: PropTypes.func,
+    /* Whether the user identifier interface has been extended */
+    hasUserIdentifierExtension: PropTypes.bool,
   }
 
   state = {
@@ -46,6 +49,7 @@ class EmailAndPassword extends Component {
     isInvalidPassword: false,
     isWrongCredentials: false,
     isUserBlocked: false,
+    userIdentifierExtensionSubmitter: null,
   }
 
   handlePasswordChange = event => {
@@ -74,13 +78,28 @@ class EmailAndPassword extends Component {
         : console.error(err)
   }
 
-  handleOnSubmit = (email, password, login) => {
+  registerUserIdentifierExtensionSubmitter = userIdentifierExtensionSubmitter => {
+    this.setState({ userIdentifierExtensionSubmitter })
+  }
+
+  trySubmit = (email, password, login) => {
     if (!isValidEmail(email)) {
       this.setState({ isInvalidEmail: true })
     } else if (!isValidPassword(password)) {
       this.setState({ isInvalidPassword: true })
     } else {
       login()
+    }
+  }
+
+  handleOnSubmit = (email, password, login, setEmail) => {
+    if (this.state.userIdentifierExtensionSubmitter) {
+      const emailResult = this.state.userIdentifierExtensionSubmitter()
+      setEmail(emailResult, () => {
+        this.trySubmit(emailResult, password, login)
+      })
+    } else {
+      this.trySubmit(email, password, login)
     }
   }
 
@@ -94,6 +113,7 @@ class EmailAndPassword extends Component {
       emailPlaceholder,
       passwordPlaceholder,
       showPasswordVerificationIntoTooltip,
+      hasUserIdentifierExtension,
     } = this.props
 
     const {
@@ -113,14 +133,33 @@ class EmailAndPassword extends Component {
             <div className={`${styles.inputContainer} ${styles.inputContainerEmail}`}>
               <AuthState.Email>
                 {({ value, setValue }) => {
+                  if (hasUserIdentifierExtension) {
+                    return (
+                      <ExtensionPoint
+                        id={USER_IDENTIFIER_INTERFACE_ID}
+                        emailPlaceholder={emailPlaceholder}
+                        renderInput={({ value, onChange, placeholder }) => (
+                          <Input
+                            value={value}
+                            onChange={e => {
+                              onChange(e)
+                              this.setState({ isInvalidEmail: false })
+                            }}
+                            placeholder={placeholder}
+                          />
+                        )}
+                        registerSubmitter={this.registerUserIdentifierExtensionSubmitter}
+                      />
+                    )
+                  }
                   return (
-                    <EmailInput
+                    <Input
                       value={value || ''}
                       onChange={e => {
                         setValue(e.target.value)
                         this.setState({ isInvalidEmail: false })
                       }}
-                      emailPlaceholder={emailPlaceholder ||
+                      placeholder={emailPlaceholder ||
                       translate('store/login.email.placeholder', intl)}
                     />
                   )
@@ -190,20 +229,24 @@ class EmailAndPassword extends Component {
                   loading,
                   action: loginWithPassword,
                 }) => (
-                  <Button
-                    variation="primary"
-                    size="small"
-                    type="submit"
-                    onClick={e => {
-                      e.preventDefault()
-                      this.handleOnSubmit(email, password, loginWithPassword)
-                    }}
-                    isLoading={loading}
-                  >
-                    <span className="t-small">
-                      {translate('store/login.signIn', intl)}
-                    </span>
-                  </Button>
+                  <AuthState.Email>
+                    {({ setValue: setEmail }) => (
+                      <Button
+                        variation="primary"
+                        size="small"
+                        type="submit"
+                        onClick={e => {
+                          e.preventDefault()
+                          this.handleOnSubmit(email, password, loginWithPassword, setEmail)
+                        }}
+                        isLoading={loading}
+                      >
+                        <span className="t-small">
+                          {translate('store/login.signIn', intl)}
+                        </span>
+                      </Button>
+                    )}
+                  </AuthState.Email>
                 )}
               </AuthService.LoginWithPassword>
             </div>
@@ -226,4 +269,12 @@ class EmailAndPassword extends Component {
   }
 }
 
-export default injectIntl(EmailAndPassword)
+const withHasUserIdentifierExtension = (Component) => {
+  const Wrapper = props => {
+    const hasUserIdentifierExtension = !!useChildBlock({ id: USER_IDENTIFIER_INTERFACE_ID })
+    return <Component {...props} hasUserIdentifierExtension={hasUserIdentifierExtension} />
+  }
+  return Wrapper
+}
+
+export default withHasUserIdentifierExtension(injectIntl(EmailAndPassword))

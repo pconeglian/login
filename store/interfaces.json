@@ -1,10 +1,15 @@
 {
   "login": {
     "component": "Login",
-    "render": "client"
+    "render": "client",
+    "allowed": ["user-identifier"]
   },
   "login-content": {
     "component": "LoginContent",
     "render": "client"
+  },
+  "user-identifier": {
+    "component": "*",
+    "extensibility": "enterprise"
   }
 }
