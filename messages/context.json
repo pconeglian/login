@@ -48,6 +48,9 @@
   "admin/editor.login.accessCodePlaceholder": "admin/editor.login.accessCodePlaceholder",
   "admin/editor.login.showPasswordVerificationIntoTooltip.title": "admin/editor.login.showPasswordVerificationIntoTooltip.title",
   "admin/editor.login.showIconProfile": "admin/editor.login.showIconProfile",
-  "admin/editor.login.iconLabel": "admin/editor.login.iconLabel"
-
+  "admin/editor.login.iconLabel": "admin/editor.login.iconLabel",
+  "admin/editor.login.providerPasswordButtonLabel": "admin/editor.login.providerPasswordButtonLabel",
+  "admin/editor.login.hasIdentifierExtension": "admin/editor.login.hasIdentifierExtension",
+  "admin/editor.login.identifierPlaceholder": "admin/editor.login.identifierPlaceholder",
+  "admin/editor.login.invalidIdentifierError": "admin/editor.login.invalidIdentifierError"
 }

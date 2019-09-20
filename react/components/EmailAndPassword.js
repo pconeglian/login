@@ -42,6 +42,10 @@ class EmailAndPassword extends Component {
     loginCallback: PropTypes.func,
     /* Whether the user identifier interface has been extended */
     hasUserIdentifierExtension: PropTypes.bool,
+    /** Placeholder for the identifier extension */
+    identifierPlaceholder: PropTypes.string,
+    /** Error message for the user identifier */
+    invalidIdentifierError: PropTypes.string,
   }
 
   state = {
@@ -114,6 +118,8 @@ class EmailAndPassword extends Component {
       passwordPlaceholder,
       showPasswordVerificationIntoTooltip,
       hasUserIdentifierExtension,
+      identifierPlaceholder,
+      invalidIdentifierError,
     } = this.props
 
     const {
@@ -137,7 +143,7 @@ class EmailAndPassword extends Component {
                     return (
                       <ExtensionPoint
                         id={USER_IDENTIFIER_INTERFACE_ID}
-                        emailPlaceholder={emailPlaceholder}
+                        emailPlaceholder={identifierPlaceholder || emailPlaceholder}
                         renderInput={({ value, onChange, placeholder }) => (
                           <Input
                             value={value}
@@ -167,7 +173,7 @@ class EmailAndPassword extends Component {
               </AuthState.Email>
             </div>
             <FormError show={isInvalidEmail}>
-              {translate('store/login.invalidEmail', intl)}
+              {invalidIdentifierError || translate('store/login.invalidEmail', intl)}
             </FormError>
             <div className={`${styles.inputContainer} ${styles.inputContainerPassword} pv3 flex flex-column`}>
               <AuthState.Password>

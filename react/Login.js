@@ -76,13 +76,10 @@ export default class Login extends Component {
   }
 }
 
-Login.schema = {
+Login.getSchema = () => ({
   title: 'admin/editor.login.title',
-  type: 'object',
-  properties: {
-    ...LoginSchema,
-  },
-}
+  ...LoginSchema,
+})
 
 const options = {
   options: () => ({ ssr: false }),

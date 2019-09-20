@@ -24,6 +24,14 @@ export const LoginContainerProptypes = {
   labelClasses: PropTypes.string,
   /** Determines if the icon profile will be hidden */
   showIconProfile: PropTypes.bool,
+  /** Password login button text */
+  providerPasswordButtonLabel: PropTypes.string,
+  /** Whether the identifier extension values are enabled in the site editor */
+  hasIdentifierExtension: PropTypes.bool,
+  /** Placeholder for the identifier extension */
+  identifierPlaceholder: PropTypes.string,
+  /** Error message for the user identifier */
+  invalidIdentifierError: PropTypes.string,
 }
 
 export const LoginPropTypes = {

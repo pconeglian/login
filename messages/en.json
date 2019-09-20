@@ -48,6 +48,9 @@
     "admin/editor.login.accessCodePlaceholder": "Placeholder to access code input",
     "admin/editor.login.showPasswordVerificationIntoTooltip.title": "Show password format verification as tooltip",
     "admin/editor.login.showIconProfile": "Show profile icon",
-    "admin/editor.login.iconLabel": "Login button label"
-
+    "admin/editor.login.iconLabel": "Login button label",
+    "admin/editor.login.providerPasswordButtonLabel": "Email/Password login button label",
+    "admin/editor.login.hasIdentifierExtension": "Email/Password user identifier extension",
+    "admin/editor.login.identifierPlaceholder": "Identifier input placeholder",
+    "admin/editor.login.invalidIdentifierError": "Invalid identifier error"
 }
