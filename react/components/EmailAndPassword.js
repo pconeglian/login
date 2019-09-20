@@ -143,7 +143,7 @@ class EmailAndPassword extends Component {
                     return (
                       <ExtensionPoint
                         id={USER_IDENTIFIER_INTERFACE_ID}
-                        emailPlaceholder={identifierPlaceholder || emailPlaceholder}
+                        identifierPlaceholder={identifierPlaceholder || emailPlaceholder}
                         renderInput={({ value, onChange, placeholder }) => (
                           <Input
                             value={value}
