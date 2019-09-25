@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 
-import { compose } from 'ramda'
+import { path, toLower } from 'ramda'
 import { withSession } from 'vtex.render-runtime'
-import { graphql } from 'react-apollo'
 import { injectIntl } from 'react-intl'
 
 import { LoginSchema } from './schema'
@@ -13,7 +12,10 @@ import LoginComponent from './components/LoginComponent'
 
 const DEFAULT_CLASSES = 'gray'
 
+const convertToBool = str => !!str && toLower(str) === 'true'
+
 /** Canonical login that calls a mutation to retrieve the authentication token */
+
 export default class Login extends Component {
   static propTypes = LoginContainerProptypes
 
@@ -24,6 +26,7 @@ export default class Login extends Component {
   state = {
     isBoxOpen: false,
     renderIconAsLink: false,
+    sessionProfile: null,
   }
 
   componentDidMount() {
@@ -33,6 +36,38 @@ export default class Login extends Component {
     if (location.href.indexOf('accountAuthCookieName') > 0) {
       setCookie(location.href)
     }
+
+    window.__RENDER_8_SESSION__.sessionPromise.then(data => {
+      const sessionRespose = data.response
+
+      if (!sessionRespose || !sessionRespose.namespaces) {
+        return
+      }
+
+      const { namespaces } = sessionRespose
+      const storeUserId = path(
+        ['authentication', 'storeUserId', 'value'],
+        namespaces
+      )
+      if (!storeUserId) {
+        return
+      }
+
+      const profile = {
+        document: path(['document', 'value'], namespaces.profile),
+        email:
+          path(['email', 'value'], namespaces.profile) ||
+          path(['storeUserEmail', 'value'], namespaces.authentication),
+        firstName: path(['firstName', 'value'], namespaces.profile),
+        id: path(['id', 'value'], namespaces.profile),
+        isAuthenticatedAsCustomer: convertToBool(
+          path(['isAuthenticated', 'value'], namespaces.profile)
+        ),
+        lastName: path(['lastName', 'value'], namespaces.profile),
+        phone: path(['phone', 'value'], namespaces.profile),
+      }
+      this.setState({ sessionProfile: profile })
+    })
   }
 
   componentWillUnmount() {
@@ -67,7 +102,9 @@ export default class Login extends Component {
   render() {
     return (
       <LoginWithSession
-        {...this.state}
+        isBoxOpen={this.state.isBoxOpen}
+        renderIconAsLink={this.state.renderIconAsLink}
+        sessionProfile={this.state.sessionProfile}
         {...this.props}
         onOutSideBoxClick={this.handleOutSideBoxClick}
         onProfileIconClick={this.handleProfileIconClick}
@@ -81,13 +118,6 @@ Login.getSchema = () => ({
   ...LoginSchema,
 })
 
-const options = {
-  options: () => ({ ssr: false }),
-}
-
 const LoginWithSession = withSession({
   loading: <div />,
-})(compose(
-  injectIntl,
-  graphql(session, options),
-)(LoginComponent))
+})(injectIntl(LoginComponent))

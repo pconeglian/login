@@ -11,7 +11,6 @@ import LoginContent from '../LoginContent'
 import { truncateString } from '../utils/format-string'
 import { translate } from '../utils/translate'
 import { LoginPropTypes } from '../propTypes'
-import { getProfile } from '../utils/profile'
 
 import styles from '../styles.css'
 
@@ -36,34 +35,45 @@ class LoginComponent extends Component {
       intl,
       renderIconAsLink,
       onProfileIconClick,
-      data,
+      sessionProfile,
       showIconProfile,
-      runtime: { history: { location: { pathname } } },
+      runtime: {
+        history: {
+          location: { pathname },
+        },
+      },
     } = this.props
-    const profile = getProfile(data)
+
     const iconClasses = 'flex items-center'
     const iconLabel = iconLabelProfile || translate('store/login.signIn', intl)
     const iconContent = (
       <Fragment>
-        {showIconProfile && renderIconAsLink &&
-          profileIcon(iconSize, labelClasses, iconClasses)
-        }
-        {
-          profile ? (
-            <span className={`${styles.profile} t-action--small order-1 pl4 ${labelClasses} dn db-l`}>
-              {translate('store/login.hello', intl)}{' '}
-              {profile.firstName || truncateString(profile.email)}
+        {showIconProfile &&
+          renderIconAsLink &&
+          profileIcon(iconSize, labelClasses, iconClasses)}
+        {sessionProfile ? (
+          <span
+            className={`${styles.profile} t-action--small order-1 pl4 ${labelClasses} dn db-l`}
+          >
+            {translate('store/login.hello', intl)}{' '}
+            {sessionProfile.firstName || truncateString(sessionProfile.email)}
+          </span>
+        ) : (
+          iconLabel && (
+            <span
+              className={`${styles.label} t-action--small pl4 ${labelClasses} dn db-l`}
+            >
+              {iconLabel}
             </span>
-          ) : (
-            iconLabel && <span className={`${styles.label} t-action--small pl4 ${labelClasses} dn db-l`}>{iconLabel}</span>
           )
-        }
-      </Fragment >
+        )}
+      </Fragment>
     )
 
     if (renderIconAsLink) {
-      const linkTo = profile ? 'store.account' : 'store.login'
-      const returnUrl = !profile && `returnUrl=${encodeURIComponent(pathname)}`
+      const linkTo = sessionProfile ? 'store.account' : 'store.login'
+      const returnUrl =
+        !sessionProfile && `returnUrl=${encodeURIComponent(pathname)}`
       return (
         <Link
           page={linkTo}
@@ -76,7 +86,12 @@ class LoginComponent extends Component {
     }
 
     return (
-      <ButtonWithIcon variation="tertiary" icon={showIconProfile && profileIcon(iconSize, labelClasses)} iconPosition={showIconProfile ? "left" : "right"} onClick={onProfileIconClick}>
+      <ButtonWithIcon
+        variation="tertiary"
+        icon={showIconProfile && profileIcon(iconSize, labelClasses)}
+        iconPosition={showIconProfile ? 'left' : 'right'}
+        onClick={onProfileIconClick}
+      >
         <div
           className="flex pv2 items-center"
           ref={e => {
@@ -90,9 +105,7 @@ class LoginComponent extends Component {
   }
 
   render() {
-    const { isBoxOpen, onOutSideBoxClick, data } = this.props
-
-    const profile = getProfile(data)
+    const { isBoxOpen, onOutSideBoxClick, sessionProfile } = this.props
 
     return (
       <div className={`${styles.container} flex items-center fr`}>
@@ -101,13 +114,18 @@ class LoginComponent extends Component {
           {isBoxOpen && (
             <Overlay>
               <OutsideClickHandler onOutsideClick={onOutSideBoxClick}>
-                <div className={`${styles.box} z-max absolute`} style={{
-                  right: -50,
-                }}>
-                  <div className={`${styles.arrowUp} absolute top-0 right-0 shadow-3 bg-base mr3 rotate-45 h2 w2`} />
+                <div
+                  className={`${styles.box} z-max absolute`}
+                  style={{
+                    right: -50,
+                  }}
+                >
+                  <div
+                    className={`${styles.arrowUp} absolute top-0 right-0 shadow-3 bg-base mr3 rotate-45 h2 w2`}
+                  />
                   <div className={`${styles.contentContainer} shadow-3 mt3`}>
                     <LoginContent
-                      profile={profile}
+                      profile={sessionProfile}
                       loginCallback={this.onClickLoginButton}
                       isInitialScreenOptionOnly
                       {...this.props}
