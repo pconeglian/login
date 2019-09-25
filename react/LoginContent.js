@@ -273,16 +273,6 @@ class LoginContent extends Component {
     })
   }
 
-  refetchOptions = () => {
-    const { data: query } = this.props
-    if (!query.loading && !query.loginOptions) {
-      return query.refetch()
-    }
-    if (query.loginOptions) {
-      return Promise.resolve()
-    }
-  }
-
   renderChildren = style => {
     const {
       profile,
@@ -327,7 +317,6 @@ class LoginContent extends Component {
                 }
                 isAlwaysShown={!isInitialScreenOptionOnly}
                 onOptionsClick={this.handleOptionsClick}
-                refetchOptions={this.refetchOptions}
                 loginCallback={this.onLoginSuccess}
                 providerPasswordButtonLabel={providerPasswordButtonLabel}
               />
@@ -345,6 +334,7 @@ class LoginContent extends Component {
       defaultOption,
       session,
     } = this.props
+
     const { isOnInitialScreen } = this.state
 
     // Check if the user is already logged and redirect to the return URL if it didn't receive
@@ -373,14 +363,10 @@ class LoginContent extends Component {
     )
 
     const className = classNames(
-      `${
-        styles.content
-      } flex relative bg-base justify-around overflow-visible pa4 center`,
+      `${styles.content} flex relative bg-base justify-around overflow-visible pa4 center`,
       {
         [styles.contentInitialScreen]: this.state.isOnInitialScreen,
-        [`${
-          styles.contentAlwaysWithOptions
-        } mw6-ns flex-column-reverse items-center flex-row-ns items-baseline-ns`]: !isInitialScreenOptionOnly,
+        [`${styles.contentAlwaysWithOptions} mw6-ns flex-column-reverse items-center flex-row-ns items-baseline-ns`]: !isInitialScreenOptionOnly,
         'items-baseline': isInitialScreenOptionOnly,
       }
     )
