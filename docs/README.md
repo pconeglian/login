@@ -86,6 +86,10 @@ Through the Storefront, you can change the `login`'s behavior and interface. How
 | `passwordPlaceholder`                 | `String`  | Set placeholder to password input                | -             |
 | `showPasswordVerificationIntoTooltip` | `Boolean` | Set show password format verification as tooltip | -             |
 | `acessCodePlaceholder`                | `String`  | Set placeholder to access code input             | -             |
+| `providerPasswordButtonLabel`         | `String`  | Set Password login button text                   | -             |
+| `hasIdentifierExtension`              | `Boolean` | Enables identifier extension configurations      | -             |
+| `identifierPlaceholder`               | `String`  | Set placeholder for the identifier extension     | -             |
+| `invalidIdentifierError`              | `String`  | Set error message for invalid user identifier    | -             |
 
 You can also change the `login-content`'s behaviour and interface through the Store front.
 
@@ -100,6 +104,108 @@ You can also change the `login-content`'s behaviour and interface through the St
 | `passwordPlaceholder`                 | `String`  | Set placeholder to password input                                                     | -             |
 | `showPasswordVerificationIntoTooltip` | `Boolean` | Set show password format verification as tooltip                                      | -             |
 | `acessCodePlaceholder`                | `String`  | Set placeholder to access code input                                                  | -             |
+| `providerPasswordButtonLabel`         | `String`  | Set Password login button text                                                        | -             |
+| `hasIdentifierExtension`              | `Boolean` | Enables identifier extension configurations                                           | -             |
+| `identifierPlaceholder`               | `String`  | Set placeholder for the identifier extension                                          | -             |
+| `invalidIdentifierError`              | `String`  | Set error message for invalid user identifier                                         | -             |
+
+### Plugins API
+
+This app can be extended through the `plugins.json` file of the store builder. The extension is only allowed for `enterprise` clients and can change the login functionality. It is explained in the following section.
+
+#### User Identifier Extension
+
+The Email/Password login takes two inputs:
+- The user email (his identifier)
+- The user password
+
+The `User Identifier Extension` allows other identifiers to be used in the login form, *as long as it can be resolved to the user email*.
+For example, if your account stores the National Identity Document of each user, the Email/Password login would be changed to ask for the following two inputs:
+- The user National Identity Document (his identifier)
+- The user password
+
+There is a limitation to this feature. Every user must have an email to be logged in, so the user identifier *must be able to be resolved to an email*. If you want to use an identifier other than the email, you must create a resolver app (or an extension app) that returns an email, given an identifier.
+For example, imagine the user `John`, whose email is `john@example.com` and whose National Identity Document is `12345`. When he types his document (`12345`), your app must receive the `12345`, find out that it belongs to John, find out that John's email is `john@example.com` and return this email to the login app.
+
+When an extension app returns an email to the login app, it acts like the user just typed in that email. So if it returns `null`, for example, a message like `"The email is invalid"` will appear. This message, along with some others, may be edited in the Store Front, as described in the `Blocks API` section (eg. `"The User Identifier Extension is invalid"`).
+
+##### Creating the User Identifier Extension App
+
+To create your extension app, there are five steps you must worry about.
+
+- First, you must add `login` as your app's dependency. In the `manifest.json` file:
+```json
+"dependencies": {
+  "vtex.login": "2.x"
+},
+```
+
+- Second, you need to add the `store` builder to your app. In the `manifest.json` file:
+```json
+"builders": {
+  "store": "0.x",
+},
+```
+
+- Third, you must extend the `user-identifier` `interface` defined by the login app. You can choose any interface name you want, which will be represented here by {{InterfaceName}}. You will need to create a component for that interface, but for now it will be represented by {{ComponentName}}. In the `store/interfaces.json` file:
+```json
+"user-identifier.{{InterfaceName}}": {
+  "component": "{{ComponentName}}"
+},
+```
+
+- Fourth, you must plug in your `interface` to the login app. In the `store/plugins.json` file:
+```json
+"login > user-identifier": "user-identifier.{{InterfaceName}}",
+"login-content > user-identifier": "user-identifier.{{InterfaceName}}",
+```
+
+- Fifth, you need to create the component that you decided to name {{ComponentName}}. This component will replace the `email` input in the login form. This means that it could render anything, like a File Uploader or a simple Text Input which takes a National Identity Document. Just remember that this component must know how to convert the data it receives to an email. This is done by registering a callback function that returns an email whithin the login app. It will be defined in the file `react/{{ComponentName}}.js`. The following example is a good template to be used, and is commented so you understand each of its parts:
+
+```js
+import { useState, useCallback, useEffect } from 'react'
+
+const ComponentName = ({ renderInput, identifierPlaceholder, registerSubmitter }) => {
+  // The component receives 3 props:
+  // - renderInput is a function that returns the same Input component used by the login app, defined in styleguide.
+  //   It receives an object with three named parameters, trivially used by Inputs with react: value, onChange, placeholder.
+  //   When "onChange" is called, the login app clears the "email is invalid" error, if it exists.
+  // - identifierPlaceholder is the value of the configuration "identifierPlaceholder" defined in the Store Front. It has a
+  //   fallback to the value of the configuration "emailPlaceholder".
+  // - registerSubmitter is a function that receives your async callback function defined in this file. Your callback will be called
+  //   when the user submits the form.
+
+  // This code controls the state of the rendered Input component.
+  const [inputValue, setInputValue] = useState('')
+  const onChangeInput = useCallback(e => setInputValue(e.target.value), [
+    setInputValue,
+  ])
+
+  // This callback function (onSubmit) should return the resolved email. In the example below, it adds `@email.com` to the current
+  // value in the Input component (eg. "john" would be resolved to "john@email.com").
+  const onSubmit = useCallback(async () => {
+    const email = `${inputValue}@email.com`
+    return email
+  }, [inputValue])
+
+  // This code registers the async callback function you defined in the login app when this component mounts.
+  useEffect(() => {
+    registerSubmitter(onSubmit)
+  }, [registerSubmitter, onSubmit])
+
+  // The component calls "renderInput" and renders its result.
+  return renderInput({
+    value: inputValue,
+    onChange: onChangeInput,
+    placeholder: identifierPlaceholder,
+  })
+}
+
+export default ComponentName
+
+```
+
+After following the five steps, your extension app will be good to go. Just install it in your account and it will replace the `email` Input in the login form.
 
 ### Styles API
 
