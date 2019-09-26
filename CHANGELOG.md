@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Add `providerPasswordButtonLabel`, `hasIdentifierExtension`, `identifierPlaceholder`, `invalidIdentifierError` configurations to Store Front, which can be edited by the site-editor.
+- Add `providerPasswordButtonLabel`, `hasIdentifierExtension`, `identifierPlaceholder`, `invalidIdentifierError` configurations to Store Front that can be edited in site-editor.
 
 - Add support for User Identifier Extension Apps, documented in the `README.md` file.
 
