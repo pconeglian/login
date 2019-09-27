@@ -32,7 +32,7 @@
   "store/login.password.number": "One number",
   "store/login.password.eightCharacteres": "At least 8 characters",
   "store/login.password.tooltip.title": "Your password must have:",
-  "store/login.email.placeholder": "Ex.: example@mail.com",
+  "store/login.email.placeholder": "E.g.: example@mail.com",
   "store/login.password.placeholder": "Add your password",
   "store/login.accessCode.placeholder": "Add your access code",
   "store/login.autoRedirect.message": "We are redirecting you to our {provider} login",
