@@ -113,8 +113,10 @@ class LoginOptions extends Component {
                   isLoading={loadingOptions}
                   onClick={this.handleRefetchOptions}
                 >
-                  <div className={`${loadingOptions ? 'dn' : 'db'}`}>{translate('store/loginOptions.error.title', intl)}</div>
-                  <span className="t-small pt1">{translate('store/loginOptions.error.subhead', intl)}</span>
+                  <div>
+                    <div className={`${loadingOptions ? 'dn' : 'db'}`}>{translate('store/loginOptions.error.title', intl)}</div>
+                    <div className="t-small pt1">{translate('store/loginOptions.error.subhead', intl)}</div>
+                  </div>
                 </Button>
               </div>
             </li>
