@@ -1,5 +1,5 @@
 {
-  "store/loginOptions.title": "Choose a sing-in option",
+  "store/loginOptions.title": "Choose a sign-in option",
   "store/loginOptions.emailVerification": "Receive access code by e-mail",
   "store/loginOptions.emailAndPassword": "Sign in with e-mail and password",
   "store/loginOptions.oAuth": "Sign in with",
