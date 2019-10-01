@@ -22,7 +22,7 @@ const PROVIDERS_ICONS = {
 /** LoginOptions tab component. Displays a list of login options */
 class LoginOptions extends Component {
   state = {
-    loadingOptions: false
+    loadingOptions: false,
   }
 
   handleRefetchOptions = () => {
@@ -51,6 +51,7 @@ class LoginOptions extends Component {
       loginCallback,
       intl,
       isAlwaysShown,
+      providerPasswordButtonLabel,
     } = this.props
 
     const { loadingOptions } = this.state
@@ -84,7 +85,7 @@ class LoginOptions extends Component {
                       variation="secondary"
                       onClick={this.handleOptionClick('store/loginOptions.emailAndPassword')}
                     >
-                      <span>{translate('store/loginOptions.emailAndPassword', intl)}</span>
+                      <span>{providerPasswordButtonLabel || translate('store/loginOptions.emailAndPassword', intl)}</span>
                     </Button>
                   </div>
                 </li>
@@ -155,6 +156,8 @@ LoginOptions.propTypes = {
   currentStep: PropTypes.string,
   /** Function called after login success */
   loginCallback: PropTypes.func,
+  /** Password login button text */
+  providerPasswordButtonLabel: PropTypes.string,
 }
 
 export default injectIntl(LoginOptions)

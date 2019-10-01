@@ -48,5 +48,9 @@
     "admin/editor.login.accessCodePlaceholder": "Placeholder para el campo de código de acceso",
     "admin/editor.login.showPasswordVerificationIntoTooltip.title": "Ver la comprobación del formato de contraseña como tooltip",
     "admin/editor.login.showIconProfile": "Mostrar icono de perfil",
-    "admin/editor.login.iconLabel": "Etiqueta del botón de inicio de sesión"
+    "admin/editor.login.iconLabel": "Etiqueta del botón de inicio de sesión",
+    "admin/editor.login.providerPasswordButtonLabel": "Etiqueta del botón de login con Email/Password",
+   "admin/editor.login.hasIdentifierExtension": "Extensión del identificador de usuario de Email/Password",
+   "admin/editor.login.identifierPlaceholder": "Placeholder del campo de identificador",
+   "admin/editor.login.invalidIdentifierError": "Error de identificador inválido"
 }

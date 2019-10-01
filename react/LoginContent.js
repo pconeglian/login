@@ -59,6 +59,8 @@ const STEPS = [
           onStateChange={func}
           showBackButton={!isOptionsMenuDisplayed}
           loginCallback={props.loginCallback}
+          identifierPlaceholder={props.hasIdentifierExtension ? props.identifierPlaceholder : ''}
+          invalidIdentifierError={props.hasIdentifierExtension ? props.invalidIdentifierError : ''}
         />
       </div>
     )
@@ -133,6 +135,10 @@ class LoginContent extends Component {
     accessCodePlaceholder: LoginPropTypes.accessCodePlaceholder,
     showPasswordVerificationIntoTooltip:
       LoginPropTypes.showPasswordVerificationIntoTooltip,
+    providerPasswordButtonLabel: PropTypes.string,
+    hasIdentifierExtension: PropTypes.bool,
+    identifierPlaceholder: PropTypes.string,
+    invalidIdentifierError: PropTypes.string,
   }
 
   static defaultProps = {
@@ -273,6 +279,7 @@ class LoginContent extends Component {
       isInitialScreenOptionOnly,
       optionsTitle,
       defaultOption,
+      providerPasswordButtonLabel,
     } = this.props
     const { isOnInitialScreen } = this.state
 
@@ -312,6 +319,7 @@ class LoginContent extends Component {
                 onOptionsClick={this.handleOptionsClick}
                 refetchOptions={this.refetchOptions}
                 loginCallback={this.onLoginSuccess}
+                providerPasswordButtonLabel={providerPasswordButtonLabel}
               />
             )
           }}
@@ -405,10 +413,11 @@ const content = withSession()(
   )(LoginContent)
 )
 
-content.schema = {
+content.getSchema = () => ({
   title: 'admin/editor.loginPage.title',
-  type: 'object',
+  ...LoginSchema,
   properties: {
+    ...LoginSchema.properties,
     isInitialScreenOptionOnly: {
       title: 'admin/editor.login.isInitialScreenOptionOnly.title',
       type: 'boolean',
@@ -432,8 +441,7 @@ content.schema = {
         },
       },
     },
-    ...LoginSchema,
   },
-}
+})
 
 export default withRuntimeContext(content)

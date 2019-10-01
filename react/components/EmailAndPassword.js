@@ -2,8 +2,9 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 
-import { Input, Button } from 'vtex.styleguide'
+import { Button, Input } from 'vtex.styleguide'
 import { AuthState, AuthService } from 'vtex.react-vtexid'
+import { ExtensionPoint, useChildBlock } from 'vtex.render-runtime'
 
 import { translate } from '../utils/translate'
 import { isValidEmail, isValidPassword } from '../utils/format-check'
@@ -12,6 +13,7 @@ import Form from './Form'
 import FormError from './FormError'
 import PasswordInput from './PasswordInput'
 import GoBackButton from './GoBackButton'
+import { USER_IDENTIFIER_INTERFACE_ID } from '../common/global'
 
 import styles from '../styles.css'
 
@@ -38,6 +40,12 @@ class EmailAndPassword extends Component {
     showBackButton: PropTypes.bool,
     /** Function called after login success */
     loginCallback: PropTypes.func,
+    /* Whether the user identifier interface has been extended */
+    hasUserIdentifierExtension: PropTypes.bool,
+    /** Placeholder for the identifier extension */
+    identifierPlaceholder: PropTypes.string,
+    /** Error message for the user identifier */
+    invalidIdentifierError: PropTypes.string,
   }
 
   state = {
@@ -45,6 +53,7 @@ class EmailAndPassword extends Component {
     isInvalidPassword: false,
     isWrongCredentials: false,
     isUserBlocked: false,
+    userIdentifierExtensionSubmitter: null,
   }
 
   handlePasswordChange = event => {
@@ -73,13 +82,28 @@ class EmailAndPassword extends Component {
         : console.error(err)
   }
 
-  handleOnSubmit = (email, password, login) => {
+  registerUserIdentifierExtensionSubmitter = userIdentifierExtensionSubmitter => {
+    this.setState({ userIdentifierExtensionSubmitter })
+  }
+
+  trySubmit = (email, password, login) => {
     if (!isValidEmail(email)) {
       this.setState({ isInvalidEmail: true })
     } else if (!isValidPassword(password)) {
       this.setState({ isInvalidPassword: true })
     } else {
       login()
+    }
+  }
+
+  handleOnSubmit = async (email, password, login, setEmail) => {
+    if (this.state.userIdentifierExtensionSubmitter) {
+      const emailResult = await this.state.userIdentifierExtensionSubmitter()
+      setEmail(emailResult, () => {
+        this.trySubmit(emailResult, password, login)
+      })
+    } else {
+      this.trySubmit(email, password, login)
     }
   }
 
@@ -93,6 +117,9 @@ class EmailAndPassword extends Component {
       emailPlaceholder,
       passwordPlaceholder,
       showPasswordVerificationIntoTooltip,
+      hasUserIdentifierExtension,
+      identifierPlaceholder,
+      invalidIdentifierError,
     } = this.props
 
     const {
@@ -111,23 +138,42 @@ class EmailAndPassword extends Component {
           <Fragment>
             <div className={`${styles.inputContainer} ${styles.inputContainerEmail}`}>
               <AuthState.Email>
-                {({ value, setValue }) => (
-                  <Input
-                    value={value || ''}
-                    onChange={e => {
-                      setValue(e.target.value)
-                      this.setState({ isInvalidEmail: false })
-                    }}
-                    placeholder={
-                      emailPlaceholder ||
-                      translate('store/login.email.placeholder', intl)
-                    }
-                  />
-                )}
+                {({ value, setValue }) => {
+                  if (hasUserIdentifierExtension) {
+                    return (
+                      <ExtensionPoint
+                        id={USER_IDENTIFIER_INTERFACE_ID}
+                        identifierPlaceholder={identifierPlaceholder || emailPlaceholder}
+                        renderInput={({ value, onChange, placeholder }) => (
+                          <Input
+                            value={value}
+                            onChange={e => {
+                              onChange(e)
+                              this.setState({ isInvalidEmail: false })
+                            }}
+                            placeholder={placeholder}
+                          />
+                        )}
+                        registerSubmitter={this.registerUserIdentifierExtensionSubmitter}
+                      />
+                    )
+                  }
+                  return (
+                    <Input
+                      value={value || ''}
+                      onChange={e => {
+                        setValue(e.target.value)
+                        this.setState({ isInvalidEmail: false })
+                      }}
+                      placeholder={emailPlaceholder ||
+                      translate('store/login.email.placeholder', intl)}
+                    />
+                  )
+                }}
               </AuthState.Email>
             </div>
             <FormError show={isInvalidEmail}>
-              {translate('store/login.invalidEmail', intl)}
+              {invalidIdentifierError || translate('store/login.invalidEmail', intl)}
             </FormError>
             <div className={`${styles.inputContainer} ${styles.inputContainerPassword} pv3 flex flex-column`}>
               <AuthState.Password>
@@ -188,24 +234,26 @@ class EmailAndPassword extends Component {
                   state: { email, password },
                   loading,
                   action: loginWithPassword,
-                  validation: { validateEmail },
                 }) => (
-                    <Button
-                      variation="primary"
-                      size="small"
-                      type="submit"
-                      onClick={e => {
-                        e.preventDefault()
-                        this.handleOnSubmit(email, password, loginWithPassword)
-                      }}
-                      isLoading={loading}
-                      disabled={!validateEmail(email)}
-                    >
-                      <span className="t-small">
-                        {translate('store/login.signIn', intl)}
-                      </span>
-                    </Button>
-                  )}
+                  <AuthState.Email>
+                    {({ setValue: setEmail }) => (
+                      <Button
+                        variation="primary"
+                        size="small"
+                        type="submit"
+                        onClick={e => {
+                          e.preventDefault()
+                          this.handleOnSubmit(email, password, loginWithPassword, setEmail)
+                        }}
+                        isLoading={loading}
+                      >
+                        <span className="t-small">
+                          {translate('store/login.signIn', intl)}
+                        </span>
+                      </Button>
+                    )}
+                  </AuthState.Email>
+                )}
               </AuthService.LoginWithPassword>
             </div>
           </Fragment>
@@ -227,4 +275,12 @@ class EmailAndPassword extends Component {
   }
 }
 
-export default injectIntl(EmailAndPassword)
+const withHasUserIdentifierExtension = (Component) => {
+  const Wrapper = props => {
+    const hasUserIdentifierExtension = !!useChildBlock({ id: USER_IDENTIFIER_INTERFACE_ID })
+    return <Component {...props} hasUserIdentifierExtension={hasUserIdentifierExtension} />
+  }
+  return Wrapper
+}
+
+export default withHasUserIdentifierExtension(injectIntl(EmailAndPassword))
