@@ -32,6 +32,8 @@ export const LoginContainerProptypes = {
   identifierPlaceholder: PropTypes.string,
   /** Error message for the user identifier */
   invalidIdentifierError: PropTypes.string,
+  /** Determines if the tooltip opens to the right side */
+  mirrorTooltipToRight: PropTypes.bool,
 }
 
 export const LoginPropTypes = {

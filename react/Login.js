@@ -93,6 +93,14 @@ export default class Login extends Component {
 Login.getSchema = () => ({
   title: 'admin/editor.login.title',
   ...LoginSchema,
+  properties: {
+    ...LoginSchema.properties,
+    mirrorTooltipToRight: {
+      title: 'admin/editor.login.mirrorTooltipToRightTitle',
+      type: 'boolean',
+      default: 'false',
+    },
+  },
 })
 
 const LoginWithSession = withSession({

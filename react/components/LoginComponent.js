@@ -105,7 +105,7 @@ class LoginComponent extends Component {
   }
 
   render() {
-    const { isBoxOpen, onOutSideBoxClick, sessionProfile } = this.props
+    const { isBoxOpen, onOutSideBoxClick, sessionProfile, mirrorTooltipToRight } = this.props
 
     return (
       <div className={`${styles.container} flex items-center fr`}>
@@ -114,15 +114,10 @@ class LoginComponent extends Component {
           {isBoxOpen && (
             <Overlay>
               <OutsideClickHandler onOutsideClick={onOutSideBoxClick}>
-                <div
-                  className={`${styles.box} z-max absolute`}
-                  style={{
-                    right: -50,
-                  }}
-                >
-                  <div
-                    className={`${styles.arrowUp} absolute top-0 right-0 shadow-3 bg-base mr3 rotate-45 h2 w2`}
-                  />
+                <div className={`${styles.box} z-max absolute`} style={{
+                  ...mirrorTooltipToRight ? { left: 50 } : { right: -50 },
+                }}>
+                  <div className={`${styles.arrowUp} absolute top-0 ${mirrorTooltipToRight ? 'left-0 ml3' : 'right-0 mr3'} shadow-3 bg-base rotate-45 h2 w2`} />
                   <div className={`${styles.contentContainer} shadow-3 mt3`}>
                     <LoginContent
                       profile={sessionProfile}
