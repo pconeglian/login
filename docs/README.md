@@ -105,6 +105,7 @@ Through the Storefront, you can change the `login`'s behavior and interface. How
 | `hasIdentifierExtension`              | `Boolean` | Enables identifier extension configurations      | -             |
 | `identifierPlaceholder`               | `String`  | Set placeholder for the identifier extension     | -             |
 | `invalidIdentifierError`              | `String`  | Set error message for invalid user identifier    | -             |
+| `mirrorTooltipToRight`                | `Boolean` | Makes login tooltip open towards the right side  | -             |
 
 You can also change the `login-content`'s behaviour and interface through the Store front.
 
