@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Pass app version to `react-vtexid`
+
 ## [2.16.1] - 2019-10-14
 
 ### Fixed
