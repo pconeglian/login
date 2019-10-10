@@ -38,13 +38,13 @@ export default class Login extends Component {
     }
 
     window.__RENDER_8_SESSION__.sessionPromise.then(data => {
-      const sessionRespose = data.response
+      const sessionResponse = data.response
 
-      if (!sessionRespose || !sessionRespose.namespaces) {
+      if (!sessionResponse || !sessionResponse.namespaces) {
         return
       }
 
-      const { namespaces } = sessionRespose
+      const { namespaces } = sessionResponse
       const storeUserId = path(
         ['authentication', 'storeUserId', 'value'],
         namespaces
