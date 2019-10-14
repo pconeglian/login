@@ -286,7 +286,7 @@ exports[`<Login /> component should match snapshot without profile 1`] = `
                     <h3
                       class="formTitle t-body v-mid ttu tc relative pv2 ph3 br2"
                     >
-                      Choose an option to sign in
+                      Choose a sign-in option
                     </h3>
                     <ul
                       class="optionsList list pa0"
@@ -302,7 +302,7 @@ exports[`<Login /> component should match snapshot without profile 1`] = `
                             type="button"
                           >
                             <span>
-                              Receive access code by email
+                              Receive access code by e-mail
                             </span>
                           </button>
                         </div>
@@ -318,7 +318,7 @@ exports[`<Login /> component should match snapshot without profile 1`] = `
                             type="button"
                           >
                             <span>
-                              Sign in with email and password
+                              Sign in with e-mail and password
                             </span>
                           </button>
                         </div>
