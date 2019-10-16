@@ -24,6 +24,7 @@ import { LoginPropTypes } from './propTypes'
 import { getProfile } from './utils/profile'
 import { session } from 'vtex.store-resources/Queries'
 import { AuthState } from 'vtex.react-vtexid'
+import { SELF_APP_NAME_AND_VERSION } from './common/global'
 
 import styles from './styles.css'
 
@@ -379,7 +380,7 @@ class LoginContent extends Component {
       [`${styles.contentFormVisible} db `]: this.shouldRenderForm,
     })
     return (
-      <AuthState skip={!!profile} scope="STORE" returnUrl={this.returnUrl}>
+      <AuthState skip={!!profile} scope="STORE" uiNameAndVersion={SELF_APP_NAME_AND_VERSION} returnUrl={this.returnUrl}>
         {({ loading }) => (
           <div className={className}>
             {loading ? (
