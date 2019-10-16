@@ -128,18 +128,18 @@ class EmailVerification extends Component {
                   action: sendToken,
                   validation: { validateEmail },
                 }) => (
-                    <Button
-                      variation="primary"
-                      size="small"
-                      type="submit"
-                      isLoading={loading}
-                      onClick={e =>
-                        this.handleOnSubmit(e, email, validateEmail, sendToken)
-                      }
-                    >
-                      <span className="t-small">{translate('store/login.send', intl)}</span>
-                    </Button>
-                  )}
+                  <Button
+                    variation="primary"
+                    size="small"
+                    type="submit"
+                    isLoading={loading}
+                    onClick={e =>
+                      this.handleOnSubmit(e, email, validateEmail, sendToken)
+                    }
+                  >
+                    <span className="t-small">{translate('store/login.send', intl)}</span>
+                  </Button>
+                )}
               </AuthService.SendAccessKey>
             </div>
           </Fragment>

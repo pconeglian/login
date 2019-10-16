@@ -3,7 +3,7 @@ import { render } from 'react-testing-library'
 import { IntlProvider } from 'react-intl'
 import defautMessages from '../../messages/en.json'
 
- export const renderWithIntl = (node, options) => {
+export const renderWithIntl = (node, options) => {
   const rendered = render(
     <IntlProvider messages={defautMessages} locale="en-US">
       {node}
@@ -11,7 +11,7 @@ import defautMessages from '../../messages/en.json'
     options
   )
 
-   return {
+  return {
     ...rendered,
     rerender: newUi =>
       renderWithIntl(newUi, {

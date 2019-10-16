@@ -8,7 +8,6 @@ import { AuthService } from 'vtex.react-vtexid'
 import { translate } from '../utils/translate'
 import styles from '../styles.css'
 
-
 // Component that shows account options to the user.
 class AccountOptions extends Component {
   static propTypes = {

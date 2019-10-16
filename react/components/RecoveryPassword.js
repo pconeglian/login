@@ -162,19 +162,19 @@ class RecoveryPassword extends Component {
                     validatePassword,
                   },
                 }) => (
-                    <Button
-                      variation="primary"
-                      size="small"
-                      type="submit"
-                      onClick={e => this.handleOnSubmit(e, password, token, setPassword)}
-                      isLoading={loading}
-                      disabled={!validatePassword(password)}
-                    >
-                      <span className="t-small">
-                        {translate('store/login.create', intl)}
-                      </span>
-                    </Button>
-                  )}
+                  <Button
+                    variation="primary"
+                    size="small"
+                    type="submit"
+                    onClick={e => this.handleOnSubmit(e, password, token, setPassword)}
+                    isLoading={loading}
+                    disabled={!validatePassword(password)}
+                  >
+                    <span className="t-small">
+                      {translate('store/login.create', intl)}
+                    </span>
+                  </Button>
+                )}
               </AuthService.SetPassword>
             </div>
           </Fragment>
