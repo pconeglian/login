@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
 
-import { path, toLower } from 'ramda'
 import { withSession } from 'vtex.render-runtime'
 import { injectIntl } from 'react-intl'
 
 import { LoginSchema } from './schema'
 import { setCookie } from './utils/set-cookie'
-import { session } from 'vtex.store-resources/Queries'
 import { LoginContainerProptypes } from './propTypes'
 import LoginComponent from './components/LoginComponent'
+import Loading from './components/Loading'
 
 const DEFAULT_CLASSES = 'gray'
-
-const convertToBool = str => !!str && toLower(str) === 'true'
 
 /** Canonical login that calls a mutation to retrieve the authentication token */
 
@@ -37,36 +34,36 @@ export default class Login extends Component {
       setCookie(location.href)
     }
 
+    if (!window.__RENDER_8_SESSION__ || !window.__RENDER_8_SESSION__.sessionPromise) {
+      return
+    }
+
     window.__RENDER_8_SESSION__.sessionPromise.then(data => {
-      const sessionResponse = data.response
+      const sessionResponse = (data || {}).response
 
       if (!sessionResponse || !sessionResponse.namespaces) {
         return
       }
 
-      const { namespaces } = sessionResponse
-      const storeUserId = path(
-        ['authentication', 'storeUserId', 'value'],
-        namespaces
-      )
-      if (!storeUserId) {
+      const { namespaces: { profile } = {} } = sessionResponse
+      if (!profile) {
         return
       }
 
-      const profile = {
-        document: path(['document', 'value'], namespaces.profile),
-        email:
-          path(['email', 'value'], namespaces.profile) ||
-          path(['storeUserEmail', 'value'], namespaces.authentication),
-        firstName: path(['firstName', 'value'], namespaces.profile),
-        id: path(['id', 'value'], namespaces.profile),
-        isAuthenticatedAsCustomer: convertToBool(
-          path(['isAuthenticated', 'value'], namespaces.profile)
-        ),
-        lastName: path(['lastName', 'value'], namespaces.profile),
-        phone: path(['phone', 'value'], namespaces.profile),
+      const {
+        email: { value: email } = { value: null },
+        firstName: { value: firstName } = { value: null },
+      } = profile
+
+      if (!email) {
+        return
       }
-      this.setState({ sessionProfile: profile })
+
+      const sessionProfile = {
+        email,
+        firstName,
+      }
+      this.setState({ sessionProfile })
     })
   }
 
@@ -119,5 +116,5 @@ Login.getSchema = () => ({
 })
 
 const LoginWithSession = withSession({
-  loading: <div />,
+  loading: <Loading />,
 })(injectIntl(LoginComponent))
