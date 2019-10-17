@@ -140,8 +140,6 @@ LoginOptions.propTypes = {
   intl: intlShape,
   /** Function to change de active tab */
   onOptionsClick: PropTypes.func.isRequired,
-  /** Function to refetch login options */
-  refetchOptions: PropTypes.func.isRequired,
   /** Title that will be shown on top */
   title: PropTypes.string.isRequired,
   /** Fallback title that will be shown if there's no title */
