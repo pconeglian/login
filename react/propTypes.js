@@ -41,7 +41,7 @@ export const LoginPropTypes = {
   data: PropTypes.shape({
     refetch: PropTypes.func.isRequired,
     profile: PropTypes.shape({}),
-  }).isRequired,
+  }),
   /** Is box with the login options should be opened or not */
   isBoxOpen: PropTypes.bool.isRequired,
   /** Should the Icon be rendered as link or not */
