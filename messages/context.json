@@ -3,8 +3,6 @@
   "store/loginOptions.emailVerification": "store/loginOptions.emailVerification",
   "store/loginOptions.emailAndPassword": "store/loginOptions.emailAndPassword",
   "store/loginOptions.oAuth": "store/loginOptions.oAuth",
-  "store/loginOptions.error.title": "store/loginOptions.error.title",
-  "store/loginOptions.error.subhead": "store/loginOptions.error.subhead",
   "store/login.goBack": "store/login.goBack",
   "store/login.send": "store/login.send",
   "store/login.create": "store/login.create",
