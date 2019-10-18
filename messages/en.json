@@ -3,8 +3,6 @@
   "store/loginOptions.emailVerification": "Receive access code by e-mail",
   "store/loginOptions.emailAndPassword": "Sign in with e-mail and password",
   "store/loginOptions.oAuth": "Sign in with",
-  "store/loginOptions.error.title": "An unknown error has occurred.",
-  "store/loginOptions.error.subhead": "Click to retry.",
   "store/login.goBack": "Go back",
   "store/login.send": "Send",
   "store/login.create": "Create",
