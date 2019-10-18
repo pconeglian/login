@@ -37,11 +37,8 @@ export const LoginContainerProptypes = {
 export const LoginPropTypes = {
   /** Intl object*/
   intl: intlShape,
-  /** Data object with user profile */
-  data: PropTypes.shape({
-    refetch: PropTypes.func.isRequired,
-    profile: PropTypes.shape({}),
-  }),
+  /** User profile information */
+  profile: PropTypes.shape({}),
   /** Is box with the login options should be opened or not */
   isBoxOpen: PropTypes.bool.isRequired,
   /** Should the Icon be rendered as link or not */
