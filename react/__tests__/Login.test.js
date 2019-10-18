@@ -6,72 +6,54 @@ import Login from '../Login'
 import { AuthState } from 'vtex.react-vtexid'
 
 describe('<Login /> component', () => {
-  it('should match snapshot when loading', () => {
-    AuthState.mockImplementationOnce(({ children }) => children({ loading: true }))
-
-    const { asFragment } = renderWithIntl(
-      <Login
-        isBoxOpen
-        data={{
-          loading: true,
-          refetch: () => {},
-        }}
-      />
+  it('should match snapshot when loading', async () => {
+    AuthState.mockImplementationOnce(({ children }) =>
+      children({ loading: true })
     )
 
+    const { asFragment } = renderWithIntl(<Login isBoxOpen />)
+    await Promise.resolve()
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('should match snapshot without profile', () => {
-    const { asFragment } = renderWithIntl(
-      <Login
-        isBoxOpen
-        data={{
-          loading: false,
-          refetch: () => {},
-        }}
-      />
-    )
+  it('should match snapshot without profile', async () => {
+    window.__RENDER_8_SESSION__ = {}
+    window.__RENDER_8_SESSION__.sessionPromise = Promise.resolve({
+      response: {},
+    })
+    const { asFragment } = renderWithIntl(<Login isBoxOpen />)
+    await Promise.resolve()
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('should match snapshot with profile without name', () => {
-    const { asFragment } = renderWithIntl(
-      <Login
-        isBoxOpen
-        data={{
-          loading: false,
-          refetch: () => {},
-          getSession: {
-            profile: {
-              email: 'email@vtex.com',
-              id: 'id',
-            },
+  it('should match snapshot with profile without name', async () => {
+    window.__RENDER_8_SESSION__ = {}
+    window.__RENDER_8_SESSION__.sessionPromise = Promise.resolve({
+      response: {
+        namespaces: {
+          profile: { email: { value: 'email@vtex.com' } },
+        },
+      },
+    })
+    const { asFragment } = renderWithIntl(<Login isBoxOpen />)
+    await Promise.resolve()
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  it('should match snapshot with profile with name', async () => {
+    window.__RENDER_8_SESSION__ = {}
+    window.__RENDER_8_SESSION__.sessionPromise = Promise.resolve({
+      response: {
+        namespaces: {
+          profile: {
+            email: { value: 'email@vtex.com' },
+            firstName: { value: 'firstName' },
           },
-        }}
-      />
-    )
-    expect(asFragment()).toMatchSnapshot()
-  })
-
-  it('should match snapshot with profile with name', () => {
-    const { asFragment } = renderWithIntl(
-      <Login
-        isBoxOpen
-        data={{
-          loading: false,
-          refetch: () => {},
-          getSession: {
-            profile: {
-              email: 'email@vtex.com',
-              firstName: 'firstName',
-              lastName: 'lastName',
-              id: 'id',
-            },
-          },
-        }}
-      />
-    )
+        },
+      },
+    })
+    const { asFragment } = renderWithIntl(<Login isBoxOpen />)
+    await Promise.resolve()
     expect(asFragment()).toMatchSnapshot()
   })
 })
