@@ -8,6 +8,7 @@ import { setCookie } from './utils/set-cookie'
 import { LoginContainerProptypes } from './propTypes'
 import LoginComponent from './components/LoginComponent'
 import Loading from './components/Loading'
+import { getProfile } from './utils/profile'
 
 const DEFAULT_CLASSES = 'gray'
 
@@ -24,6 +25,7 @@ export default class Login extends Component {
     isBoxOpen: false,
     renderIconAsLink: false,
     sessionProfile: null,
+    resp: "FOO",
   }
 
   componentDidMount() {
@@ -34,36 +36,16 @@ export default class Login extends Component {
       setCookie(location.href)
     }
 
-    if (!window.__RENDER_8_SESSION__ || !window.__RENDER_8_SESSION__.sessionPromise) {
+    if (
+      !window.__RENDER_8_SESSION__ ||
+      !window.__RENDER_8_SESSION__.sessionPromise
+    ) {
       return
     }
 
     window.__RENDER_8_SESSION__.sessionPromise.then(data => {
       const sessionResponse = (data || {}).response
-
-      if (!sessionResponse || !sessionResponse.namespaces) {
-        return
-      }
-
-      const { namespaces: { profile } = {} } = sessionResponse
-      if (!profile) {
-        return
-      }
-
-      const {
-        email: { value: email } = { value: null },
-        firstName: { value: firstName } = { value: null },
-      } = profile
-
-      if (!email) {
-        return
-      }
-
-      const sessionProfile = {
-        email,
-        firstName,
-      }
-      this.setState({ sessionProfile })
+      this.setState({resp: data, sessionProfile: getProfile(sessionResponse) })
     })
   }
 
