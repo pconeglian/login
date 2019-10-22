@@ -25,7 +25,6 @@ export default class Login extends Component {
     isBoxOpen: false,
     renderIconAsLink: false,
     sessionProfile: null,
-    resp: "FOO",
   }
 
   componentDidMount() {
