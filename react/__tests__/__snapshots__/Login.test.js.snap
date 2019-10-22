@@ -93,7 +93,7 @@ exports[`<Login /> component should match snapshot with profile with name 1`] = 
               class="contentContainer shadow-3 mt3"
             >
               <div
-                class="content flex relative bg-base justify-around overflow-visible pa4 center items-baseline"
+                class="content flex relative bg-base justify-around overflow-visible pa4 center contentInitialScreen items-baseline"
               >
                 <div
                   class="contentForm dn ph4 pb6 contentFormVisible db "
@@ -185,7 +185,7 @@ exports[`<Login /> component should match snapshot with profile without name 1`]
               class="contentContainer shadow-3 mt3"
             >
               <div
-                class="content flex relative bg-base justify-around overflow-visible pa4 center items-baseline"
+                class="content flex relative bg-base justify-around overflow-visible pa4 center contentInitialScreen items-baseline"
               >
                 <div
                   class="contentForm dn ph4 pb6 contentFormVisible db "
