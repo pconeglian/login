@@ -6,7 +6,6 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^4.1.2",
     "apollo-client": "^2.4.7",
     "classnames": "^2.2.6",
     "graphql": "^14.0.2",
@@ -22,6 +21,7 @@
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
+    "@testing-library/jest-dom": "^4.1.2",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "babel-preset-react-app": "^9.0.2",
