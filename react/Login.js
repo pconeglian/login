@@ -27,16 +27,10 @@ export default class Login extends Component {
     sessionProfile: null,
   }
 
-  getSessionPromiseFromWindow = () => {
-    if (
-      !window.__RENDER_8_SESSION__ ||
-      !window.__RENDER_8_SESSION__.sessionPromise
-    ) {
-      return Promise.resolve(null)
-    }
-
-    return window.__RENDER_8_SESSION__.sessionPromise
-  }
+  getSessionPromiseFromWindow = () =>
+    !window.__RENDER_8_SESSION__ || !window.__RENDER_8_SESSION__.sessionPromise
+      ? Promise.resolve(null)
+      : window.__RENDER_8_SESSION__.sessionPromise
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize)
@@ -48,7 +42,8 @@ export default class Login extends Component {
 
     this.getSessionPromiseFromWindow().then(data => {
       const sessionResponse = (data || {}).response
-      this.setState({resp: data, sessionProfile: getProfile(sessionResponse) })
+      const sessionProfile = getProfile(sessionResponse)
+      if (sessionProfile) this.setState({ sessionProfile })
     })
   }
 
