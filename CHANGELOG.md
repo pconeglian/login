@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- oAuthRedirect query string to automatically redirect to an OAuth provider.
+
 ## [2.16.2] - 2019-10-16
 
 ### Added

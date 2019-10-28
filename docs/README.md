@@ -17,14 +17,29 @@ See our [LTS policy](https://github.com/vtex-apps/awesome-io#lts-policy) for mor
 
 ## Table of Contents
 
+- [Features](#features)
+  - [Query Parameters](#query-parameters)
 - [Usage](#usage)
   - [Blocks API](#blocks-api)
     - [Configuration](#configuration)
+  - [Plugins API](#plugins-api)
+    - [User Identifier Extension](#user-identifier-extension)
+      - [Creating the User Identifier Extension App](#creating-the-user-identifier-extension-app)
   - [Styles API](#styles-api)
     - [CSS namespaces](#css-namespaces)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 - [Tests](#tests)
+
+## Features
+
+### Query Parameters
+
+This app reads the following Query String Parameters:
+
+- `returnUrl` - After the user logs in, he is redirected to the `returnUrl`. This parameter should be UTF-8 encoded (as of javascript's `encodeURIComponent`). The `returnUrl` only works for the store's domain.
+
+- `oAuthRedirect` - If this parameter is present, the user is directly redirected to the given OAuth Provider page before logging in, instead of displaying the login options. For this to work, the given OAuth Provider must be one of the login options. The parameter value is case sensitive and must be `Google`, `Facebook` or the registered name of the chosen OAuth Provider.
 
 ## Usage
 

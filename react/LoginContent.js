@@ -199,6 +199,15 @@ class LoginContent extends Component {
   shouldRedirectToOAuth = loginOptions => {
     if (!loginOptions) return [false, null]
     const { accessKey, oAuthProviders, password } = loginOptions
+    const { runtime } = this.props
+    if (runtime && runtime.query && runtime.query.oAuthRedirect) {
+      const redirectProvider =
+        oAuthProviders &&
+        oAuthProviders.find(provider => provider.providerName === runtime.query.oAuthRedirect)
+      if (redirectProvider) {
+        return [true, redirectProvider]
+      }
+    }
     if (accessKey || password) return [false, null]
     if (!oAuthProviders || oAuthProviders.length !== 1) return [false, null]
     return [true, oAuthProviders[0]]
