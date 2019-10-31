@@ -19,6 +19,7 @@
   "store/login.invalidPassword": "Su contraseña debe contener: 8 caracteres, números y letras minúsculas y mayúsculas",
   "store/login.invalidMatch": "Confirmación de contraseña está incorrecta",
   "store/login.invalidCode": "Ingrese un código de acceso válido de 6 dígitos",
+  "store/login.wrongCode": "El código de acceso es incorrecto",
   "store/login.wrongCredentials": "Usuario y/o contraseña equivocada",
   "store/login.userBlocked": "Usted se equivocó 4 veces al ingresar su contraseña. Su usuario fue bloqueado por una hora",
   "store/login.createPassword": "Crear una nueva contraseña",

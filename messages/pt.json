@@ -19,6 +19,7 @@
   "store/login.invalidPassword": "Sua senha deve conter: no mínimo 8 caracteres, incluindo números, letras minúsculas e maiúsculas",
   "store/login.invalidMatch": "Confirmação de senha está incorreta",
   "store/login.invalidCode": "Insira um código de acesso válido de 6 dígitos",
+  "store/login.wrongCode": "O código de acesso está incorreto",
   "store/login.wrongCredentials": "Usuário e/ou senha errada",
   "store/login.userBlocked": "Você digitou uma senha incorreta 4 vezes. Seu usuário foi bloqueado por uma hora",
   "store/login.createPassword": "Criar uma nova senha",
