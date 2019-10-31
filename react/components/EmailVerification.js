@@ -65,7 +65,7 @@ class EmailVerification extends Component {
 
     return (
       <Form
-        className={`${styles.emailVerification} w-100`}
+        className={`${styles.emailVerification} ${styles.emailForm} w-100`}
         title={title || translate('store/loginOptions.emailVerification', intl)}
         onSubmit={e => this.handleOnSubmit(e)}
         content={

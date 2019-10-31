@@ -131,7 +131,7 @@ class EmailAndPassword extends Component {
 
     return (
       <Form
-        className={`${styles.emailVerification} w-100`}
+        className={`${styles.emailVerification} ${styles.emailAndPasswordForm} w-100`}
         title={title || translate('store/loginOptions.emailAndPassword', intl)}
         onSubmit={e => this.handleOnSubmit(e)}
         content={

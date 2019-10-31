@@ -87,7 +87,7 @@ class RecoveryPassword extends Component {
 
     return (
       <Form
-        className={`${styles.emailVerification} w-100`}
+        className={`${styles.emailVerification} ${styles.forgotPasswordForm} w-100`}
         title={translate('store/login.createPassword', intl)}
         onSubmit={e => this.handleOnSubmit(e)}
         content={
