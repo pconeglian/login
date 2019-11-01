@@ -3,8 +3,6 @@
   "store/loginOptions.emailVerification": "Receber código de acesso por e-mail",
   "store/loginOptions.emailAndPassword": "Entrar com e-mail e senha",
   "store/loginOptions.oAuth": "Entrar com",
-  "store/loginOptions.error.title": "Ocorreu um erro desconhecido.",
-  "store/loginOptions.error.subhead": "Clique para tentar novamente.",
   "store/login.goBack": "Voltar",
   "store/login.send": "Enviar",
   "store/login.create": "Criar",

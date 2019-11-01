@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
 
-import { compose } from 'ramda'
 import { withSession } from 'vtex.render-runtime'
-import { graphql } from 'react-apollo'
 import { injectIntl } from 'react-intl'
 
 import { LoginSchema } from './schema'
 import { setCookie } from './utils/set-cookie'
-import { session } from 'vtex.store-resources/Queries'
 import { LoginContainerProptypes } from './propTypes'
 import LoginComponent from './components/LoginComponent'
+import Loading from './components/Loading'
+import { getProfile } from './utils/profile'
 
 const DEFAULT_CLASSES = 'gray'
 
 /** Canonical login that calls a mutation to retrieve the authentication token */
+
 export default class Login extends Component {
   static propTypes = LoginContainerProptypes
 
@@ -24,7 +24,13 @@ export default class Login extends Component {
   state = {
     isBoxOpen: false,
     renderIconAsLink: false,
+    sessionProfile: null,
   }
+
+  getSessionPromiseFromWindow = () =>
+    !window.__RENDER_8_SESSION__ || !window.__RENDER_8_SESSION__.sessionPromise
+      ? Promise.resolve(null)
+      : window.__RENDER_8_SESSION__.sessionPromise
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize)
@@ -33,6 +39,12 @@ export default class Login extends Component {
     if (location.href.indexOf('accountAuthCookieName') > 0) {
       setCookie(location.href)
     }
+
+    this.getSessionPromiseFromWindow().then(data => {
+      const sessionResponse = (data || {}).response
+      const sessionProfile = getProfile(sessionResponse)
+      if (sessionProfile) this.setState({ sessionProfile })
+    })
   }
 
   componentWillUnmount() {
@@ -67,7 +79,9 @@ export default class Login extends Component {
   render() {
     return (
       <LoginWithSession
-        {...this.state}
+        isBoxOpen={this.state.isBoxOpen}
+        renderIconAsLink={this.state.renderIconAsLink}
+        sessionProfile={this.state.sessionProfile}
         {...this.props}
         onOutSideBoxClick={this.handleOutSideBoxClick}
         onProfileIconClick={this.handleProfileIconClick}
@@ -81,13 +95,6 @@ Login.getSchema = () => ({
   ...LoginSchema,
 })
 
-const options = {
-  options: () => ({ ssr: false }),
-}
-
 const LoginWithSession = withSession({
-  loading: <div />,
-})(compose(
-  injectIntl,
-  graphql(session, options),
-)(LoginComponent))
+  loading: <Loading />,
+})(injectIntl(LoginComponent))
