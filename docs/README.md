@@ -94,7 +94,6 @@ Through the Storefront, you can change the `login`'s behavior and interface. How
 
 | Prop name                             | Type      | Description                                      | Default value |
 | ------------------------------------- | --------- | ------------------------------------------------ | ------------- |
-| `showIconProfile`                     | `Boolean` | Enables icon `hpa-profile`                       | false         |
 | `optionsTitle`                        | `String`  | Set title of login options                       | -             |
 | `emailAndPasswordTitle`               | `String`  | Set title of login with email and password       | -             |
 | `accessCodeTitle`                     | `String`  | Set title of login by access code                | -             |
@@ -102,6 +101,7 @@ Through the Storefront, you can change the `login`'s behavior and interface. How
 | `passwordPlaceholder`                 | `String`  | Set placeholder to password input                | -             |
 | `showPasswordVerificationIntoTooltip` | `Boolean` | Set show password format verification as tooltip | -             |
 | `acessCodePlaceholder`                | `String`  | Set placeholder to access code input             | -             |
+| `showIconProfile`                     | `Boolean` | Enables icon `hpa-profile`                       | -             |
 | `providerPasswordButtonLabel`         | `String`  | Set Password login button text                   | -             |
 | `hasIdentifierExtension`              | `Boolean` | Enables identifier extension configurations      | -             |
 | `identifierPlaceholder`               | `String`  | Set placeholder for the identifier extension     | -             |
