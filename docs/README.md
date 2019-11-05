@@ -94,6 +94,7 @@ Through the Storefront, you can change the `login`'s behavior and interface. How
 
 | Prop name                             | Type      | Description                                      | Default value |
 | ------------------------------------- | --------- | ------------------------------------------------ | ------------- |
+| `showIconProfile`                     | `Boolean` | Enables icon `hpa-profile`                       | false         |
 | `optionsTitle`                        | `String`  | Set title of login options                       | -             |
 | `emailAndPasswordTitle`               | `String`  | Set title of login with email and password       | -             |
 | `accessCodeTitle`                     | `String`  | Set title of login by access code                | -             |

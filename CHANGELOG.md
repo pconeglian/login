@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `showIconProfile` prop on README.md
+
 ## [2.19.1] - 2019-11-12
 
 ### Added
