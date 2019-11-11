@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.19.0] - 2019-11-11
+
 ### Added
 
 - `mirrorTooltipToRight` Store Front prop to the `login` block. It makes the login open towards the right instead of the left.
