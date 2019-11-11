@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `mirrorTooltipToRight` Store Front prop to the `login` block. It makes the login open towards the right instead of the left.
+
 ## [2.18.0] - 2019-11-01
 ### Changed
 - Remove call to `getSession` in first component, use sessionPromise from render.

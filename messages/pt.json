@@ -50,5 +50,6 @@
   "admin/editor.login.providerPasswordButtonLabel": "Texto do botão de login com E-mail/Senha",
   "admin/editor.login.hasIdentifierExtension": "Extensão do identificador de usuário de E-mail/Senha",
   "admin/editor.login.identifierPlaceholder": "Placeholder do campo de identificador",
-  "admin/editor.login.invalidIdentifierError": "Erro de identificador inválido"
+  "admin/editor.login.invalidIdentifierError": "Erro de identificador inválido",
+  "admin/editor.login.mirrorTooltipToRightTitle": "Faz a tooltip de login abrir para a direita ao invés da esquerda"
 }

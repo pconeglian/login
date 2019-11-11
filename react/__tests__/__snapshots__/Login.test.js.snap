@@ -29,7 +29,7 @@ exports[`<Login /> component should match snapshot when loading 1`] = `
             style="right: -50px;"
           >
             <div
-              class="arrowUp absolute top-0 right-0 shadow-3 bg-base mr3 rotate-45 h2 w2"
+              class="arrowUp absolute top-0 right-0 mr3 shadow-3 bg-base rotate-45 h2 w2"
             />
             <div
               class="contentContainer shadow-3 mt3"
@@ -87,7 +87,7 @@ exports[`<Login /> component should match snapshot with profile with name 1`] = 
             style="right: -50px;"
           >
             <div
-              class="arrowUp absolute top-0 right-0 shadow-3 bg-base mr3 rotate-45 h2 w2"
+              class="arrowUp absolute top-0 right-0 mr3 shadow-3 bg-base rotate-45 h2 w2"
             />
             <div
               class="contentContainer shadow-3 mt3"
@@ -179,7 +179,7 @@ exports[`<Login /> component should match snapshot with profile without name 1`]
             style="right: -50px;"
           >
             <div
-              class="arrowUp absolute top-0 right-0 shadow-3 bg-base mr3 rotate-45 h2 w2"
+              class="arrowUp absolute top-0 right-0 mr3 shadow-3 bg-base rotate-45 h2 w2"
             />
             <div
               class="contentContainer shadow-3 mt3"
@@ -271,7 +271,7 @@ exports[`<Login /> component should match snapshot without profile 1`] = `
             style="right: -50px;"
           >
             <div
-              class="arrowUp absolute top-0 right-0 shadow-3 bg-base mr3 rotate-45 h2 w2"
+              class="arrowUp absolute top-0 right-0 mr3 shadow-3 bg-base rotate-45 h2 w2"
             />
             <div
               class="contentContainer shadow-3 mt3"
