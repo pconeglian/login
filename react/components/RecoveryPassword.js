@@ -24,6 +24,7 @@ class RecoveryPassword extends Component {
       isInvalidPassword: false,
       isPasswordsMatch: true,
       isInvalidCode: false,
+      isWrongCode: false,
       isUserBlocked: false,
       confirmPassword: '',
     }
@@ -43,9 +44,13 @@ class RecoveryPassword extends Component {
   }
 
   handleFailure = err => {
-    err.code === 'BlockedUser'
-      ? this.setState({ isUserBlocked: true })
-      : console.error(err)
+    if (err.code === 'BlockedUser') {
+      this.setState({ isUserBlocked: true })
+    } else if (err.code === 'WrongCredentials') {
+      this.setState({ isWrongCode: true })
+    } else {
+      console.error(err)
+    }
   }
 
   handleOnSubmit = (event, newPassword, token, setPassword) => {
@@ -76,6 +81,7 @@ class RecoveryPassword extends Component {
       isInvalidPassword,
       isUserBlocked,
       isInvalidCode,
+      isWrongCode,
       isPasswordsMatch,
     } = this.state
 
@@ -94,7 +100,7 @@ class RecoveryPassword extends Component {
                     name="token"
                     onChange={e => {
                       setValue(e.target.value)
-                      this.setState({ isInvalidCode: false })
+                      this.setState({ isInvalidCode: false, isWrongCode: false })
                     }}
                     value={value || ''}
                     placeholder={
@@ -107,6 +113,9 @@ class RecoveryPassword extends Component {
             </div>
             <FormError show={isInvalidCode}>
               {translate('store/login.invalidCode', intl)}
+            </FormError>
+            <FormError show={isWrongCode}>
+              {translate('store/login.wrongCode', intl)}
             </FormError>
             <div className={`${styles.inputContainer} ${styles.inputContainerPassword} pv3`}>
               <AuthState.Password>

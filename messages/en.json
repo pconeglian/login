@@ -19,6 +19,7 @@
   "store/login.invalidPassword": "Your password must contains: at least 8 characters, including numbers, lowercase and uppercase letters",
   "store/login.invalidMatch": "Password confirmation is incorrect",
   "store/login.invalidCode": "Insert a valid 6-digit access code",
+  "store/login.wrongCode": "The access code is incorrect",
   "store/login.wrongCredentials": "Wrong user and/or password",
   "store/login.userBlocked": "You have entered an incorrect password 4 times. Your user has been blocked for an hour",
   "store/login.createPassword": "Create a new password",

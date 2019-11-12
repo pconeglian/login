@@ -19,6 +19,7 @@
   "store/login.invalidPassword": "store/login.invalidPassword",
   "store/login.invalidCode": "store/login.invalidCode",
   "store/login.invalidMatch": "store/login.invalidMatch",
+  "store/login.wrongCode": "store/login.wrongCode",
   "store/login.wrongCredentials": "store/login.wrongCredentials",
   "store/login.userBlocked": "store/login.userBlocked",
   "store/login.createPassword": "store/login.createPassword",

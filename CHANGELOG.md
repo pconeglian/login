@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Add error feedback for when the user types a wrong code in "Forgot Password" screen
+
 ## [2.19.0] - 2019-11-11
 
 ### Added
