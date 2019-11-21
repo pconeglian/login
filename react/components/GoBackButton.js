@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { ButtonWithIcon } from 'vtex.styleguide'
-import { IconArrowBack } from 'vtex.store-icons'
+import { ExtensionPoint } from 'vtex.render-runtime'
 
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
@@ -9,7 +9,9 @@ import { translate } from '../utils/translate'
 import LoginComponent from './LoginComponent'
 import styles from '../styles.css'
 
-const arrow = <IconArrowBack size={10} viewBox="0 0 16 11" />
+const arrow = (
+  <ExtensionPoint id="icon-arrow-back" size={10} viewBox="0 0 16 11" />
+)
 
 class GoBackButton extends Component {
   static propTypes = {
@@ -39,7 +41,6 @@ class GoBackButton extends Component {
           </ButtonWithIcon>
         </div>
       </Fragment>
-
     )
   }
 }

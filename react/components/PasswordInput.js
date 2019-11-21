@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 
 import { Input } from 'vtex.styleguide'
-import { IconEyeSight } from 'vtex.store-icons'
+import { ExtensionPoint } from 'vtex.render-runtime'
 
 import { translate } from '../utils/translate'
 import PasswordValidationContent from './PasswordValidationContent'
@@ -97,11 +97,16 @@ class PasswordInput extends Component {
             this.props.placeholder ||
             translate('store/login.password.placeholder', intl)
           }
-          onBlur={() => this.setState({ showVerification: !showPasswordVerificationIntoTooltip })}
+          onBlur={() =>
+            this.setState({
+              showVerification: !showPasswordVerificationIntoTooltip,
+            })
+          }
           onFocus={() => this.setState({ showVerification: true })}
           suffixIcon={
             <span className="pointer" onClick={this.handleEyeIcon}>
-              <IconEyeSight
+              <ExtensionPoint
+                id="icon-eye-sight"
                 type="filled"
                 state={showPassword ? 'off' : 'on'}
                 size={16}
