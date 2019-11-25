@@ -1,0 +1,8 @@
+{
+  "login": {
+    "blocks": ["icon-profile", "icon-eye-sight", "icon-arrow-back"]
+  },
+  "login-content": {
+    "blocks": ["icon-profile", "icon-eye-sight", "icon-arrow-back"]
+  }
+}

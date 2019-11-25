@@ -4,7 +4,7 @@ import OutsideClickHandler from 'react-outside-click-handler'
 import classNames from 'classnames'
 
 import { ButtonWithIcon } from 'vtex.styleguide'
-import { IconProfile } from 'vtex.store-icons'
+import { ExtensionPoint } from 'vtex.render-runtime'
 import Overlay from 'vtex.react-portal/Overlay'
 
 import LoginContent from '../LoginContent'
@@ -16,7 +16,7 @@ import styles from '../styles.css'
 
 const profileIcon = (iconSize, labelClasses, classes) => (
   <div className={classNames(labelClasses, classes)}>
-    <IconProfile size={iconSize} />
+    <ExtensionPoint id="icon-profile" size={iconSize} />
   </div>
 )
 class LoginComponent extends Component {
@@ -105,7 +105,12 @@ class LoginComponent extends Component {
   }
 
   render() {
-    const { isBoxOpen, onOutSideBoxClick, sessionProfile, mirrorTooltipToRight } = this.props
+    const {
+      isBoxOpen,
+      onOutSideBoxClick,
+      sessionProfile,
+      mirrorTooltipToRight,
+    } = this.props
 
     return (
       <div className={`${styles.container} flex items-center fr`}>
@@ -114,8 +119,15 @@ class LoginComponent extends Component {
           {isBoxOpen && (
             <Overlay>
               <OutsideClickHandler onOutsideClick={onOutSideBoxClick}>
-                <div className={`${styles.box} z-max absolute`} style={mirrorTooltipToRight ? { left: 50 } : { right: -50 }}>
-                  <div className={`${styles.arrowUp} absolute top-0 ${mirrorTooltipToRight ? 'left-0 ml3' : 'right-0 mr3'} shadow-3 bg-base rotate-45 h2 w2`} />
+                <div
+                  className={`${styles.box} z-max absolute`}
+                  style={mirrorTooltipToRight ? { left: 50 } : { right: -50 }}
+                >
+                  <div
+                    className={`${styles.arrowUp} absolute top-0 ${
+                      mirrorTooltipToRight ? 'left-0 ml3' : 'right-0 mr3'
+                    } shadow-3 bg-base rotate-45 h2 w2`}
+                  />
                   <div className={`${styles.contentContainer} shadow-3 mt3`}>
                     <LoginContent
                       profile={sessionProfile}
