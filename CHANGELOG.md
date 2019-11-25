@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.20.0] - 2019-11-25
+
 ### Added
 
 - Support for `icon-profile`, `icon-arrow-back` and `icon-eye-sight` blocks to be used by `login` and `login-content`. This enables the user to customize the props passed to each of those icons.
