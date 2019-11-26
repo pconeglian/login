@@ -71,6 +71,8 @@ Now, you can change the behavior of the `login` block that is in the store heade
 }
 ```
 
+This app also uses SVG icons from [`store-icons`](https://github.com/vtex-apps/store-icons), which means any icons used by it can be customized. Use `icon-profile`, `icon-eye-sight` and `icon-arrow-back` blocks to configure these icons via props, if you wish to change their default `size`(`height` and `width`) or `viewBox`.
+
 ### Blocks API
 
 When implementing this app as a block, various inner blocks may be available. The following interface lists the available blocks within `login` and `login-content` and describes if they are required or optional.
