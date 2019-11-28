@@ -1,17 +1,23 @@
 import React, { Component, Fragment } from 'react'
 import { ButtonWithIcon } from 'vtex.styleguide'
-import { ExtensionPoint } from 'vtex.render-runtime'
+import { ExtensionPoint, useChildBlock } from 'vtex.render-runtime'
+import { IconArrowBack } from 'vtex.store-icons'
 
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 
 import { translate } from '../utils/translate'
-import LoginComponent from './LoginComponent'
 import styles from '../styles.css'
 
-const arrow = (
-  <ExtensionPoint id="icon-arrow-back" size={10} viewBox="0 0 16 11" />
-)
+const Arrow = () => {
+  const hasIconBlock = Boolean(useChildBlock({ id: 'icon-arrow-back' }))
+
+  return hasIconBlock ? (
+    <ExtensionPoint id="icon-arrow-back" size={10} viewBox="0 0 16 11" />
+  ) : (
+    <IconArrowBack size={10} viewBox="0 0 16 11" />
+  )
+}
 
 class GoBackButton extends Component {
   static propTypes = {
@@ -29,7 +35,7 @@ class GoBackButton extends Component {
       <Fragment>
         <div className={styles.backButton}>
           <ButtonWithIcon
-            icon={arrow}
+            icon={<Arrow />}
             iconPosition="left"
             variation="tertiary"
             size="small"

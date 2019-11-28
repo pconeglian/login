@@ -3,11 +3,35 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 
 import { Input } from 'vtex.styleguide'
-import { ExtensionPoint } from 'vtex.render-runtime'
+import { IconEyeSight } from 'vtex.store-icons'
+import { ExtensionPoint, useChildBlock } from 'vtex.render-runtime'
 
 import { translate } from '../utils/translate'
 import PasswordValidationContent from './PasswordValidationContent'
 import TooltipVerification from './TooltipVerification'
+
+const SuffixIcon = ({ handleEyeIcon, showPassword }) => {
+  const hasIconBlock = Boolean(useChildBlock({ id: 'icon-eye-sight' }))
+
+  return (
+    <span className="pointer" onClick={handleEyeIcon}>
+      {hasIconBlock ? (
+        <ExtensionPoint
+          id="icon-eye-sight"
+          type="filled"
+          state={showPassword ? 'off' : 'on'}
+          size={16}
+        />
+      ) : (
+        <IconEyeSight
+          type="filled"
+          state={showPassword ? 'off' : 'on'}
+          size={16}
+        />
+      )}
+    </span>
+  )
+}
 
 class PasswordInput extends Component {
   constructor(props) {
@@ -104,14 +128,10 @@ class PasswordInput extends Component {
           }
           onFocus={() => this.setState({ showVerification: true })}
           suffixIcon={
-            <span className="pointer" onClick={this.handleEyeIcon}>
-              <ExtensionPoint
-                id="icon-eye-sight"
-                type="filled"
-                state={showPassword ? 'off' : 'on'}
-                size={16}
-              />
-            </span>
+            <SuffixIcon
+              showPassword={showPassword}
+              handleEyeIcon={this.handleEyeIcon}
+            />
           }
         />
         {showVerification &&
