@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.20.1] - 2019-12-02
+
 ### Fixed
 
 - Scenarios where the icons would not be rendered if the user did not provide the icon blocks.
