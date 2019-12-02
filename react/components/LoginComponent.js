@@ -1,11 +1,16 @@
 import React, { Component, Fragment } from 'react'
-import { Link, withRuntimeContext } from 'vtex.render-runtime'
+import {
+  Link,
+  withRuntimeContext,
+  ExtensionPoint,
+  useChildBlock,
+} from 'vtex.render-runtime'
 import OutsideClickHandler from 'react-outside-click-handler'
 import classNames from 'classnames'
 
-import { ButtonWithIcon } from 'vtex.styleguide'
-import { ExtensionPoint } from 'vtex.render-runtime'
+import { IconProfile } from 'vtex.store-icons'
 import Overlay from 'vtex.react-portal/Overlay'
+import { ButtonWithIcon } from 'vtex.styleguide'
 
 import LoginContent from '../LoginContent'
 import { truncateString } from '../utils/format-string'
@@ -14,11 +19,24 @@ import { LoginPropTypes } from '../propTypes'
 
 import styles from '../styles.css'
 
-const profileIcon = (iconSize, labelClasses, classes) => (
-  <div className={classNames(labelClasses, classes)}>
-    <ExtensionPoint id="icon-profile" size={iconSize} />
-  </div>
-)
+const ProfileIcon = ({ iconSize, labelClasses, classes }) => {
+  const hasIconBlock = Boolean(useChildBlock({ id: 'icon-profile' }))
+
+  if (hasIconBlock) {
+    return (
+      <div className={classNames(labelClasses, classes)}>
+        <ExtensionPoint id="icon-profile" size={iconSize} />
+      </div>
+    )
+  }
+
+  return (
+    <div className={classNames(labelClasses, classes)}>
+      <IconProfile size={iconSize} />
+    </div>
+  )
+}
+
 class LoginComponent extends Component {
   static propTypes = LoginPropTypes
 
@@ -48,9 +66,13 @@ class LoginComponent extends Component {
     const iconLabel = iconLabelProfile || translate('store/login.signIn', intl)
     const iconContent = (
       <Fragment>
-        {showIconProfile &&
-          renderIconAsLink &&
-          profileIcon(iconSize, labelClasses, iconClasses)}
+        {showIconProfile && renderIconAsLink && (
+          <ProfileIcon
+            iconSize={iconSize}
+            labelClasses={labelClasses}
+            iconClasses={iconClasses}
+          />
+        )}
         {sessionProfile ? (
           <span
             className={`${styles.profile} t-action--small order-1 pl4 ${labelClasses} dn db-l`}
@@ -88,7 +110,11 @@ class LoginComponent extends Component {
     return (
       <ButtonWithIcon
         variation="tertiary"
-        icon={showIconProfile && profileIcon(iconSize, labelClasses)}
+        icon={
+          showIconProfile && (
+            <ProfileIcon iconSize={iconSize} labelClasses={labelClasses} />
+          )
+        }
         iconPosition={showIconProfile ? 'left' : 'right'}
         onClick={onProfileIconClick}
       >
