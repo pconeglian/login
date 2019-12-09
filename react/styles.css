@@ -18,15 +18,15 @@
 
 .optionsListItemContainer {}
 
-.accessCodeOption {}
+.accessCodeOptionBtn {}
 
-.emailPasswordOption {}
+.emailPasswordOptionBtn {}
 
-.facebookOption {}
+.facebookOptionBtn {}
 
-.googleOption {}
+.googleOptionBtn {}
 
-.customOAuthOption {}
+.customOAuthOptionBtn {}
 
 .oauthProvider {}
 

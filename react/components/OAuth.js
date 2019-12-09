@@ -12,8 +12,8 @@ import styles from '../styles.css'
 import className from 'classnames'
 
 const styleByProviderName = {
-  Facebook: styles.facebookOption,
-  Google: styles.googleOption,
+  Facebook: styles.facebookOptionBtn,
+  Google: styles.googleOptionBtn,
 }
 
 class OAuth extends Component {
@@ -31,7 +31,7 @@ class OAuth extends Component {
   render() {
     const { intl, children, provider, loginCallback } = this.props
     return (
-      <div className={className(styles.button, styles.buttonSocial, styleByProviderName[provider] || styles.customOAuthOption)}>
+      <div className={className(styles.button, styles.buttonSocial, styleByProviderName[provider] || styles.customOAuthOptionBtn)}>
         <AuthService.OAuthPopup useNewSession provider={provider} onSuccess={() => loginCallback()}>
           {({ loading, action: openOAuthPopup }) => (
             <Button
