@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Customization classes ".accessCodeOption", ".emailPasswordOption", ".facebookOption", ".googleOption" and ".customOAuthOption".
+
+- Customization classes ".emailForm", ".emailAndPasswordForm" and ".forgotPasswordForm".
+
 ## [2.20.2] - 2019-12-06
 
 ### Added
