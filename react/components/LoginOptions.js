@@ -60,7 +60,7 @@ class LoginOptions extends Component {
                 'store/loginOptions.emailVerification'
               ) && (
               <li className={`${styles.optionsListItem} mb3`}>
-                <div className={styles.button}>
+                <div className={classNames(styles.button, styles.accessCodeOption)}>
                   <Button
                     variation="secondary"
                     onClick={this.handleOptionClick(
@@ -83,7 +83,7 @@ class LoginOptions extends Component {
                 'store/loginOptions.emailAndPassword'
               ) && (
               <li className={`${styles.optionsListItem} mb3`}>
-                <div className={styles.button}>
+                <div className={classNames(styles.button, styles.emailPasswordOption)}>
                   <Button
                     variation="secondary"
                     onClick={this.handleOptionClick(

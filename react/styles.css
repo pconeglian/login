@@ -18,6 +18,16 @@
 
 .optionsListItemContainer {}
 
+.accessCodeOption {}
+
+.emailPasswordOption {}
+
+.facebookOption {}
+
+.googleOption {}
+
+.customOAuthOption {}
+
 .oauthProvider {}
 
 .oauthAutoRedirect {}
