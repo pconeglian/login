@@ -21,7 +21,7 @@ exports[`<LoginContent /> component should match snapshot 1`] = `
             class="optionsListItem mb3"
           >
             <div
-              class="button"
+              class="button accessCodeOptionBtn"
             >
               <button
                 class="Button-mock"
@@ -37,7 +37,7 @@ exports[`<LoginContent /> component should match snapshot 1`] = `
             class="optionsListItem mb3"
           >
             <div
-              class="button"
+              class="button emailPasswordOptionBtn"
             >
               <button
                 class="Button-mock"
@@ -53,7 +53,7 @@ exports[`<LoginContent /> component should match snapshot 1`] = `
             class="optionsListItem mb3"
           >
             <div
-              class="button buttonSocial"
+              class="button buttonSocial googleOptionBtn"
             >
               <button
                 class="Button-mock"
@@ -141,7 +141,7 @@ exports[`<LoginContent /> component should match snapshot when loading 1`] = `
             class="optionsListItem mb3"
           >
             <div
-              class="button"
+              class="button accessCodeOptionBtn"
             >
               <button
                 class="Button-mock"
@@ -157,7 +157,7 @@ exports[`<LoginContent /> component should match snapshot when loading 1`] = `
             class="optionsListItem mb3"
           >
             <div
-              class="button"
+              class="button emailPasswordOptionBtn"
             >
               <button
                 class="Button-mock"
@@ -173,7 +173,7 @@ exports[`<LoginContent /> component should match snapshot when loading 1`] = `
             class="optionsListItem mb3"
           >
             <div
-              class="button buttonSocial"
+              class="button buttonSocial googleOptionBtn"
             >
               <button
                 class="Button-mock"
