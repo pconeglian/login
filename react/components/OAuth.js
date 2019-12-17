@@ -9,6 +9,13 @@ import { translate } from '../utils/translate'
 import styles from '../styles.css'
 
 // Component that shows account options to the user.
+import className from 'classnames'
+
+const styleByProviderName = {
+  Facebook: styles.facebookOptionBtn,
+  Google: styles.googleOptionBtn,
+}
+
 class OAuth extends Component {
   static propTypes = {
     /** Intl object*/
@@ -24,7 +31,7 @@ class OAuth extends Component {
   render() {
     const { intl, children, provider, loginCallback } = this.props
     return (
-      <div className={`${styles.button} ${styles.buttonSocial}`}>
+      <div className={className(styles.button, styles.buttonSocial, styleByProviderName[provider] || styles.customOAuthOptionBtn)}>
         <AuthService.OAuthPopup useNewSession provider={provider} onSuccess={() => loginCallback()}>
           {({ loading, action: openOAuthPopup }) => (
             <Button

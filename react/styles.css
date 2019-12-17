@@ -18,6 +18,16 @@
 
 .optionsListItemContainer {}
 
+.accessCodeOptionBtn {}
+
+.emailPasswordOptionBtn {}
+
+.facebookOptionBtn {}
+
+.googleOptionBtn {}
+
+.customOAuthOptionBtn {}
+
 .oauthProvider {}
 
 .oauthAutoRedirect {}
@@ -33,6 +43,12 @@
 .inputContainerEmail {}
 
 .emailVerification {}
+
+.emailForm {}
+
+.emailAndPasswordForm {}
+
+.forgotPasswordForm {}
 
 .formLinkContainer {}
 
