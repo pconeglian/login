@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.21.0] - 2019-12-17
+
 ### Added
 
 - Customization classes ".accessCodeOptionBtn", ".emailPasswordOptionBtn", ".facebookOptionBtn", ".googleOptionBtn" and ".customOAuthOptionBtn".
