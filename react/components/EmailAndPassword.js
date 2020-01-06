@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 
 import { Button, Input } from 'vtex.styleguide'
-import { AuthState, AuthService } from 'vtex.react-vtexid'
+import { AuthStateLazy, AuthServiceLazy } from 'vtex.react-vtexid'
 import { ExtensionPoint, useChildBlock } from 'vtex.render-runtime'
 
 import { translate } from '../utils/translate'
@@ -135,10 +135,8 @@ class EmailAndPassword extends Component {
         onSubmit={e => this.handleOnSubmit(e)}
         content={
           <Fragment>
-            <div
-              className={`${styles.inputContainer} ${styles.inputContainerEmail}`}
-            >
-              <AuthState.Email>
+            <div className={`${styles.inputContainer} ${styles.inputContainerEmail}`}>
+              <AuthStateLazy.Email>
                 {({ value, setValue }) => {
                   if (hasUserIdentifierExtension) {
                     return (
@@ -177,16 +175,14 @@ class EmailAndPassword extends Component {
                     />
                   )
                 }}
-              </AuthState.Email>
+              </AuthStateLazy.Email>
             </div>
             <FormError show={isInvalidEmail}>
               {invalidIdentifierError ||
                 translate('store/login.invalidEmail', intl)}
             </FormError>
-            <div
-              className={`${styles.inputContainer} ${styles.inputContainerPassword} pv3 flex flex-column`}
-            >
-              <AuthState.Password>
+            <div className={`${styles.inputContainer} ${styles.inputContainerPassword} pv3 flex flex-column`}>
+              <AuthStateLazy.Password>
                 {({ value, setValue }) => (
                   <PasswordInput
                     password={value || ''}
@@ -203,7 +199,7 @@ class EmailAndPassword extends Component {
                     }
                   />
                 )}
-              </AuthState.Password>
+              </AuthStateLazy.Password>
             </div>
             <FormError show={isInvalidPassword}>
               {translate('store/login.invalidPassword', intl)}
@@ -238,7 +234,7 @@ class EmailAndPassword extends Component {
               />
             )}
             <div className={`${styles.sendButton} ml-auto`}>
-              <AuthService.LoginWithPassword
+              <AuthServiceLazy.LoginWithPassword
                 useNewSession
                 onSuccess={this.handleSuccess}
                 onFailure={this.handleFailure}
@@ -248,7 +244,7 @@ class EmailAndPassword extends Component {
                   loading,
                   action: loginWithPassword,
                 }) => (
-                  <AuthState.Email>
+                  <AuthStateLazy.Email>
                     {({ setValue: setEmail }) => (
                       <Button
                         variation="primary"
@@ -270,9 +266,9 @@ class EmailAndPassword extends Component {
                         </span>
                       </Button>
                     )}
-                  </AuthState.Email>
+                  </AuthStateLazy.Email>
                 )}
-              </AuthService.LoginWithPassword>
+              </AuthServiceLazy.LoginWithPassword>
             </div>
           </Fragment>
         }
