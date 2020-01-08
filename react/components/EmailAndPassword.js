@@ -77,8 +77,8 @@ class EmailAndPassword extends Component {
     err.code === 'WrongCredentials'
       ? this.setState({ isWrongCredentials: true })
       : err.code === 'BlockedUser'
-      ? this.setState({ isUserBlocked: true })
-      : console.error(err)
+        ? this.setState({ isUserBlocked: true })
+        : console.error(err)
   }
 
   registerUserIdentifierExtensionSubmitter = userIdentifierExtensionSubmitter => {
