@@ -230,7 +230,7 @@ class EmailAndPassword extends Component {
             {showBackButton && (
               <GoBackButton
                 onStateChange={onStateChange}
-                changeTab={{ step: previous, password: '' }}
+                changeTab={{ step: previous }}
               />
             )}
             <div className={`${styles.sendButton} ml-auto`}>
