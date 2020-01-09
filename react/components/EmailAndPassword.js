@@ -56,9 +56,8 @@ class EmailAndPassword extends Component {
     userIdentifierExtensionSubmitter: null,
   }
 
-  handlePasswordChange = event => {
-    this.setState({ isInvalidPassword: false })
-    this.props.onStateChange({ password: event.target.value })
+  handlePasswordChange = () => {
+    this.setState({ isInvalidPassword: false, isWrongCredentials: false })
   }
 
   handleCreatePassword = event => {
@@ -136,14 +135,18 @@ class EmailAndPassword extends Component {
         onSubmit={e => this.handleOnSubmit(e)}
         content={
           <Fragment>
-            <div className={`${styles.inputContainer} ${styles.inputContainerEmail}`}>
+            <div
+              className={`${styles.inputContainer} ${styles.inputContainerEmail}`}
+            >
               <AuthState.Email>
                 {({ value, setValue }) => {
                   if (hasUserIdentifierExtension) {
                     return (
                       <ExtensionPoint
                         id={USER_IDENTIFIER_INTERFACE_ID}
-                        identifierPlaceholder={identifierPlaceholder || emailPlaceholder}
+                        identifierPlaceholder={
+                          identifierPlaceholder || emailPlaceholder
+                        }
                         renderInput={({ value, onChange, placeholder }) => (
                           <Input
                             value={value}
@@ -154,7 +157,9 @@ class EmailAndPassword extends Component {
                             placeholder={placeholder}
                           />
                         )}
-                        registerSubmitter={this.registerUserIdentifierExtensionSubmitter}
+                        registerSubmitter={
+                          this.registerUserIdentifierExtensionSubmitter
+                        }
                       />
                     )
                   }
@@ -165,23 +170,29 @@ class EmailAndPassword extends Component {
                         setValue(e.target.value)
                         this.setState({ isInvalidEmail: false })
                       }}
-                      placeholder={emailPlaceholder ||
-                      translate('store/login.email.placeholder', intl)}
+                      placeholder={
+                        emailPlaceholder ||
+                        translate('store/login.email.placeholder', intl)
+                      }
                     />
                   )
                 }}
               </AuthState.Email>
             </div>
             <FormError show={isInvalidEmail}>
-              {invalidIdentifierError || translate('store/login.invalidEmail', intl)}
+              {invalidIdentifierError ||
+                translate('store/login.invalidEmail', intl)}
             </FormError>
-            <div className={`${styles.inputContainer} ${styles.inputContainerPassword} pv3 flex flex-column`}>
+            <div
+              className={`${styles.inputContainer} ${styles.inputContainerPassword} pv3 flex flex-column`}
+            >
               <AuthState.Password>
                 {({ value, setValue }) => (
                   <PasswordInput
                     password={value || ''}
                     onStateChange={({ password }) => {
                       setValue(password)
+                      this.handlePasswordChange()
                     }}
                     placeholder={
                       passwordPlaceholder ||
@@ -203,7 +214,9 @@ class EmailAndPassword extends Component {
             <FormError show={isUserBlocked}>
               {translate('store/login.userBlocked', intl)}
             </FormError>
-            <div className={`${styles.formLinkContainer} flex justify-end ph0 pv2`}>
+            <div
+              className={`${styles.formLinkContainer} flex justify-end ph0 pv2`}
+            >
               <a
                 href=""
                 className="link dim c-link"
@@ -243,7 +256,12 @@ class EmailAndPassword extends Component {
                         type="submit"
                         onClick={e => {
                           e.preventDefault()
-                          this.handleOnSubmit(email, password, loginWithPassword, setEmail)
+                          this.handleOnSubmit(
+                            email,
+                            password,
+                            loginWithPassword,
+                            setEmail
+                          )
                         }}
                         isLoading={loading}
                       >
@@ -259,7 +277,9 @@ class EmailAndPassword extends Component {
           </Fragment>
         }
       >
-        <div className={`${styles.formLinkContainer} flex justify-center ph0 mt4`}>
+        <div
+          className={`${styles.formLinkContainer} flex justify-center ph0 mt4`}
+        >
           <a
             href=""
             className="link dim c-link"
@@ -275,10 +295,17 @@ class EmailAndPassword extends Component {
   }
 }
 
-const withHasUserIdentifierExtension = (Component) => {
+const withHasUserIdentifierExtension = Component => {
   const Wrapper = props => {
-    const hasUserIdentifierExtension = !!useChildBlock({ id: USER_IDENTIFIER_INTERFACE_ID })
-    return <Component {...props} hasUserIdentifierExtension={hasUserIdentifierExtension} />
+    const hasUserIdentifierExtension = !!useChildBlock({
+      id: USER_IDENTIFIER_INTERFACE_ID,
+    })
+    return (
+      <Component
+        {...props}
+        hasUserIdentifierExtension={hasUserIdentifierExtension}
+      />
+    )
   }
   return Wrapper
 }
