@@ -364,9 +364,10 @@ class LoginContent extends Component {
 
     const className = classNames(
       `${styles.content} flex relative bg-base justify-around overflow-visible pa4 center`,
+      (this.shouldRenderForm && this.shouldRenderLoginOptions) ? 'items-start-ns' : 'items-baseline-ns',
       {
         [styles.contentInitialScreen]: this.state.isOnInitialScreen,
-        [`${styles.contentAlwaysWithOptions} mw6-ns flex-column-reverse items-center flex-row-ns items-start-ns`]: !isInitialScreenOptionOnly,
+        [`${styles.contentAlwaysWithOptions} mw6-ns flex-column-reverse items-center flex-row-ns`]: !isInitialScreenOptionOnly,
         'items-baseline': isInitialScreenOptionOnly,
       }
     )
