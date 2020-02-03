@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Suspense } from 'react'
 
 import { compose, path } from 'ramda'
 import PropTypes from 'prop-types'
@@ -366,7 +366,7 @@ class LoginContent extends Component {
       `${styles.content} flex relative bg-base justify-around overflow-visible pa4 center`,
       {
         [styles.contentInitialScreen]: this.state.isOnInitialScreen,
-        [`${styles.contentAlwaysWithOptions} mw6-ns flex-column-reverse items-center flex-row-ns items-baseline-ns`]: !isInitialScreenOptionOnly,
+        [`${styles.contentAlwaysWithOptions} mw6-ns flex-column-reverse items-center flex-row-ns items-start-ns`]: !isInitialScreenOptionOnly,
         'items-baseline': isInitialScreenOptionOnly,
       }
     )
@@ -388,7 +388,16 @@ class LoginContent extends Component {
                 ? this.renderChildren()
                 : null}
               <div className={formClassName}>
-                {this.shouldRenderForm && renderForm ? renderForm() : null}
+                {this.shouldRenderForm && renderForm ? (
+                  /** If it renders both the form and the menu, wrap the
+                   * form in a Suspense, so it doesn't hide the options 
+                   * while it's loading */
+                  this.shouldRenderLoginOptions ? ( 
+                    <Suspense fallback={<Loading />}>
+                      {renderForm()}
+                    </Suspense>
+                  ) : renderForm()
+                ) : null}
               </div>
             </div>
           )
