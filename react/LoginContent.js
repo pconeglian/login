@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react'
+import React, { Component } from 'react'
 
 import { compose, path } from 'ramda'
 import PropTypes from 'prop-types'
@@ -376,7 +376,7 @@ class LoginContent extends Component {
     })
 
     return (
-      <AuthStateLazy useParentSuspense skip={!!profile} scope="STORE" parentAppId={SELF_APP_NAME_AND_VERSION} returnUrl={this.returnUrl}>
+      <AuthStateLazy skip={!!profile} scope="STORE" parentAppId={SELF_APP_NAME_AND_VERSION} returnUrl={this.returnUrl}>
         {({ loading }) => (
           loading ? (
             <div data-testid="loading-session">
