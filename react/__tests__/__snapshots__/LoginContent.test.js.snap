@@ -3,7 +3,7 @@
 exports[`<LoginContent /> component should match snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="content flex relative bg-base justify-around overflow-visible pa4 center contentInitialScreen items-baseline"
+    class="content flex relative bg-base justify-around overflow-visible pa4 center items-baseline-ns contentInitialScreen items-baseline"
   >
     <div>
       <div
@@ -123,7 +123,7 @@ exports[`<LoginContent /> component should match snapshot 1`] = `
 exports[`<LoginContent /> component should match snapshot when loading 1`] = `
 <DocumentFragment>
   <div
-    class="content flex relative bg-base justify-around overflow-visible pa4 center contentInitialScreen items-baseline"
+    class="content flex relative bg-base justify-around overflow-visible pa4 center items-baseline-ns contentInitialScreen items-baseline"
   >
     <div>
       <div
