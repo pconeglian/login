@@ -1,7 +1,7 @@
 import React from 'react'
 import { renderWithIntl } from '../testUtils/intl-utils'
 
-import LoginContent from '../LoginContent'
+import LoginContent from '../components/LoginContent'
 
 describe('<LoginContent /> component', () => {
   it('should match snapshot when loading', () => {

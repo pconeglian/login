@@ -21,7 +21,7 @@ import Loading from './Loading'
 import Popover from './Popover'
 import OutsideClickHandler from './OutsideClickHandler'
 
-const LoginContent = React.lazy(() => import('../LoginContent'))
+const LoginContent = React.lazy(() => import('./LoginContent'))
 
 const ProfileIcon = ({ iconSize, labelClasses, classes }) => {
   const hasIconBlock = Boolean(useChildBlock({ id: 'icon-profile' }))
