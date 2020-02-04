@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Render login button on SSR.
+- Load login content lazily.
+- Use internal and lighter implementation of `OutsideClickHandler`.
 
 ## [2.22.0] - 2020-01-09
 

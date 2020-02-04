@@ -1,18 +1,19 @@
 import React from 'react'
-import { renderWithIntl } from 'intl-utils'
+import { renderWithIntl } from '../testUtils/intl-utils'
 
 import Login from '../Login'
 
-import { AuthState } from 'vtex.react-vtexid'
+import { AuthStateLazy } from 'vtex.react-vtexid'
+import { waitForElement } from '@vtex/test-tools/react'
 
 describe('<Login /> component', () => {
   it('should match snapshot when loading', async () => {
-    AuthState.mockImplementationOnce(({ children }) =>
-      children({ loading: true })
-    )
+    AuthStateLazy.mockImplementationOnce(({ children }) => children({ loading: true }))
 
-    const { asFragment } = renderWithIntl(<Login isBoxOpen />)
+    const { asFragment, getByTestId } = renderWithIntl(<Login isBoxOpen />)
     await Promise.resolve()
+    await waitForElement(() => getByTestId('loading-session'))
+
     expect(asFragment()).toMatchSnapshot()
   })
 

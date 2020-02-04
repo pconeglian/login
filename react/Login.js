@@ -7,7 +7,6 @@ import { LoginSchema } from './schema'
 import { setCookie } from './utils/set-cookie'
 import { LoginContainerProptypes } from './propTypes'
 import LoginComponent from './components/LoginComponent'
-import Loading from './components/Loading'
 import { getProfile } from './utils/profile'
 
 const DEFAULT_CLASSES = 'gray'
@@ -103,6 +102,4 @@ Login.getSchema = () => ({
   },
 })
 
-const LoginWithSession = withSession({
-  loading: <Loading />,
-})(injectIntl(LoginComponent))
+const LoginWithSession = withSession({ renderWhileLoading: true })(injectIntl(LoginComponent))
