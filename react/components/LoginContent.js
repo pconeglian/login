@@ -19,7 +19,6 @@ import OAuthAutoRedirect from './OAuthAutoRedirect'
 import { steps } from '../utils/steps'
 import { setCookie } from '../utils/set-cookie'
 
-import { LoginSchema } from '../schema'
 import { LoginPropTypes } from '../propTypes'
 import { getProfile } from '../utils/profile'
 import { session } from 'vtex.store-resources/Queries'
@@ -391,9 +390,9 @@ class LoginContent extends Component {
               <div className={formClassName}>
                 {this.shouldRenderForm && renderForm ? (
                   /** If it renders both the form and the menu, wrap the
-                   * form in a Suspense, so it doesn't hide the options 
+                   * form in a Suspense, so it doesn't hide the options
                    * while it's loading */
-                  this.shouldRenderLoginOptions ? ( 
+                  this.shouldRenderLoginOptions ? (
                     <Suspense fallback={<Loading />}>
                       {renderForm()}
                     </Suspense>
