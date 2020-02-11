@@ -65,7 +65,7 @@ class LoginComponent extends Component {
 
     const iconClasses = 'flex items-center'
     const iconLabel = iconLabelProfile || translate('store/login.signIn', intl)
-    const iconContent = (
+    const buttonContent = (
       <Fragment>
         {sessionProfile ? (
           <span
@@ -102,7 +102,7 @@ class LoginComponent extends Component {
             iconPosition={showIconProfile ? 'left' : 'right'}
             onClick={() => navigate({ page: linkTo, query: returnUrl })}
           >
-            {iconContent}
+            {buttonContent}
           </ButtonWithIcon>
         </div>
       )
@@ -125,7 +125,7 @@ class LoginComponent extends Component {
             this.iconRef = e
           }}
         >
-          {iconContent}
+          {buttonContent}
         </div>
       </ButtonWithIcon>
     )
