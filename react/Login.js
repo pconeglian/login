@@ -106,6 +106,12 @@ Login.getSchema = () => ({
       type: 'boolean',
       default: 'false',
     },
+    logInButtonBehavior: {
+      title: 'admin/editor.login.logInButtonBehavior',
+      type: 'string',
+      enum: [LogInButtonBehavior.POPOVER, LogInButtonBehavior.LINK],
+      default: LogInButtonBehavior.POPOVER,
+    },
   },
 })
 

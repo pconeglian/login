@@ -52,5 +52,6 @@
   "admin/editor.login.hasIdentifierExtension": "E-mail/Password user identifier extension",
   "admin/editor.login.identifierPlaceholder": "Identifier input placeholder",
   "admin/editor.login.invalidIdentifierError": "Invalid identifier error",
-  "admin/editor.login.mirrorTooltipToRightTitle": "Makes the login tooltip open towards the right instead of the left"
+  "admin/editor.login.mirrorTooltipToRightTitle": "Makes the login tooltip open towards the right instead of the left",
+  "admin/editor.login.logInButtonBehavior": "Log in button behavior"
 }
