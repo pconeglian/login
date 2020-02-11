@@ -1,6 +1,5 @@
 import React, { Component, Fragment, Suspense } from 'react'
 import {
-  Link,
   withRuntimeContext,
   ExtensionPoint,
   useChildBlock,
@@ -59,7 +58,7 @@ class LoginComponent extends Component {
       onProfileIconClick,
       sessionProfile,
       showIconProfile,
-      runtime: { history },
+      runtime: { history, navigate },
     } = this.props
 
     const pathname = history && history.location && history.location.pathname
@@ -68,13 +67,6 @@ class LoginComponent extends Component {
     const iconLabel = iconLabelProfile || translate('store/login.signIn', intl)
     const iconContent = (
       <Fragment>
-        {showIconProfile && renderIconAsLink && (
-          <ProfileIcon
-            iconSize={iconSize}
-            labelClasses={labelClasses}
-            iconClasses={iconClasses}
-          />
-        )}
         {sessionProfile ? (
           <span
             className={`${styles.profile} t-action--small order-1 pl4 ${labelClasses} dn db-l`}
@@ -99,13 +91,20 @@ class LoginComponent extends Component {
       const returnUrl =
         !sessionProfile && `returnUrl=${encodeURIComponent(pathname)}`
       return (
-        <Link
-          page={linkTo}
-          query={returnUrl}
-          className={`${styles.buttonLink} h1 w2 tc flex items-center w-100-s h-100-s pa4-s`}
-        >
-          {iconContent}
-        </Link>
+        <div className={styles.buttonLink}>
+          <ButtonWithIcon
+            variation="tertiary"
+            icon={
+              showIconProfile && (
+                <ProfileIcon iconSize={iconSize} labelClasses={labelClasses} iconClasses={iconClasses} />
+              )
+            }
+            iconPosition={showIconProfile ? 'left' : 'right'}
+            onClick={() => navigate({ page: linkTo, query: returnUrl })}
+          >
+            {iconContent}
+          </ButtonWithIcon>
+        </div>
       )
     }
 
