@@ -42,7 +42,9 @@ export default class Login extends Component {
     this.getSessionPromiseFromWindow().then(data => {
       const sessionResponse = (data || {}).response
       const sessionProfile = getProfile(sessionResponse)
-      if (sessionProfile) this.setState({ sessionProfile })
+      if (sessionProfile) {
+        this.setState({ sessionProfile })
+      }
     })
   }
 
@@ -101,5 +103,9 @@ Login.getSchema = () => ({
     },
   },
 })
+
+Login.uiSchema = {
+  'ui:order': ['*', 'hasIdentifierExtension', 'identifierPlaceholder', 'invalidIdentifierError'],
+}
 
 const LoginWithSession = withSession({ renderWhileLoading: true })(injectIntl(LoginComponent))

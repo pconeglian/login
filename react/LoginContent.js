@@ -2,6 +2,7 @@ import React, { Component, Suspense } from 'react'
 import LoginContent from './components/LoginContent'
 import { NoSSR } from 'vtex.render-runtime'
 import Loading from './components/Loading'
+import { LoginSchema } from './schema'
 
 const LoginContentWrapper = props => {
   return (
