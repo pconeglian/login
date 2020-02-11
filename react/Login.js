@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { withSession } from 'vtex.render-runtime'
 import { injectIntl } from 'react-intl'
 
+import { LogInButtonBehavior } from './common/global'
 import { LoginSchema } from './schema'
 import { setCookie } from './utils/set-cookie'
 import { LoginContainerProptypes } from './propTypes'
@@ -18,6 +19,7 @@ export default class Login extends Component {
 
   static defaultProps = {
     labelClasses: DEFAULT_CLASSES,
+    logInButtonBehavior: LogInButtonBehavior.POPOVER,
   }
 
   state = {
@@ -78,10 +80,13 @@ export default class Login extends Component {
   }
 
   render() {
+    const { logInButtonBehavior } = this.props
+    const shouldBeLink = this.state.isMobileScreen || logInButtonBehavior === LogInButtonBehavior.LINK
+
     return (
       <LoginWithSession
         isBoxOpen={this.state.isBoxOpen}
-        loginButtonAsLink={this.state.isMobileScreen}
+        loginButtonAsLink={shouldBeLink}
         sessionProfile={this.state.sessionProfile}
         {...this.props}
         onOutSideBoxClick={this.handleOutSideBoxClick}

@@ -34,6 +34,8 @@ export const LoginContainerProptypes = {
   invalidIdentifierError: PropTypes.string,
   /** Determines if the tooltip opens towards the right side */
   mirrorTooltipToRight: PropTypes.bool,
+  /** Determines what happens when the log in button is pressed */
+  logInButtonBehavior: PropTypes.string,
 }
 
 export const LoginPropTypes = {
