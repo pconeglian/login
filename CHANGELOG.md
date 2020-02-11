@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.23.2] - 2020-02-11
+
 ### Fixed
 
 - The `Identifier input placeholder` and `Invalid identifier error` site-editor form fields were not coming right after the `Identifier extension` toggle.
