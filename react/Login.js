@@ -42,7 +42,9 @@ export default class Login extends Component {
     this.getSessionPromiseFromWindow().then(data => {
       const sessionResponse = (data || {}).response
       const sessionProfile = getProfile(sessionResponse)
-      if (sessionProfile)this.setState({ sessionProfile })
+      if (sessionProfile) {
+        this.setState({ sessionProfile })
+      }
     })
   }
 
