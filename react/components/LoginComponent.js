@@ -54,7 +54,7 @@ class LoginComponent extends Component {
       iconLabel: iconLabelProfile,
       labelClasses,
       intl,
-      renderIconAsLink,
+      loginButtonAsLink,
       onProfileIconClick,
       sessionProfile,
       showIconProfile,
@@ -86,7 +86,7 @@ class LoginComponent extends Component {
       </Fragment>
     )
 
-    if (renderIconAsLink) {
+    if (loginButtonAsLink) {
       const linkTo = sessionProfile ? 'store.account' : 'store.login'
       const returnUrl =
         !sessionProfile && `returnUrl=${encodeURIComponent(pathname)}`

@@ -22,7 +22,7 @@ export default class Login extends Component {
 
   state = {
     isBoxOpen: false,
-    renderIconAsLink: false,
+    isMobileScreen: false,
     sessionProfile: null,
   }
 
@@ -55,16 +55,16 @@ export default class Login extends Component {
   handleResize = () => {
     const WIDTH_THRESHOLD = 640
 
-    if (window.innerWidth < WIDTH_THRESHOLD && !this.state.renderIconAsLink) {
+    if (window.innerWidth < WIDTH_THRESHOLD && !this.state.isMobileScreen) {
       this.setState({
-        renderIconAsLink: true,
+        isMobileScreen: true,
       })
     } else if (
       window.innerWidth >= WIDTH_THRESHOLD &&
-      this.state.renderIconAsLink
+      this.state.isMobileScreen
     ) {
       this.setState({
-        renderIconAsLink: false,
+        isMobileScreen: false,
       })
     }
   }
@@ -81,7 +81,7 @@ export default class Login extends Component {
     return (
       <LoginWithSession
         isBoxOpen={this.state.isBoxOpen}
-        renderIconAsLink={this.state.renderIconAsLink}
+        loginButtonAsLink={this.state.isMobileScreen}
         sessionProfile={this.state.sessionProfile}
         {...this.props}
         onOutSideBoxClick={this.handleOutSideBoxClick}
