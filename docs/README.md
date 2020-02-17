@@ -112,7 +112,7 @@ Through the Storefront, you can change the `login`'s behavior and interface. How
 | `identifierPlaceholder`                            | `String`  | Set placeholder for the identifier extension                                               | -             |
 | `invalidIdentifierError`                           | `String`  | Set error message for invalid user identifier                                              | -             |
 | `mirrorTooltipToRight`                             | `Boolean` | Makes login tooltip open towards the right side                                            | -             |
-| `logInButtonBehavior`                              | `Enum`    | Set log in button behavior. "popover" for popover, "link" for a link to the `/login` page  | "popover"     |
+| `logInButtonBehavior`                              | `Enum`    | Set log in button behavior. `"popover"` for popover, `"link"` for a link to the `/login` page  | "popover"     |
 
 You can also change the `login-content`'s behaviour and interface through the Store front.
 
