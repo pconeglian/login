@@ -94,24 +94,25 @@ For now these blocks do not have any required or optional blocks.
 
 Through the Storefront, you can change the `login`'s behavior and interface. However, you also can make in your theme app, as Store theme does.
 
-| Prop name                                          | Type      | Description                                      | Default value |
-| -------------------------------------------------- | --------- | ------------------------------------------------ | ------------- |
-| `optionsTitle`                                     | `String`  | Set title of login options                       | -             |
-| `emailAndPasswordTitle`                            | `String`  | Set title of login with email and password       | -             |
-| `accessCodeTitle`                                  | `String`  | Set title of login by access code                | -             |
-| `emailPlaceholder`                                 | `String`  | Set placeholder to email input                   | -             |
-| `passwordPlaceholder`                              | `String`  | Set placeholder to password input                | -             |
-| `showPasswordVerificationIntoTooltip`              | `Boolean` | Set show password format verification as tooltip | -             |
-| `acessCodePlaceholder`                             | `String`  | Set placeholder to access code input             | -             |
-| `showIconProfile`                                  | `Boolean` | Enables icon `hpa-profile`                       | -             |
-| `iconSize` (DEPRECATED - use icon blocks instead)  | `Number`  | Set size of the profile icon                     | -             |
-| `iconLabel`                                        | `String`  | Set label of the login button                    | -             |
-| `labelClasses`                                     | `String`  | Label's classnames                               | -             |
-| `providerPasswordButtonLabel`                      | `String`  | Set Password login button text                   | -             |
-| `hasIdentifierExtension`                           | `Boolean` | Enables identifier extension configurations      | -             |
-| `identifierPlaceholder`                            | `String`  | Set placeholder for the identifier extension     | -             |
-| `invalidIdentifierError`                           | `String`  | Set error message for invalid user identifier    | -             |
-| `mirrorTooltipToRight`                             | `Boolean` | Makes login tooltip open towards the right side  | -             |
+| Prop name                                          | Type      | Description                                                                                | Default value |
+| -------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------ | ------------- |
+| `optionsTitle`                                     | `String`  | Set title of login options                                                                 | -             |
+| `emailAndPasswordTitle`                            | `String`  | Set title of login with email and password                                                 | -             |
+| `accessCodeTitle`                                  | `String`  | Set title of login by access code                                                          | -             |
+| `emailPlaceholder`                                 | `String`  | Set placeholder to email input                                                             | -             |
+| `passwordPlaceholder`                              | `String`  | Set placeholder to password input                                                          | -             |
+| `showPasswordVerificationIntoTooltip`              | `Boolean` | Set show password format verification as tooltip                                           | -             |
+| `acessCodePlaceholder`                             | `String`  | Set placeholder to access code input                                                       | -             |
+| `showIconProfile`                                  | `Boolean` | Enables icon `hpa-profile`                                                                 | -             |
+| `iconSize` (DEPRECATED - use icon blocks instead)  | `Number`  | Set size of the profile icon                                                               | -             |
+| `iconLabel`                                        | `String`  | Set label of the login button                                                              | -             |
+| `labelClasses`                                     | `String`  | Label's classnames                                                                         | -             |
+| `providerPasswordButtonLabel`                      | `String`  | Set Password login button text                                                             | -             |
+| `hasIdentifierExtension`                           | `Boolean` | Enables identifier extension configurations                                                | -             |
+| `identifierPlaceholder`                            | `String`  | Set placeholder for the identifier extension                                               | -             |
+| `invalidIdentifierError`                           | `String`  | Set error message for invalid user identifier                                              | -             |
+| `mirrorTooltipToRight`                             | `Boolean` | Makes login tooltip open towards the right side                                            | -             |
+| `logInButtonBehavior`                              | `Enum`    | Set log in button behavior. `"popover"` for popover, `"link"` for a link to the `/login` page  | "popover"     |
 
 You can also change the `login-content`'s behaviour and interface through the Store front.
 

@@ -34,6 +34,8 @@ export const LoginContainerProptypes = {
   invalidIdentifierError: PropTypes.string,
   /** Determines if the tooltip opens towards the right side */
   mirrorTooltipToRight: PropTypes.bool,
+  /** Determines what happens when the log in button is pressed */
+  logInButtonBehavior: PropTypes.string,
 }
 
 export const LoginPropTypes = {
@@ -43,8 +45,8 @@ export const LoginPropTypes = {
   profile: PropTypes.shape({}),
   /** Is box with the login options should be opened or not */
   isBoxOpen: PropTypes.bool.isRequired,
-  /** Should the Icon be rendered as link or not */
-  renderIconAsLink: PropTypes.bool.isRequired,
+  /** Should the Login Button be rendered as link or not */
+  loginButtonAsLink: PropTypes.bool.isRequired,
   /** Function called when the user click outside of the box*/
   onOutSideBoxClick: PropTypes.func.isRequired,
   /** Function called when the user clicks on the icon*/

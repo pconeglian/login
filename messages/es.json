@@ -52,5 +52,6 @@
   "admin/editor.login.hasIdentifierExtension": "Extensión del identificador de usuario de Email/Password",
   "admin/editor.login.identifierPlaceholder": "Placeholder del campo de identificador",
   "admin/editor.login.invalidIdentifierError": "Error de identificador inválido",
-  "admin/editor.login.mirrorTooltipToRightTitle": "Hace que el tooltip de inicio de sesión se abra hacia la derecha en lugar de hacia la izquierda."
+  "admin/editor.login.mirrorTooltipToRightTitle": "Reflejar tooltip a la derecha",
+  "admin/editor.login.logInButtonBehavior": "Comportamiento del botón de login"
 }

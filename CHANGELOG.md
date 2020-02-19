@@ -7,7 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `logInButtonBehavior` prop to the `login` interface. It defaults to `popover` and can be changed to `link`
+
+- New `logInButtonBehavior` prop to the site-editor
+
+### Changed
+
+- Log in is now a button instead of a link in mobile (or when `logInButtonBehavior=link`)
+
+### Fixed
+
+- The translation of the `mirrorTooltipToRight` prop in the site-editor
+
 ## [2.23.3] - 2020-02-17
+
 ### Changed
 - Import session query directly, import less JS.
 

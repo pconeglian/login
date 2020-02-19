@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { withSession } from 'vtex.render-runtime'
 import { injectIntl } from 'react-intl'
 
+import { LogInButtonBehavior } from './common/global'
 import { LoginSchema } from './schema'
 import { setCookie } from './utils/set-cookie'
 import { LoginContainerProptypes } from './propTypes'
@@ -18,11 +19,12 @@ export default class Login extends Component {
 
   static defaultProps = {
     labelClasses: DEFAULT_CLASSES,
+    logInButtonBehavior: LogInButtonBehavior.POPOVER,
   }
 
   state = {
     isBoxOpen: false,
-    renderIconAsLink: false,
+    isMobileScreen: false,
     sessionProfile: null,
   }
 
@@ -55,16 +57,16 @@ export default class Login extends Component {
   handleResize = () => {
     const WIDTH_THRESHOLD = 640
 
-    if (window.innerWidth < WIDTH_THRESHOLD && !this.state.renderIconAsLink) {
+    if (window.innerWidth < WIDTH_THRESHOLD && !this.state.isMobileScreen) {
       this.setState({
-        renderIconAsLink: true,
+        isMobileScreen: true,
       })
     } else if (
       window.innerWidth >= WIDTH_THRESHOLD &&
-      this.state.renderIconAsLink
+      this.state.isMobileScreen
     ) {
       this.setState({
-        renderIconAsLink: false,
+        isMobileScreen: false,
       })
     }
   }
@@ -78,10 +80,13 @@ export default class Login extends Component {
   }
 
   render() {
+    const { logInButtonBehavior } = this.props
+    const shouldBeLink = this.state.isMobileScreen || logInButtonBehavior === LogInButtonBehavior.LINK
+
     return (
       <LoginWithSession
         isBoxOpen={this.state.isBoxOpen}
-        renderIconAsLink={this.state.renderIconAsLink}
+        loginButtonAsLink={shouldBeLink}
         sessionProfile={this.state.sessionProfile}
         {...this.props}
         onOutSideBoxClick={this.handleOutSideBoxClick}
@@ -100,6 +105,12 @@ Login.getSchema = () => ({
       title: 'admin/editor.login.mirrorTooltipToRightTitle',
       type: 'boolean',
       default: 'false',
+    },
+    logInButtonBehavior: {
+      title: 'admin/editor.login.logInButtonBehavior',
+      type: 'string',
+      enum: [LogInButtonBehavior.POPOVER, LogInButtonBehavior.LINK],
+      default: LogInButtonBehavior.POPOVER,
     },
   },
 })
