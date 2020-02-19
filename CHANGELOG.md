@@ -21,6 +21,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - The translation of the `mirrorTooltipToRight` prop in the site-editor
 
+## [2.23.3] - 2020-02-17
+
+### Changed
+- Import session query directly, import less JS.
+
 ## [2.23.2] - 2020-02-11
 
 ### Fixed
