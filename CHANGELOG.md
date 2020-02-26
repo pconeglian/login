@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- The logout `returnUrl` is now set to `location.href`.
+
 ## [2.24.0] - 2020-02-19
 
 ### Added
