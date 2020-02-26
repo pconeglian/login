@@ -33,7 +33,7 @@ class AccountOptions extends Component {
         </div>
         <hr className="mv2 o-30" />
         <div className="ma4 min-h-2 b--muted-4">
-          <AuthServiceLazy.RedirectLogout returnUrl="/">
+          <AuthServiceLazy.RedirectLogout returnUrl={window ? window.location.href : '/'}>
             {({ action: logout }) => (
               <Button
                 variation="tertiary"
