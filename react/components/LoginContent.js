@@ -78,10 +78,10 @@ const STEPS = [
       </div>
     )
   },
-  () => {
+  (props) => {
     return style => (
       <div style={style} key={3}>
-        <AccountOptions />
+        <AccountOptions optionLinks={props.accountOptionLinks} />
       </div>
     )
   },
