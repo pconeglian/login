@@ -371,7 +371,7 @@ class LoginContent extends Component {
       }
     )
 
-    const formClassName = classNames(styles.contentForm, 'dn ph4 pb6', {
+    const formClassName = classNames(styles.contentForm, 'dn ph4', {
       [`${styles.contentFormVisible} db `]: this.shouldRenderForm,
     })
 
