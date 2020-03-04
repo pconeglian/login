@@ -104,7 +104,7 @@ Login.getSchema = () => ({
     mirrorTooltipToRight: {
       title: 'admin/editor.login.mirrorTooltipToRightTitle',
       type: 'boolean',
-      default: 'false',
+      default: false,
     },
     logInButtonBehavior: {
       title: 'admin/editor.login.logInButtonBehavior',
