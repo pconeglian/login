@@ -25,18 +25,18 @@ const AccountOptions = ({ intl, optionLinks }) => {
 
   return (
     <div className={`${styles.accountOptions} items-center w-100`}>
-      <div className="ma4 min-h-2 b--muted-4">
+      <div className="mv4 min-h-2 b--muted-4">
         {hasOptionLinks ? (
           <>
             <div
-              className={`${styles.accountOptionsSectionTitle} t-small b pb4`}
+              className={`${styles.accountOptionsSectionTitle} t-small b mb3`}
             >
               {translate('store/login.myAccount', intl)}
             </div>
             {optionLinks.map(({ label, path, cssClass }, inx) => (
               <a
                 className={`${handles[cssClass] ||
-                  ''} db no-underline t-small c-muted-1 hover-c-action-primary pb3`}
+                  ''} db no-underline t-small c-muted-1 hover-c-action-primary pv3`}
                 href={new URL(path || '/', window.location.href).href}
                 key={inx}
               >
@@ -58,7 +58,7 @@ const AccountOptions = ({ intl, optionLinks }) => {
         )}
       </div>
       <hr className="mv2 o-30" />
-      <div className="ma4 min-h-2 b--muted-4">
+      <div className="mv4 min-h-2 b--muted-4">
         <AuthServiceLazy.RedirectLogout returnUrl="/">
           {({ action: logout }) => {
             if (hasOptionLinks) {
