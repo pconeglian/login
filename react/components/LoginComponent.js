@@ -1,18 +1,18 @@
-import React, { Component, Fragment, Suspense } from 'react'
+import React, { Fragment, Suspense } from 'react'
+import { useIntl } from 'react-intl'
+import classNames from 'classnames'
+
 import {
-  withRuntimeContext,
+  useRuntime,
   ExtensionPoint,
   useChildBlock,
 } from 'vtex.render-runtime'
-
-import classNames from 'classnames'
-
 import { IconProfile } from 'vtex.store-icons'
 import Overlay from 'vtex.react-portal/Overlay'
 import { ButtonWithIcon } from 'vtex.styleguide'
+import { useResponsiveValue } from 'vtex.responsive-values'
 
 import { truncateString } from '../utils/format-string'
-import { translate } from '../utils/translate'
 import { LoginPropTypes } from '../propTypes'
 
 import styles from '../styles.css'
@@ -40,129 +40,124 @@ const ProfileIcon = ({ iconSize, labelClasses, classes }) => {
   )
 }
 
-class LoginComponent extends Component {
-  static propTypes = LoginPropTypes
+const defaultShowIconProfile = { "desktop": false, "mobile": true }
 
-  /** Function called after login success */
-  onClickLoginButton = () => {
-    window.location.reload()
-  }
+const LoginIcon = ({
+  iconSize,
+  iconLabel: iconLabelProfile,
+  labelClasses,
+  loginButtonAsLink,
+  onProfileIconClick,
+  sessionProfile,
+  showIconProfile = defaultShowIconProfile,
+}) => {
+  const { history, navigate } = useRuntime()
+  const { formatMessage } = useIntl()
+  const iconProfile = useResponsiveValue(showIconProfile)
 
-  renderIcon = () => {
-    const {
-      iconSize,
-      iconLabel: iconLabelProfile,
-      labelClasses,
-      intl,
-      loginButtonAsLink,
-      onProfileIconClick,
-      sessionProfile,
-      showIconProfile,
-      runtime: { history, navigate },
-    } = this.props
+  const pathname = history && history.location && history.location.pathname
 
-    const pathname = history && history.location && history.location.pathname
-
-    const iconClasses = 'flex items-center'
-    const iconLabel = iconLabelProfile || translate('store/login.signIn', intl)
-    const buttonContent = (
-      <Fragment>
-        {sessionProfile ? (
+  const iconClasses = 'flex items-center'
+  const iconLabel = iconLabelProfile || formatMessage({ id: 'store/login.signIn' })
+  const buttonContent = (
+    <Fragment>
+      {sessionProfile ? (
+        <span
+          className={`${styles.profile} t-action--small order-1 ${iconProfile ? 'pl4' : ''} ${labelClasses} dn db-l`}
+        >
+          {formatMessage({ id: 'store/login.hello' })}{' '}
+          {sessionProfile.firstName || truncateString(sessionProfile.email)}
+        </span>
+      ) : (
+        iconLabel && (
           <span
-            className={`${styles.profile} t-action--small order-1 pl4 ${labelClasses} dn db-l`}
+            className={`${styles.label} t-action--small ${iconProfile ? 'pl4 dn db-l' : ''} ${labelClasses}`}
           >
-            {translate('store/login.hello', intl)}{' '}
-            {sessionProfile.firstName || truncateString(sessionProfile.email)}
+            {iconLabel}
           </span>
-        ) : (
-          iconLabel && (
-            <span
-              className={`${styles.label} t-action--small pl4 ${labelClasses} dn db-l`}
-            >
-              {iconLabel}
-            </span>
-          )
-        )}
-      </Fragment>
-    )
+        )
+      )}
+    </Fragment>
+  )
 
-    if (loginButtonAsLink) {
-      const linkTo = sessionProfile ? 'store.account' : 'store.login'
-      const returnUrl =
-        !sessionProfile && `returnUrl=${encodeURIComponent(pathname)}`
-      return (
-        <div className={styles.buttonLink}>
-          <ButtonWithIcon
-            variation="tertiary"
-            icon={
-              showIconProfile && (
-                <ProfileIcon iconSize={iconSize} labelClasses={labelClasses} iconClasses={iconClasses} />
-              )
-            }
-            iconPosition={showIconProfile ? 'left' : 'right'}
-            onClick={() => navigate({ page: linkTo, query: returnUrl })}
-          >
-            {buttonContent}
-          </ButtonWithIcon>
-        </div>
-      )
-    }
-
+  if (loginButtonAsLink) {
+    const linkTo = sessionProfile ? 'store.account' : 'store.login'
+    const returnUrl =
+      !sessionProfile && `returnUrl=${encodeURIComponent(pathname)}`
     return (
-      <ButtonWithIcon
-        variation="tertiary"
-        icon={
-          showIconProfile && (
-            <ProfileIcon iconSize={iconSize} labelClasses={labelClasses} />
-          )
-        }
-        iconPosition={showIconProfile ? 'left' : 'right'}
-        onClick={onProfileIconClick}
-      >
-        <div
-          className="flex pv2 items-center"
-          ref={e => {
-            this.iconRef = e
-          }}
+      <div className={styles.buttonLink}>
+        <ButtonWithIcon
+          variation="tertiary"
+          icon={
+            iconProfile && (
+              <ProfileIcon iconSize={iconSize} labelClasses={labelClasses} iconClasses={iconClasses} />
+            )
+          }
+          iconPosition={iconProfile ? 'left' : 'right'}
+          onClick={() => navigate({ page: linkTo, query: returnUrl })}
         >
           {buttonContent}
-        </div>
-      </ButtonWithIcon>
-    )
-  }
-
-  render() {
-    const {
-      isBoxOpen,
-      onOutSideBoxClick,
-      sessionProfile,
-      mirrorTooltipToRight,
-    } = this.props
-
-    return (
-      <div className={`${styles.container} flex items-center fr`}>
-        <div className="relative">
-          {this.renderIcon()}
-          {isBoxOpen && (
-            <Overlay>
-              <OutsideClickHandler onOutsideClick={onOutSideBoxClick}>
-                <Popover mirrorTooltipToRight={mirrorTooltipToRight}>
-                  <Suspense fallback={<Loading />}>
-                    <LoginContent
-                      profile={sessionProfile}
-                      loginCallback={this.onClickLoginButton}
-                      isInitialScreenOptionOnly
-                      {...this.props}
-                    />
-                  </Suspense>
-                </Popover>
-              </OutsideClickHandler>
-            </Overlay>
-          )}
-        </div>
+        </ButtonWithIcon>
       </div>
     )
   }
+
+  return (
+    <ButtonWithIcon
+      variation="tertiary"
+      icon={
+        iconProfile && (
+          <ProfileIcon iconSize={iconSize} labelClasses={labelClasses} />
+        )
+      }
+      iconPosition={iconProfile ? 'left' : 'right'}
+      onClick={onProfileIconClick}
+    >
+      <div className="flex pv2 items-center">
+        {buttonContent}
+      </div>
+    </ButtonWithIcon>
+  )
 }
 
-export default withRuntimeContext(LoginComponent)
+/** Function called after login success */
+const handleClickLoginButton = () => {
+  window.location.reload()
+}
+
+const LoginComponent = (props) => {
+  const {
+    isBoxOpen,
+    onOutSideBoxClick,
+    sessionProfile,
+    mirrorTooltipToRight,
+  } = props
+
+  return (
+    <div className={`${styles.container} flex items-center fr`}>
+      <div className="relative">
+        <LoginIcon {...props} />
+        {isBoxOpen && (
+          <Overlay>
+            <OutsideClickHandler onOutsideClick={onOutSideBoxClick}>
+              <Popover mirrorTooltipToRight={mirrorTooltipToRight}>
+                <Suspense fallback={<Loading />}>
+                  <LoginContent
+                    profile={sessionProfile}
+                    loginCallback={handleClickLoginButton}
+                    isInitialScreenOptionOnly
+                    {...props}
+                  />
+                </Suspense>
+              </Popover>
+            </OutsideClickHandler>
+          </Overlay>
+        )}
+      </div>
+    </div>
+  )
+}
+
+LoginComponent.propTypes = LoginPropTypes
+
+export default LoginComponent

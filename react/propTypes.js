@@ -23,7 +23,15 @@ export const LoginContainerProptypes = {
   /** Label's classnames */
   labelClasses: PropTypes.string,
   /** Determines if the icon profile will be hidden */
-  showIconProfile: PropTypes.bool,
+  showIconProfile: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.shape({
+      mobile: PropTypes.bool,
+      desktop: PropTypes.bool,
+      tablet: PropTypes.bool,
+      phone: PropTypes.bool
+    })
+  ]),
   /** Password login button text */
   providerPasswordButtonLabel: PropTypes.string,
   /** Whether the identifier extension values are enabled in the site editor */
