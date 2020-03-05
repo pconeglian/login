@@ -55,6 +55,13 @@ export const LoginSchema = {
       title: 'admin/editor.login.hasIdentifierExtension',
       type: 'boolean',
     },
+    termsAndConditions: {
+      title: 'admin/editor.login.termsAndConditions',
+      type: 'string',
+      widget: {
+        'ui:widget': 'textarea',
+      },
+    },
   },
   dependencies: {
     hasIdentifierExtension: {
