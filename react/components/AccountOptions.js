@@ -28,7 +28,9 @@ const AccountOptions = ({ intl, optionLinks }) => {
       <div className="ma4 min-h-2 b--muted-4">
         {optionLinks && optionLinks.length > 0 ? (
           <>
-            <div className="t-small b pb4">
+            <div
+              className={`${styles.accountOptionsSectionTitle} t-small b pb4`}
+            >
               {translate('store/login.myAccount', intl)}
             </div>
             {optionLinks.map(({ label, path, cssClass }, inx) => (
@@ -62,7 +64,7 @@ const AccountOptions = ({ intl, optionLinks }) => {
             if (hasOptionLinks) {
               return (
                 <button
-                  className="t-small bn pa0 c-muted-1 hover-c-danger pointer"
+                  className={`${styles.logoutButton} t-small bn pa0 c-muted-1 hover-c-danger pointer`}
                   onClick={logout}
                 >
                   {translate('store/login.logoutLabel', intl)}
