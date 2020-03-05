@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { withSession } from 'vtex.render-runtime'
 import { injectIntl } from 'react-intl'
 
-import { LogInButtonBehavior } from './common/global'
+import { ButtonBehavior } from './common/global'
 import { LoginSchema } from './schema'
 import { setCookie } from './utils/set-cookie'
 import { LoginContainerProptypes } from './propTypes'
@@ -19,7 +19,7 @@ export default class Login extends Component {
 
   static defaultProps = {
     labelClasses: DEFAULT_CLASSES,
-    logInButtonBehavior: LogInButtonBehavior.POPOVER,
+    logInButtonBehavior: ButtonBehavior.POPOVER,
   }
 
   state = {
@@ -80,14 +80,15 @@ export default class Login extends Component {
   }
 
   render() {
-    const { logInButtonBehavior } = this.props
-    const shouldBeLink = this.state.isMobileScreen || logInButtonBehavior === LogInButtonBehavior.LINK
-
+    const { logInButtonBehavior, accountOptionsButtonBehavior } = this.props
+    const { sessionProfile } = this.state
+    const shouldBeLink = this.state.isMobileScreen || (sessionProfile ? accountOptionsButtonBehavior === ButtonBehavior.LINK : logInButtonBehavior === ButtonBehavior.LINK)
+    
     return (
       <LoginWithSession
         isBoxOpen={this.state.isBoxOpen}
         loginButtonAsLink={shouldBeLink}
-        sessionProfile={this.state.sessionProfile}
+        sessionProfile={sessionProfile}
         {...this.props}
         onOutSideBoxClick={this.handleOutSideBoxClick}
         onProfileIconClick={this.handleProfileIconClick}
@@ -109,8 +110,8 @@ Login.getSchema = () => ({
     logInButtonBehavior: {
       title: 'admin/editor.login.logInButtonBehavior',
       type: 'string',
-      enum: [LogInButtonBehavior.POPOVER, LogInButtonBehavior.LINK],
-      default: LogInButtonBehavior.POPOVER,
+      enum: [ButtonBehavior.POPOVER, ButtonBehavior.LINK],
+      default: ButtonBehavior.POPOVER,
     },
     accountOptionLinks: {
       title: 'admin/editor.login.accountOptionLinks',
