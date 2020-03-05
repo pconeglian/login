@@ -4,6 +4,7 @@ import { injectIntl, intlShape } from 'react-intl'
 import { Link } from 'vtex.render-runtime'
 import { Button } from 'vtex.styleguide'
 import { AuthServiceLazy } from 'vtex.react-vtexid'
+import { useCssHandles } from 'vtex.css-handles'
 
 import { translate } from '../utils/translate'
 import styles from '../styles.css'
@@ -14,6 +15,14 @@ const AccountOptions = ({ intl, optionLinks }) => {
     optionLinks,
   ])
 
+  const cssClasses = useMemo(() => {
+    return optionLinks
+      .map(({ cssClass }) => cssClass)
+      .filter(cssClass => cssClass)
+  }, [optionLinks])
+
+  const handles = useCssHandles(cssClasses)
+
   return (
     <div className={`${styles.accountOptions} items-center w-100`}>
       <div className="ma4 min-h-2 b--muted-4">
@@ -22,9 +31,10 @@ const AccountOptions = ({ intl, optionLinks }) => {
             <div className="t-small b pb4">
               {translate('store/login.myAccount', intl)}
             </div>
-            {optionLinks.map(({ label, path }, inx) => (
+            {optionLinks.map(({ label, path, cssClass }, inx) => (
               <a
-                className="db no-underline t-small c-muted-1 hover-c-action-primary pb3"
+                className={`${handles[cssClass] ||
+                  ''} db no-underline t-small c-muted-1 hover-c-action-primary pb3`}
                 href={new URL(path || '/', window.location.href).href}
                 key={inx}
               >

@@ -113,7 +113,7 @@ Through the Storefront, you can change the `login`'s behavior and interface. How
 | `invalidIdentifierError`                           | `String`  | Set error message for invalid user identifier                                                 | -             |
 | `mirrorTooltipToRight`                             | `Boolean` | Makes login tooltip open towards the right side                                               | -             |
 | `logInButtonBehavior`                              | `Enum`    | Set log in button behavior. `"popover"` for popover, `"link"` for a link to the `/login` page | "popover"     |
-| `accountOptionLinks`                               | `Array`   | Determines more specific account option links to replace the `My Account` link.<br>Each array element is an object with the properties:<br><ul><li>`label` - Link text</li><li>`path` - Relative path to where the link leads</li></ul> | -             |
+| `accountOptionLinks`                               | `Array`   | Determines more specific account option links to replace the `My Account` link.<br>Each array element is an object with the properties:<br><ul><li>`label` [`string`] - Link text</li><li>`path` [`string`] - Relative path to where the link leads</li><li>`cssClass` [`string`] - CSS class the link receives</li></ul> | -             |
 
 You can also change the `login-content`'s behaviour and interface through the Store front.
 
