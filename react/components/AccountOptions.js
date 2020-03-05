@@ -16,7 +16,7 @@ const AccountOptions = ({ intl, optionLinks }) => {
   ])
 
   const cssClasses = useMemo(() => {
-    return optionLinks
+    return (optionLinks || [])
       .map(({ cssClass }) => cssClass)
       .filter(cssClass => cssClass)
   }, [optionLinks])
@@ -26,7 +26,7 @@ const AccountOptions = ({ intl, optionLinks }) => {
   return (
     <div className={`${styles.accountOptions} items-center w-100`}>
       <div className="ma4 min-h-2 b--muted-4">
-        {optionLinks && optionLinks.length > 0 ? (
+        {hasOptionLinks ? (
           <>
             <div
               className={`${styles.accountOptionsSectionTitle} t-small b pb4`}
