@@ -22,10 +22,11 @@ const AccountOptions = ({ intl, optionLinks }) => {
             <div className="t-small b pb4">
               {translate('store/login.myAccount', intl)}
             </div>
-            {optionLinks.map(({ label, path }) => (
+            {optionLinks.map(({ label, path }, inx) => (
               <a
                 className="db no-underline t-small c-muted-1 hover-c-action-primary pb3"
                 href={new URL(path || '/', window.location.href).href}
+                key={inx}
               >
                 {label}
               </a>
