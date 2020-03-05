@@ -115,24 +115,26 @@ Through the Storefront, you can change the `login`'s behavior and interface. How
 | `logInButtonBehavior`                              | `Enum`    | Set log in button behavior. `"popover"` for popover, `"link"` for a link to the `/login` page            | "popover"     |
 | `accountOptionsButtonBehavior`                     | `Enum`    | Set account options button behavior. `"popover"` for popover, `"link"` for a link to the `/account` page | "popover"     |
 | `accountOptionLinks`                               | `Array`   | Determines more specific account option links to replace the `My Account` link.<br>Each array element is an object with the properties:<br><ul><li>`label` [`string`] - Link text</li><li>`path` [`string`] - Relative path to where the link leads</li><li>`cssClass` [`string`] - CSS class the link receives</li></ul>                           | -             |
+| `termsAndConditions`                               | `String`  | Sets a markdown text below the login options, meant to warn the user about terms & conditions            | -             |
 
 You can also change the `login-content`'s behaviour and interface through the Store front.
 
-| Prop name                             | Type      | Description                                                                           | Default value |
-| ------------------------------------- | --------- | ------------------------------------------------------------------------------------- | ------------- |
-| `isInitialScreenOptionOnly`           | `Boolean` | Set to show only the login options on the initial screen                              | true          |
-| `defaultOption`                       | `Enum`    | Set the initial form to show. 0 for access code login, 1 for email and password login | 0             |
-| `optionsTitle`                        | `String`  | Set title of login options                                                            | -             |
-| `emailAndPasswordTitle`               | `String`  | Set title of login with email and password                                            | -             |
-| `accessCodeTitle`                     | `String`  | Set title of login by access code                                                     | -             |
-| `emailPlaceholder`                    | `String`  | Set placeholder to email input                                                        | -             |
-| `passwordPlaceholder`                 | `String`  | Set placeholder to password input                                                     | -             |
-| `showPasswordVerificationIntoTooltip` | `Boolean` | Set show password format verification as tooltip                                      | -             |
-| `acessCodePlaceholder`                | `String`  | Set placeholder to access code input                                                  | -             |
-| `providerPasswordButtonLabel`         | `String`  | Set Password login button text                                                        | -             |
-| `hasIdentifierExtension`              | `Boolean` | Enables identifier extension configurations                                           | -             |
-| `identifierPlaceholder`               | `String`  | Set placeholder for the identifier extension                                          | -             |
-| `invalidIdentifierError`              | `String`  | Set error message for invalid user identifier                                         | -             |
+| Prop name                             | Type      | Description                                                                                   | Default value |
+| ------------------------------------- | --------- | --------------------------------------------------------------------------------------------- | ------------- |
+| `isInitialScreenOptionOnly`           | `Boolean` | Set to show only the login options on the initial screen                                      | true          |
+| `defaultOption`                       | `Enum`    | Set the initial form to show. 0 for access code login, 1 for email and password login         | 0             |
+| `optionsTitle`                        | `String`  | Set title of login options                                                                    | -             |
+| `emailAndPasswordTitle`               | `String`  | Set title of login with email and password                                                    | -             |
+| `accessCodeTitle`                     | `String`  | Set title of login by access code                                                             | -             |
+| `emailPlaceholder`                    | `String`  | Set placeholder to email input                                                                | -             |
+| `passwordPlaceholder`                 | `String`  | Set placeholder to password input                                                             | -             |
+| `showPasswordVerificationIntoTooltip` | `Boolean` | Set show password format verification as tooltip                                              | -             |
+| `acessCodePlaceholder`                | `String`  | Set placeholder to access code input                                                          | -             |
+| `providerPasswordButtonLabel`         | `String`  | Set Password login button text                                                                | -             |
+| `hasIdentifierExtension`              | `Boolean` | Enables identifier extension configurations                                                   | -             |
+| `identifierPlaceholder`               | `String`  | Set placeholder for the identifier extension                                                  | -             |
+| `invalidIdentifierError`              | `String`  | Set error message for invalid user identifier                                                 | -             |
+| `termsAndConditions`                  | `String`  | Sets a markdown text below the login options, meant to warn the user about terms & conditions | -             |
 
 ### Plugins API
 
@@ -303,6 +305,7 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 | `tooltipContainer`         | Tooltip Container                    | [Tooltip](/react/components/Tooltip.js)                                                                                                                                                                                                      |
 | `tooltipContainerTop`      | Tooltip Top                          | [Tooltip](/react/components/Tooltip.js)                                                                                                                                                                                                      |
 | `tooltipContainerLeft`     | Tooltip Left                         | [Tooltip](/react/components/Tooltip.js)                                                                                                                                                                                                      |
+| `termsAndConditions`       | Container below login options        | [LoginContent](/react/LoginContent.js)                                                                                                                                                                                                       |
 
 ## Troubleshooting
 
