@@ -113,6 +113,12 @@ Login.getSchema = () => ({
       enum: [ButtonBehavior.POPOVER, ButtonBehavior.LINK],
       default: ButtonBehavior.POPOVER,
     },
+    accountOptionsButtonBehavior: {
+      title: 'admin/editor.login.accountOptionsButtonBehavior',
+      type: 'string',
+      enum: [ButtonBehavior.POPOVER, ButtonBehavior.LINK],
+      default: ButtonBehavior.POPOVER,
+    },
     accountOptionLinks: {
       title: 'admin/editor.login.accountOptionLinks',
       type: 'array',

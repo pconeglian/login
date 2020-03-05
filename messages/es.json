@@ -54,7 +54,8 @@
   "admin/editor.login.invalidIdentifierError": "Error de identificador inválido",
   "admin/editor.login.mirrorTooltipToRightTitle": "Reflejar tooltip a la derecha",
   "admin/editor.login.logInButtonBehavior": "Comportamiento del botón de login",
-  "admin/editor.login.accountOptionLinks": "Enlaces de Opción de la Cuenta",
+  "admin/editor.login.accountOptionsButtonBehavior": "Comportamiento del botón de opciones de la cuenta",
+  "admin/editor.login.accountOptionLinks": "Enlaces de opción de la cuenta",
   "admin/editor.login.accountOptionLabelTitle": "Label",
   "admin/editor.login.accountOptionPathTitle": "Path",
   "admin/editor.login.accountOptionCssClassTitle": "Clase CSS"
