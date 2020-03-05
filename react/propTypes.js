@@ -40,6 +40,8 @@ export const LoginContainerProptypes = {
   accountOptionsButtonBehavior: PropTypes.string,
   /** Determines more specific account option buttons to replace the "My Account" button */
   accountOptionLinks: PropTypes.array,
+  /** Terms and conditions text in markdown */
+  termsAndConditions: PropTypes.string,
 }
 
 export const LoginPropTypes = {
