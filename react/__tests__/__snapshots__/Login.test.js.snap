@@ -60,9 +60,11 @@ exports[`<Login /> component should match snapshot when loading 1`] = `
     </div>
   </div>
 </DocumentFragment>
-`;
+`
 
-exports[`<Login /> component should match snapshot with profile with name 1`] = `
+exports[
+  `<Login /> component should match snapshot with profile with name 1`
+] = `
 <DocumentFragment>
   <div
     class="container flex items-center fr"
@@ -100,14 +102,14 @@ exports[`<Login /> component should match snapshot with profile with name 1`] = 
                 class="content flex relative bg-base justify-around overflow-visible pa4 center items-start-ns contentInitialScreen items-baseline"
               >
                 <div
-                  class="contentForm dn ph4 pb6 contentFormVisible db "
+                  class="contentForm dn ph4 contentFormVisible db "
                 >
                   <div>
                     <div
                       class="accountOptions items-center w-100"
                     >
                       <div
-                        class="ma4 min-h-2 b--muted-4"
+                        class="mv4 min-h-2 b--muted-4"
                       >
                         <a
                           href="store.account"
@@ -128,7 +130,7 @@ exports[`<Login /> component should match snapshot with profile with name 1`] = 
                         class="mv2 o-30"
                       />
                       <div
-                        class="ma4 min-h-2 b--muted-4"
+                        class="mv4 min-h-2 b--muted-4"
                       >
                         <button
                           class="Button-mock"
@@ -152,9 +154,11 @@ exports[`<Login /> component should match snapshot with profile with name 1`] = 
     </div>
   </div>
 </DocumentFragment>
-`;
+`
 
-exports[`<Login /> component should match snapshot with profile without name 1`] = `
+exports[
+  `<Login /> component should match snapshot with profile without name 1`
+] = `
 <DocumentFragment>
   <div
     class="container flex items-center fr"
@@ -192,14 +196,14 @@ exports[`<Login /> component should match snapshot with profile without name 1`]
                 class="content flex relative bg-base justify-around overflow-visible pa4 center items-start-ns contentInitialScreen items-baseline"
               >
                 <div
-                  class="contentForm dn ph4 pb6 contentFormVisible db "
+                  class="contentForm dn ph4 contentFormVisible db "
                 >
                   <div>
                     <div
                       class="accountOptions items-center w-100"
                     >
                       <div
-                        class="ma4 min-h-2 b--muted-4"
+                        class="mv4 min-h-2 b--muted-4"
                       >
                         <a
                           href="store.account"
@@ -220,7 +224,7 @@ exports[`<Login /> component should match snapshot with profile without name 1`]
                         class="mv2 o-30"
                       />
                       <div
-                        class="ma4 min-h-2 b--muted-4"
+                        class="mv4 min-h-2 b--muted-4"
                       >
                         <button
                           class="Button-mock"
@@ -244,7 +248,7 @@ exports[`<Login /> component should match snapshot with profile without name 1`]
     </div>
   </div>
 </DocumentFragment>
-`;
+`
 
 exports[`<Login /> component should match snapshot without profile 1`] = `
 <DocumentFragment>
@@ -392,7 +396,7 @@ exports[`<Login /> component should match snapshot without profile 1`] = `
                   </div>
                 </div>
                 <div
-                  class="contentForm dn ph4 pb6"
+                  class="contentForm dn ph4"
                 />
               </div>
             </div>
@@ -402,4 +406,4 @@ exports[`<Login /> component should match snapshot without profile 1`] = `
     </div>
   </div>
 </DocumentFragment>
-`;
+`

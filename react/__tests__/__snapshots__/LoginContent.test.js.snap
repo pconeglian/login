@@ -114,11 +114,11 @@ exports[`<LoginContent /> component should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="contentForm dn ph4 pb6"
+      class="contentForm dn ph4"
     />
   </div>
 </DocumentFragment>
-`;
+`
 
 exports[`<LoginContent /> component should match snapshot when loading 1`] = `
 <DocumentFragment>
@@ -234,8 +234,8 @@ exports[`<LoginContent /> component should match snapshot when loading 1`] = `
       </div>
     </div>
     <div
-      class="contentForm dn ph4 pb6"
+      class="contentForm dn ph4"
     />
   </div>
 </DocumentFragment>
-`;
+`
