@@ -325,7 +325,7 @@ class LoginContent extends Component {
             )
           }}
         </AuthStateLazy.IdentityProviders>
-        <div className="t-mini c-muted-2 tc">
+        <div className={`${styles.termsAndConditions} t-mini c-muted-2 tc`}>
          <Markdown source={this.props.termsAndConditions} />
         </div>
       </div>
