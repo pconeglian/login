@@ -8,6 +8,7 @@ import { Button } from 'vtex.styleguide'
 
 import FacebookIcon from '../images/FacebookIcon'
 import GoogleIcon from '../images/GoogleIcon'
+import AppleIcon from '../images/AppleIcon'
 import { translate } from '../utils/translate'
 import FormTitle from './FormTitle'
 import OAuth from './OAuth'
@@ -17,6 +18,7 @@ import styles from '../styles.css'
 const PROVIDERS_ICONS = {
   Google: GoogleIcon,
   Facebook: FacebookIcon,
+  Apple: AppleIcon,
 }
 
 /** LoginOptions tab component. Displays a list of login options */
@@ -104,6 +106,7 @@ class LoginOptions extends Component {
             {options.providers &&
               options.providers.map(({ providerName }, index) => {
                 const hasIcon = PROVIDERS_ICONS.hasOwnProperty(providerName)
+                console.log(providerName, hasIcon)
                 return (
                   <li
                     className={`${styles.optionsListItem} mb3`}
