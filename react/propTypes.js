@@ -36,10 +36,12 @@ export const LoginContainerProptypes = {
   mirrorTooltipToRight: PropTypes.bool,
   /** Determines what happens when the log in button is pressed */
   logInButtonBehavior: PropTypes.string,
+  /** Determines more specific account option buttons to replace the "My Account" button */
+  accountOptionLinks: PropTypes.array,
 }
 
 export const LoginPropTypes = {
-  /** Intl object*/
+  /** Intl object */
   intl: intlShape,
   /** User profile information */
   profile: PropTypes.shape({}),
@@ -47,9 +49,9 @@ export const LoginPropTypes = {
   isBoxOpen: PropTypes.bool.isRequired,
   /** Should the Login Button be rendered as link or not */
   loginButtonAsLink: PropTypes.bool.isRequired,
-  /** Function called when the user click outside of the box*/
+  /** Function called when the user click outside of the box */
   onOutSideBoxClick: PropTypes.func.isRequired,
-  /** Function called when the user clicks on the icon*/
+  /** Function called when the user clicks on the icon */
   onProfileIconClick: PropTypes.func.isRequired,
   /** Runtime context. */
   runtime: PropTypes.shape({

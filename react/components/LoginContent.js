@@ -78,10 +78,10 @@ const STEPS = [
       </div>
     )
   },
-  () => {
+  (props) => {
     return style => (
       <div style={style} key={3}>
-        <AccountOptions />
+        <AccountOptions optionLinks={props.accountOptionLinks} />
       </div>
     )
   },
@@ -371,7 +371,7 @@ class LoginContent extends Component {
       }
     )
 
-    const formClassName = classNames(styles.contentForm, 'dn ph4 pb6', {
+    const formClassName = classNames(styles.contentForm, 'dn ph4', {
       [`${styles.contentFormVisible} db `]: this.shouldRenderForm,
     })
 

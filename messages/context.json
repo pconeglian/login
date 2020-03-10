@@ -53,5 +53,9 @@
   "admin/editor.login.identifierPlaceholder": "admin/editor.login.identifierPlaceholder",
   "admin/editor.login.invalidIdentifierError": "admin/editor.login.invalidIdentifierError",
   "admin/editor.login.mirrorTooltipToRightTitle": "admin/editor.login.mirrorTooltipToRightTitle",
-  "admin/editor.login.logInButtonBehavior": "admin/editor.login.logInButtonBehavior"
+  "admin/editor.login.logInButtonBehavior": "admin/editor.login.logInButtonBehavior",
+  "admin/editor.login.accountOptionLinks": "admin/editor.login.accountOptionLinks",
+  "admin/editor.login.accountOptionLabelTitle": "admin/editor.login.accountOptionLabelTitle",
+  "admin/editor.login.accountOptionPathTitle": "admin/editor.login.accountOptionPathTitle",
+  "admin/editor.login.accountOptionCssClassTitle": "admin/editor.login.accountOptionCssClassTitle"
 }

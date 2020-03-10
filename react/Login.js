@@ -104,7 +104,7 @@ Login.getSchema = () => ({
     mirrorTooltipToRight: {
       title: 'admin/editor.login.mirrorTooltipToRightTitle',
       type: 'boolean',
-      default: 'false',
+      default: false,
     },
     logInButtonBehavior: {
       title: 'admin/editor.login.logInButtonBehavior',
@@ -112,11 +112,32 @@ Login.getSchema = () => ({
       enum: [LogInButtonBehavior.POPOVER, LogInButtonBehavior.LINK],
       default: LogInButtonBehavior.POPOVER,
     },
+    accountOptionLinks: {
+      title: 'admin/editor.login.accountOptionLinks',
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          label: {
+            title: 'admin/editor.login.accountOptionLabelTitle',
+            type: 'string'
+          },
+          path: {
+            title: 'admin/editor.login.accountOptionPathTitle',
+            type: 'string'
+          },
+          cssClass: {
+            title: 'admin/editor.login.accountOptionCssClassTitle',
+            type: 'string'
+          }
+        }
+      }
+    }
   },
 })
 
 Login.uiSchema = {
-  'ui:order': ['*', 'hasIdentifierExtension', 'identifierPlaceholder', 'invalidIdentifierError'],
+  'ui:order': ['*', 'hasIdentifierExtension', 'identifierPlaceholder', 'invalidIdentifierError', 'accountOptionLinks'],
 }
 
 const LoginWithSession = withSession({ renderWhileLoading: true })(injectIntl(LoginComponent))

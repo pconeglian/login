@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- `mirrorTooltipToRight`'s default prop value
+
+### Added
+
+- `accountOptionLinks` prop to the `login` interface
+- `accountOptionLinks` prop to the site-editor
+
 ## [2.24.0] - 2020-02-19
 
 ### Added

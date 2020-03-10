@@ -53,5 +53,9 @@
   "admin/editor.login.identifierPlaceholder": "Placeholder do campo de identificador",
   "admin/editor.login.invalidIdentifierError": "Erro de identificador inválido",
   "admin/editor.login.mirrorTooltipToRightTitle": "Espelhar tooltip para a direita",
-  "admin/editor.login.logInButtonBehavior": "Comportamento do botão de login"
+  "admin/editor.login.logInButtonBehavior": "Comportamento do botão de login",
+  "admin/editor.login.accountOptionLinks": "Links de Opção da Conta",
+  "admin/editor.login.accountOptionLabelTitle": "Label",
+  "admin/editor.login.accountOptionPathTitle": "Path",
+  "admin/editor.login.accountOptionCssClassTitle": "Classe CSS"
 }
