@@ -275,7 +275,7 @@ class LoginContent extends Component {
     })
   }
 
-  renderChildren = style => {
+  renderChildren = () => {
     const {
       profile,
       isInitialScreenOptionOnly,
@@ -293,7 +293,7 @@ class LoginContent extends Component {
     }
 
     return (
-      <div style={style} key={0}>
+      <>
         <AuthStateLazy.IdentityProviders>
           {({ value: options }) => {
             const [
@@ -328,7 +328,7 @@ class LoginContent extends Component {
         <div className={`${styles.termsAndConditions} t-mini c-muted-2 tc`}>
          <Markdown source={this.props.termsAndConditions} />
         </div>
-      </div>
+      </>
     )
   }
 
