@@ -10,11 +10,16 @@ import { translate } from '../utils/translate'
 import PasswordValidationContent from './PasswordValidationContent'
 import TooltipVerification from './TooltipVerification'
 
+import styles from '../styles.css'
+
 const SuffixIcon = ({ handleEyeIcon, showPassword }) => {
   const hasIconBlock = Boolean(useChildBlock({ id: 'icon-eye-sight' }))
 
+  const visiblePassStyle = `${styles.eyeIcon}--visible`
+  const invisiblePassStyle = `${styles.eyeIcon}--invisible`
+
   return (
-    <span className="pointer" onClick={handleEyeIcon}>
+    <span className={`${showPassword ? visiblePassStyle : invisiblePassStyle} pointer`} onClick={handleEyeIcon}>
       {hasIconBlock ? (
         <ExtensionPoint
           id="icon-eye-sight"
