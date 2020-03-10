@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `termsAndConditions` prop to the `login` and `login-content` interfaces
+- `termsAndConditions` prop to the site-editor
+
 ## [2.26.0] - 2020-03-12
 
 ### Added
