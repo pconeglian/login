@@ -11,6 +11,7 @@ import { IconProfile } from 'vtex.store-icons'
 import Overlay from 'vtex.react-portal/Overlay'
 import { ButtonWithIcon } from 'vtex.styleguide'
 import { useResponsiveValue } from 'vtex.responsive-values'
+import { useDevice } from 'vtex.device-detector'
 
 import { truncateString } from '../utils/format-string'
 import { LoginPropTypes } from '../propTypes'
@@ -54,6 +55,7 @@ const LoginIcon = ({
   const { history, navigate } = useRuntime()
   const { formatMessage } = useIntl()
   const iconProfile = useResponsiveValue(showIconProfile)
+  const { isMobile } = useDevice()
 
   const pathname = history && history.location && history.location.pathname
 
@@ -63,7 +65,7 @@ const LoginIcon = ({
     <Fragment>
       {sessionProfile ? (
         <span
-          className={`${styles.profile} t-action--small order-1 ${iconProfile ? 'pl4' : ''} ${labelClasses} dn db-l`}
+          className={`${styles.profile} t-action--small order-1 ${iconProfile ? 'pl4' : ''} ${labelClasses}`}
         >
           {formatMessage({ id: 'store/login.hello' })}{' '}
           {sessionProfile.firstName || truncateString(sessionProfile.email)}
@@ -71,7 +73,7 @@ const LoginIcon = ({
       ) : (
         iconLabel && (
           <span
-            className={`${styles.label} t-action--small ${iconProfile ? 'pl4 dn db-l' : ''} ${labelClasses}`}
+            className={`${styles.label} t-action--small ${iconProfile ? 'pl4' : ''} ${labelClasses}`}
           >
             {iconLabel}
           </span>
@@ -96,7 +98,7 @@ const LoginIcon = ({
           iconPosition={iconProfile ? 'left' : 'right'}
           onClick={() => navigate({ page: linkTo, query: returnUrl })}
         >
-          {buttonContent}
+          {!isMobile && buttonContent}
         </ButtonWithIcon>
       </div>
     )
@@ -113,9 +115,9 @@ const LoginIcon = ({
       iconPosition={iconProfile ? 'left' : 'right'}
       onClick={onProfileIconClick}
     >
-      <div className="flex pv2 items-center">
+      {!isMobile && <div className="flex pv2 items-center">
         {buttonContent}
-      </div>
+      </div>}
     </ButtonWithIcon>
   )
 }
