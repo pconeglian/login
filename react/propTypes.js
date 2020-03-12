@@ -36,6 +36,8 @@ export const LoginContainerProptypes = {
   mirrorTooltipToRight: PropTypes.bool,
   /** Determines what happens when the log in button is pressed */
   logInButtonBehavior: PropTypes.string,
+  /** Determines what happens when the account options button is pressed (the user is logged in) */
+  accountOptionsButtonBehavior: PropTypes.string,
   /** Determines more specific account option buttons to replace the "My Account" button */
   accountOptionLinks: PropTypes.array,
 }

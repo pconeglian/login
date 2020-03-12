@@ -54,8 +54,9 @@
   "admin/editor.login.invalidIdentifierError": "Invalid identifier error",
   "admin/editor.login.mirrorTooltipToRightTitle": "Mirror tooltip to right",
   "admin/editor.login.logInButtonBehavior": "Log in button behavior",
-  "admin/editor.login.accountOptionLinks": "Account Option Links",
+  "admin/editor.login.accountOptionsButtonBehavior": "Account options button behavior",
+  "admin/editor.login.accountOptionLinks": "Account option links",
   "admin/editor.login.accountOptionLabelTitle": "Label",
   "admin/editor.login.accountOptionPathTitle": "Path",
-  "admin/editor.login.accountOptionCssClassTitle": "CSS Class"
+  "admin/editor.login.accountOptionCssClassTitle": "CSS class"
 }
