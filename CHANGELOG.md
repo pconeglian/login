@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.26.0] - 2020-03-12
+
 ### Added
 
 - `accountOptionsButtonBehavior` prop to the `login` interface. It defaults to `popover` and can be changed to `link`
