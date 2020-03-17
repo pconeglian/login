@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import { graphql } from 'react-apollo'
 import { injectIntl } from 'react-intl'
 import { withSession, withRuntimeContext } from 'vtex.render-runtime'
+import Markdown from 'react-markdown'
 
 import Loading from './Loading'
 import LoginOptions from './LoginOptions'
@@ -139,6 +140,8 @@ class LoginContent extends Component {
     hasIdentifierExtension: PropTypes.bool,
     identifierPlaceholder: PropTypes.string,
     invalidIdentifierError: PropTypes.string,
+    /** Terms and conditions text in markdown */
+    termsAndConditions: PropTypes.string,
   }
 
   static defaultProps = {
@@ -322,6 +325,9 @@ class LoginContent extends Component {
             )
           }}
         </AuthStateLazy.IdentityProviders>
+        <div className={`${styles.termsAndConditions} t-mini c-muted-2 tc`}>
+         <Markdown source={this.props.termsAndConditions} />
+        </div>
       </div>
     )
   }

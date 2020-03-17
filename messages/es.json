@@ -58,5 +58,6 @@
   "admin/editor.login.accountOptionLinks": "Enlaces de opción de la cuenta",
   "admin/editor.login.accountOptionLabelTitle": "Label",
   "admin/editor.login.accountOptionPathTitle": "Path",
-  "admin/editor.login.accountOptionCssClassTitle": "Clase CSS"
+  "admin/editor.login.accountOptionCssClassTitle": "Clase CSS",
+  "admin/editor.login.termsAndConditions": "Markdown de términos y condiciones"
 }

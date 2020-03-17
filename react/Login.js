@@ -145,7 +145,7 @@ Login.getSchema = () => ({
 })
 
 Login.uiSchema = {
-  'ui:order': ['*', 'hasIdentifierExtension', 'identifierPlaceholder', 'invalidIdentifierError', 'accountOptionLinks'],
+  'ui:order': ['*', 'hasIdentifierExtension', 'identifierPlaceholder', 'invalidIdentifierError', 'accountOptionLinks']
 }
 
 const LoginWithSession = withSession({ renderWhileLoading: true })(injectIntl(LoginComponent))

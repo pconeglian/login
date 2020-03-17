@@ -1,6 +1,7 @@
 import React, { Component, Suspense } from 'react'
-import LoginContent from './components/LoginContent'
 import { NoSSR } from 'vtex.render-runtime'
+
+import LoginContent from './components/LoginContent'
 import Loading from './components/Loading'
 import { LoginSchema } from './schema'
 

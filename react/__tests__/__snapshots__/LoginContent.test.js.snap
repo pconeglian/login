@@ -112,6 +112,9 @@ exports[`<LoginContent /> component should match snapshot 1`] = `
           </li>
         </ul>
       </div>
+      <div
+        class="termsAndConditions t-mini c-muted-2 tc"
+      />
     </div>
     <div
       class="contentForm dn ph4"
@@ -232,6 +235,9 @@ exports[`<LoginContent /> component should match snapshot when loading 1`] = `
           </li>
         </ul>
       </div>
+      <div
+        class="termsAndConditions t-mini c-muted-2 tc"
+      />
     </div>
     <div
       class="contentForm dn ph4"

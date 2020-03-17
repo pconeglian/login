@@ -394,6 +394,9 @@ exports[`<Login /> component should match snapshot without profile 1`] = `
                       </li>
                     </ul>
                   </div>
+                  <div
+                    class="termsAndConditions t-mini c-muted-2 tc"
+                  />
                 </div>
                 <div
                   class="contentForm dn ph4"
