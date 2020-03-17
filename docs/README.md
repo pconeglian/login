@@ -306,6 +306,9 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 | `tooltipContainerTop`      | Tooltip Top                          | [Tooltip](/react/components/Tooltip.js)                                                                                                                                                                                                      |
 | `tooltipContainerLeft`     | Tooltip Left                         | [Tooltip](/react/components/Tooltip.js)                                                                                                                                                                                                      |
 | `termsAndConditions`       | Container below login options        | [LoginContent](/react/LoginContent.js)                                                                                                                                                                                                       |
+| `forgotPasswordLink`       | Link to create new password flow     | [EmailAndPassword](/react/components/EmailAndPassword.js)                                                                                                                                                                                    |
+| `dontHaveAccount`          | Link to create account flow          | [EmailAndPassword](/react/components/EmailAndPassword.js)                                                                                                                                                                                    |
+| `eyeIcon`                  | Button that makes password visible   | [PasswordInput](/react/components/PasswordInput.js)                                                                                                                                                                                          |
 
 ## Troubleshooting
 
