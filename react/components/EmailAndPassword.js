@@ -215,12 +215,10 @@ class EmailAndPassword extends Component {
             >
               <a
                 href=""
-                className="link dim c-link"
+                className={`${styles.forgotPasswordLink} link dim c-link t-small`}
                 onClick={this.handleCreatePassword}
               >
-                <span className="t-small">
-                  {translate('store/login.forgotPassword', intl)}
-                </span>
+                {translate('store/login.forgotPassword', intl)}
               </a>
             </div>
           </Fragment>
@@ -278,12 +276,10 @@ class EmailAndPassword extends Component {
         >
           <a
             href=""
-            className="link dim c-link"
+            className={`${styles.dontHaveAccount} link dim c-link t-small`}
             onClick={e => this.handleCreatePassword(e)}
           >
-            <span className="t-small">
-              {translate('store/login.notHaveAccount', intl)}
-            </span>
+            {translate('store/login.notHaveAccount', intl)}
           </a>
         </div>
       </Form>
