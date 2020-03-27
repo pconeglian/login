@@ -29,10 +29,10 @@ const OneTapSignin = ({ shouldOpen }) => {
     clientId => {
       google.accounts.id.initialize({
         client_id: clientId,
-        auto_select: window.localStorage && localStorage.gsi_auto === true,
+        auto_select: window.localStorage && localStorage.gsi_auto === 'true',
         prompt_parent_id: "gsi_container",
         callback: ({ credential }) => {
-          if (window.localStorage) localStorage.setItem('gsi_auto', true)
+          if (window.localStorage) localStorage.setItem('gsi_auto', 'true')
           const form = formRef.current
           form.method = 'POST'
           form.action = new URL(
@@ -125,6 +125,6 @@ const Wrapper = props => {
 export default Wrapper
 
 export const OneTapSignOut = () => {
-  window.localStorage && localStorage.setItem('gsi_auto', false)
+  window.localStorage && localStorage.setItem('gsi_auto', 'false')
   window.google && google.accounts.id.disableAutoSelect()
 }
