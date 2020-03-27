@@ -8,6 +8,7 @@ import { useCssHandles } from 'vtex.css-handles'
 
 import { translate } from '../utils/translate'
 import styles from '../styles.css'
+import { OneTapSignOut } from './OneTapSignin'
 
 // Component that shows account options to the user.
 const AccountOptions = ({ intl, optionLinks }) => {
@@ -65,14 +66,24 @@ const AccountOptions = ({ intl, optionLinks }) => {
               return (
                 <button
                   className={`${styles.logoutButton} t-small bn pa0 c-muted-1 hover-c-danger pointer`}
-                  onClick={logout}
+                  onClick={() => {
+                    OneTapSignOut()
+                    logout()
+                  }}
                 >
                   {translate('store/login.logoutLabel', intl)}
                 </button>
               )
             }
             return (
-              <Button variation="tertiary" size="small" onClick={logout}>
+              <Button
+                variation="tertiary"
+                size="small"
+                onClick={() => {
+                  OneTapSignOut()
+                  logout()
+                }}
+              >
                 <span className="t-action--small">
                   {translate('store/login.logoutLabel', intl)}
                 </span>
