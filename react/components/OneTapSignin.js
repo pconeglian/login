@@ -81,9 +81,11 @@ const OneTapSignin = ({ shouldOpen }) => {
 
   return shouldOpen ? (
     <>
-      <Helmet>
-        <script src="https://accounts.google.com/gsi/client"></script>
-      </Helmet>
+      {!window.google && (
+        <Helmet>
+          <script src="https://accounts.google.com/gsi/client"></script>
+        </Helmet>
+      )}
       <div
         id="gsi_container"
         style={{ position: 'fixed', top: '3rem', right: '1rem'}}
