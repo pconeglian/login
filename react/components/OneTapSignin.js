@@ -30,6 +30,7 @@ const OneTapSignin = ({ shouldOpen }) => {
       google.accounts.id.initialize({
         client_id: clientId,
         auto_select: window.localStorage && localStorage.gsi_auto === true,
+        prompt_parent_id: "gsi_container",
         callback: ({ credential }) => {
           if (window.localStorage) localStorage.setItem('gsi_auto', true)
           const form = formRef.current
@@ -59,8 +60,8 @@ const OneTapSignin = ({ shouldOpen }) => {
         new URL('/api/vtexid/google/onetap/id', baseUrl).href
       )
       const googleClientId = await resp.json()
-      const { enabled, clientId } = googleClientId || {}
-      if (/*!enabled,  || */ !clientId) return
+      const { clientId } = googleClientId || {}
+      if (!clientId) return
 
       startSession()
 
@@ -83,7 +84,11 @@ const OneTapSignin = ({ shouldOpen }) => {
       <Helmet>
         <script src="https://accounts.google.com/gsi/client"></script>
       </Helmet>
-      <form id="gsi" className="dn" ref={formRef}>
+      <div
+        id="gsi_container"
+        style={{ position: 'fixed', top: '3rem', right: '1rem'}}
+      />
+      <form className="dn" ref={formRef}>
         <input name="account" value={account} />
         <input name="credential" />
       </form>
@@ -100,7 +105,7 @@ const Wrapper = props => {
   const { page } = useRuntime()
 
   if (onLoginPage(page) || !window.location) return null
-
+  
   return (
     <Suspense fallback={null}>
       <AuthStateLazy
