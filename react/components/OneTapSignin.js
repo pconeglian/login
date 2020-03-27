@@ -48,7 +48,7 @@ const OneTapSignin = ({ shouldOpen }) => {
   )
 
   useEffect(() => {
-    if (shouldOpen) return
+    if (!shouldOpen) return
 
     getSessionPromise().then(async data => {
       const sessionProfile = getProfile((data || {}).response)

@@ -145,7 +145,7 @@ class LoginComponent extends Component {
       <div className={`${styles.container} flex items-center fr`}>
         <div className="relative">
           {this.renderIcon()}
-          {EXPERIMENTAL_enableGoogleOneTap && !isBoxOpen && <OneTapSignin shouldOpen={!!sessionProfile}/>}
+          {EXPERIMENTAL_enableGoogleOneTap && !isBoxOpen && <OneTapSignin shouldOpen={!sessionProfile}/>}
           {isBoxOpen && (
             <Overlay>
               <OutsideClickHandler onOutsideClick={onOutSideBoxClick}>
