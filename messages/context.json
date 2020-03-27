@@ -60,5 +60,6 @@
   "admin/editor.login.accountOptionLabelTitle": "admin/editor.login.accountOptionLabelTitle",
   "admin/editor.login.accountOptionPathTitle": "admin/editor.login.accountOptionPathTitle",
   "admin/editor.login.accountOptionCssClassTitle": "admin/editor.login.accountOptionCssClassTitle",
-  "admin/editor.login.termsAndConditions": "admin/editor.login.termsAndConditions"
+  "admin/editor.login.termsAndConditions": "admin/editor.login.termsAndConditions",
+  "admin/editor.login.enableGoogleOneTap": "admin/editor.login.enableGoogleOneTap"
 }
