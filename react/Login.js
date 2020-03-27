@@ -140,12 +140,23 @@ Login.getSchema = () => ({
           }
         }
       }
-    }
+    },
+    EXPERIMENTAL_enableGoogleOneTap: {
+      title: 'admin/editor.login.enableGoogleOneTap',
+      type: 'boolean'
+    },
   },
 })
 
 Login.uiSchema = {
-  'ui:order': ['*', 'hasIdentifierExtension', 'identifierPlaceholder', 'invalidIdentifierError', 'accountOptionLinks']
+  'ui:order': [
+    '*',
+    'hasIdentifierExtension',
+    'identifierPlaceholder',
+    'invalidIdentifierError',
+    'accountOptionLinks',
+    'EXPERIMENTAL_enableGoogleOneTap',
+  ],
 }
 
 const LoginWithSession = withSession({ renderWhileLoading: true })(injectIntl(LoginComponent))

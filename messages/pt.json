@@ -60,5 +60,6 @@
   "admin/editor.login.accountOptionLabelTitle": "Label",
   "admin/editor.login.accountOptionPathTitle": "Path",
   "admin/editor.login.accountOptionCssClassTitle": "Classe CSS",
-  "admin/editor.login.termsAndConditions": "Markdown de termos e condições"
+  "admin/editor.login.termsAndConditions": "Markdown de termos e condições",
+  "admin/editor.login.enableGoogleOneTap": "[Experimental] Habilitar Google One-tap sign-up"
 }
