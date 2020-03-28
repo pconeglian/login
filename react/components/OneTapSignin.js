@@ -1,15 +1,10 @@
-import React, {
-  useEffect,
-  useCallback,
-  useRef,
-  Suspense,
-} from 'react'
+import React, { useEffect, useCallback, useRef, Suspense } from 'react'
 import PropTypes from 'prop-types'
-import { useRuntime } from 'vtex.render-runtime'
-import { Helmet } from 'vtex.render-runtime'
+import { useRuntime, Helmet } from 'vtex.render-runtime'
+import { AuthStateLazy, serviceHooks } from 'vtex.react-vtexid' // why not AuthStateLazy
+
 import { getProfile } from '../utils/profile'
 import { SELF_APP_NAME_AND_VERSION } from '../common/global'
-import { AuthStateLazy, serviceHooks } from 'vtex.react-vtexid' // why not AuthStateLazy
 
 const getSessionPromise = () =>
   !window ||
@@ -25,28 +20,25 @@ const OneTapSignin = ({ shouldOpen }) => {
   const { account } = useRuntime()
   const [startSession] = serviceHooks.useStartLoginSession()
 
-  const prompt = useCallback(
-    clientId => {
-      google.accounts.id.initialize({
-        client_id: clientId,
-        auto_select: window.localStorage && localStorage.gsi_auto === 'true',
-        prompt_parent_id: "gsi_container",
-        callback: ({ credential }) => {
-          if (window.localStorage) localStorage.setItem('gsi_auto', 'true')
-          const form = formRef.current
-          form.method = 'POST'
-          form.action = new URL(
-            '/api/vtexid/google/onetap/signin',
-            window.location.href
-          )
-          form['credential'].value = credential
-          form.submit()
-        },
-      })
-      google.accounts.id.prompt()
-    },
-    [formRef.current]
-  )
+  const prompt = useCallback(clientId => {
+    google.accounts.id.initialize({
+      client_id: clientId,
+      auto_select: window.localStorage && localStorage.gsi_auto === 'true',
+      prompt_parent_id: 'gsi_container',
+      callback: ({ credential }) => {
+        if (window.localStorage) localStorage.setItem('gsi_auto', 'true')
+        const form = formRef.current
+        form.method = 'POST'
+        form.action = new URL(
+          '/api/vtexid/google/onetap/signin',
+          window.location.href
+        )
+        form.credential.value = credential
+        form.submit()
+      },
+    })
+    google.accounts.id.prompt()
+  }, [])
 
   useEffect(() => {
     if (!shouldOpen) return
@@ -77,18 +69,18 @@ const OneTapSignin = ({ shouldOpen }) => {
       if (!window || !window.google) return
       google.accounts.id.cancel()
     }
-  }, [account, shouldOpen])
+  }, [account, prompt, shouldOpen, startSession])
 
   return shouldOpen ? (
     <>
       {!window.google && (
         <Helmet>
-          <script src="https://accounts.google.com/gsi/client"></script>
+          <script src="https://accounts.google.com/gsi/client" />
         </Helmet>
       )}
       <div
         id="gsi_container"
-        style={{ position: 'fixed', top: '3rem', right: '1rem'}}
+        style={{ position: 'fixed', top: '3rem', right: '1rem' }}
       />
       <form className="dn" ref={formRef}>
         <input name="account" value={account} />
@@ -100,14 +92,13 @@ const OneTapSignin = ({ shouldOpen }) => {
 
 OneTapSignin.propTypes = {
   shouldOpen: PropTypes.bool.isRequired,
-  shouldClose: PropTypes.bool,
 }
 
 const Wrapper = props => {
   const { page } = useRuntime()
 
   if (onLoginPage(page) || !window.location) return null
-  
+
   return (
     <Suspense fallback={null}>
       <AuthStateLazy
