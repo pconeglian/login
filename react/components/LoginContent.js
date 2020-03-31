@@ -390,7 +390,7 @@ class LoginContent extends Component {
             </div>
           ) : (
             <div className={className}>
-              {!profile && this.shouldRenderLoginOptions && !loading
+              {!profile && this.shouldRenderLoginOptions
                 ? this.renderChildren()
                 : null}
               <div className={formClassName}>
