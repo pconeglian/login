@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from 'react'
+import React, { Component, Suspense, useMemo } from 'react'
 
 import { compose, path } from 'ramda'
 import PropTypes from 'prop-types'
@@ -142,6 +142,7 @@ class LoginContent extends Component {
     invalidIdentifierError: PropTypes.string,
     /** Terms and conditions text in markdown */
     termsAndConditions: PropTypes.string,
+    returnUrl: PropTypes.string,
   }
 
   static defaultProps = {
@@ -161,19 +162,6 @@ class LoginContent extends Component {
     email: '',
     password: '',
     code: '',
-  }
-
-  get returnUrl() {
-    const {
-      runtime: {
-        page,
-        history: {
-          location: { pathname, search },
-        },
-      },
-    } = this.props
-    const currentUrl = page !== 'store.login' ? `${pathname}${search}` : '/'
-    return path(['query', 'returnUrl'], this.props) || currentUrl
   }
 
   componentDidMount() {
@@ -246,7 +234,7 @@ class LoginContent extends Component {
 
   redirect = () => {
     this.props.runtime.navigate({
-      to: this.returnUrl,
+      to: this.props.returnUrl,
       fallbackToWindowLocation: true,
     })
   }
@@ -268,7 +256,7 @@ class LoginContent extends Component {
         // so the refresh is intentional.
         location.assign(
           `/api/vtexid/pub/authentication/redirect?returnUrl=${encodeURIComponent(
-            this.returnUrl
+            this.props.returnUrl
           )}`
         )
       }
@@ -380,18 +368,11 @@ class LoginContent extends Component {
     const formClassName = classNames(styles.contentForm, 'dn ph4', {
       [`${styles.contentFormVisible} db `]: this.shouldRenderForm,
     })
-
+    
     return (
-      <AuthStateLazy skip={!!profile} scope="STORE" parentAppId={SELF_APP_NAME_AND_VERSION} returnUrl={this.returnUrl}>
-        {({ loading }) => (
-          loading ? (
-            <div data-testid="loading-session">
-              <Loading />
-            </div>
-          ) : (
-            <div className={className}>
-              {!profile && this.shouldRenderLoginOptions
-                ? this.renderChildren()
+      <div className={className}>
+        {!profile && this.shouldRenderLoginOptions
+          ? this.renderChildren()
                 : null}
               <div className={formClassName}>
                 {this.shouldRenderForm && renderForm ? (
@@ -407,10 +388,40 @@ class LoginContent extends Component {
               </div>
             </div>
           )
-        )}
-      </AuthStateLazy>
-    )
   }
+}
+const LoginContentProvider = props => {
+  const returnUrl = useMemo(() => {
+    const {
+      runtime: {
+        page,
+        history: {
+          location: { pathname, search },
+        },
+      },
+    } = props
+    const currentUrl = page !== 'store.login' ? `${pathname}${search}` : '/'
+    return path(['query', 'returnUrl'], props) || currentUrl
+  }, [props])
+
+  return (
+    <AuthStateLazy
+      skip={!!props.profile}
+      scope="STORE"
+      parentAppId={SELF_APP_NAME_AND_VERSION}
+      returnUrl={returnUrl}
+    >
+      {({ loading }) => {
+        if (loading) {
+          return <div data-testid="loading-session">
+            <Loading />
+          </div>
+        }
+        return (
+        <LoginContent {...props} returnUrl={returnUrl} />
+      )}}
+    </AuthStateLazy>
+  )
 }
 
 const config = {
@@ -422,7 +433,7 @@ const content = withSession()(
   compose(
     injectIntl,
     graphql(session, config)
-  )(LoginContent)
+  )(LoginContentProvider)
 )
 
 export default withRuntimeContext(content)
