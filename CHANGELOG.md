@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+
+- Keep `__bindingAddress` query string when redirecting after login.
 
 ## [2.28.0] - 2020-03-18
 
@@ -208,7 +211,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Make password verification fixed after it was shown
 
 ## [2.13.1] - 2019-05-23
-### Fixed 
+### Fixed
 - Page reload after login for price update
 
 ## [2.13.0] - 2019-05-17
