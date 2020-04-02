@@ -172,8 +172,18 @@ class LoginContent extends Component {
         },
       },
     } = this.props
-    const currentUrl = page !== 'store.login' ? `${pathname}${search}` : '/'
-    return path(['query', 'returnUrl'], this.props) || currentUrl
+    const fromQuery = path(['query', 'returnUrl'], this.props)
+    if (fromQuery) {
+      return fromQuery
+    }
+
+    if (page !== 'store.login') {
+      return `${pathname}${search}`
+    }
+
+    return search.includes('__bindingAddress')
+      ? `/${search}`
+      : '/'
   }
 
   componentDidMount() {
