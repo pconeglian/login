@@ -23,8 +23,9 @@ import { setCookie } from '../utils/set-cookie'
 import { LoginPropTypes } from '../propTypes'
 import { getProfile } from '../utils/profile'
 import session from 'vtex.store-resources/QuerySession'
-import { AuthStateLazy } from 'vtex.react-vtexid'
+import { AuthStateLazy, serviceHooks } from 'vtex.react-vtexid'
 import { SELF_APP_NAME_AND_VERSION } from '../common/global'
+import getCreatePassEmailQuery from '../utils/getCreatePassEmailQuery'
 
 import styles from '../styles.css'
 
@@ -143,6 +144,7 @@ class LoginContent extends Component {
     /** Terms and conditions text in markdown */
     termsAndConditions: PropTypes.string,
     returnUrl: PropTypes.string,
+    defaultIsCreatePassword: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -157,7 +159,7 @@ class LoginContent extends Component {
 
   state = {
     isOnInitialScreen: !this.props.profile,
-    isCreatePassword: false,
+    isCreatePassword: this.props.defaultIsCreatePassword,
     step: this.props.defaultOption,
     email: '',
     password: '',
@@ -373,23 +375,58 @@ class LoginContent extends Component {
       <div className={className}>
         {!profile && this.shouldRenderLoginOptions
           ? this.renderChildren()
-                : null}
-              <div className={formClassName}>
-                {this.shouldRenderForm && renderForm ? (
-                  /** If it renders both the form and the menu, wrap the
-                   * form in a Suspense, so it doesn't hide the options
-                   * while it's loading */
-                  this.shouldRenderLoginOptions ? (
-                    <Suspense fallback={<Loading />}>
-                      {renderForm()}
-                    </Suspense>
-                  ) : renderForm()
-                ) : null}
-              </div>
-            </div>
-          )
+          : null}
+        <div className={formClassName}>
+          {this.shouldRenderForm && renderForm ? (
+            /** If it renders both the form and the menu, wrap the
+             * form in a Suspense, so it doesn't hide the options
+             * while it's loading */
+            this.shouldRenderLoginOptions ? (
+              <Suspense fallback={<Loading />}>
+                {renderForm()}
+              </Suspense>
+            ) : renderForm()
+          ) : null}
+        </div>
+      </div>
+    )
   }
 }
+
+const LoginContentWrapper = props => {
+  const createPassEmail = getCreatePassEmailQuery()
+  const [
+    ,
+    { loading: loadingSendAccessKey, error: errorSendAccessKey },
+  ] = serviceHooks.useSendAccessKey({
+    autorun: createPassEmail,
+    actionArgs: {
+      useNewSession: true,
+      email: createPassEmail,
+    },
+  })
+
+  if (createPassEmail && errorSendAccessKey) {
+    return (
+      <LoginContent
+        {...props}
+        defaultOption={steps.EMAIL_VERIFICATION}
+        defaultIsCreatePassword
+      />
+    )
+  }
+
+  if (loadingSendAccessKey) {
+    return (
+      <div data-testid="loading-session">
+        <Loading />
+      </div>
+    )
+  }
+  return <LoginContent {...props} />
+}
+
+
 const LoginContentProvider = props => {
   const returnUrl = useMemo(() => {
     const {
@@ -404,12 +441,20 @@ const LoginContentProvider = props => {
     return path(['query', 'returnUrl'], props) || currentUrl
   }, [props])
 
+  const createPassEmail = getCreatePassEmailQuery()
+
+  const defaultOption = useMemo(
+    () => (createPassEmail ? steps.CREATE_PASSWORD : props.defaultOption),
+    [createPassEmail, props.defaultOption]
+  )
+
   return (
     <AuthStateLazy
       skip={!!props.profile}
       scope="STORE"
       parentAppId={SELF_APP_NAME_AND_VERSION}
       returnUrl={returnUrl}
+      email={createPassEmail}
     >
       {({ loading }) => {
         if (loading) {
@@ -418,7 +463,7 @@ const LoginContentProvider = props => {
           </div>
         }
         return (
-        <LoginContent {...props} returnUrl={returnUrl} />
+        <LoginContentWrapper {...props} returnUrl={returnUrl} defaultOption={defaultOption} />
       )}}
     </AuthStateLazy>
   )
