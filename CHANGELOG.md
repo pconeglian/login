@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `userEmail` query string to set default email
+- `flowState` query string to set default state of the login flow
+
 ## [2.28.1] - 2020-04-03
 
 ## [2.28.0] - 2020-03-18
