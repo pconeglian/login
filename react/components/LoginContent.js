@@ -19,13 +19,15 @@ import OAuthAutoRedirect from './OAuthAutoRedirect'
 
 import { steps } from '../utils/steps'
 import { setCookie } from '../utils/set-cookie'
+import FlowState from '../utils/FlowState'
 
 import { LoginPropTypes } from '../propTypes'
 import { getProfile } from '../utils/profile'
 import session from 'vtex.store-resources/QuerySession'
 import { AuthStateLazy, serviceHooks } from 'vtex.react-vtexid'
 import { SELF_APP_NAME_AND_VERSION } from '../common/global'
-import getCreatePassEmailQuery from '../utils/getCreatePassEmailQuery'
+import getUserEmailQuery from '../utils/getUserEmailQuery'
+import getFlowStateQuery from '../utils/getFlowStateQuery'
 
 import styles from '../styles.css'
 
@@ -394,19 +396,31 @@ class LoginContent extends Component {
 }
 
 const LoginContentWrapper = props => {
-  const createPassEmail = getCreatePassEmailQuery()
+  const userEmail = getUserEmailQuery()
+  const flowState = getFlowStateQuery()
+
+  const isCreatePassFlow = useMemo(
+    () => flowState === FlowState.CREATE_PASSWORD,
+    [flowState]
+  )
+
+  const defaultOption = useMemo(
+    () => (isCreatePassFlow ? steps.CREATE_PASSWORD : props.defaultOption),
+    [isCreatePassFlow, props.defaultOption]
+  )
+
   const [
     ,
     { loading: loadingSendAccessKey, error: errorSendAccessKey },
   ] = serviceHooks.useSendAccessKey({
-    autorun: createPassEmail,
+    autorun: isCreatePassFlow,
     actionArgs: {
       useNewSession: true,
-      email: createPassEmail,
+      email: userEmail,
     },
   })
 
-  if (createPassEmail && errorSendAccessKey) {
+  if (isCreatePassFlow && (!userEmail || errorSendAccessKey)) {
     return (
       <LoginContent
         {...props}
@@ -423,9 +437,8 @@ const LoginContentWrapper = props => {
       </div>
     )
   }
-  return <LoginContent {...props} />
+  return <LoginContent {...props} defaultOption={defaultOption} />
 }
-
 
 const LoginContentProvider = props => {
   const returnUrl = useMemo(() => {
@@ -441,12 +454,7 @@ const LoginContentProvider = props => {
     return path(['query', 'returnUrl'], props) || currentUrl
   }, [props])
 
-  const createPassEmail = getCreatePassEmailQuery()
-
-  const defaultOption = useMemo(
-    () => (createPassEmail ? steps.CREATE_PASSWORD : props.defaultOption),
-    [createPassEmail, props.defaultOption]
-  )
+  const userEmail = getUserEmailQuery()
 
   return (
     <AuthStateLazy
@@ -454,7 +462,7 @@ const LoginContentProvider = props => {
       scope="STORE"
       parentAppId={SELF_APP_NAME_AND_VERSION}
       returnUrl={returnUrl}
-      email={createPassEmail}
+      email={userEmail}
     >
       {({ loading }) => {
         if (loading) {
@@ -463,7 +471,7 @@ const LoginContentProvider = props => {
           </div>
         }
         return (
-        <LoginContentWrapper {...props} returnUrl={returnUrl} defaultOption={defaultOption} />
+        <LoginContentWrapper {...props} returnUrl={returnUrl} />
       )}}
     </AuthStateLazy>
   )
