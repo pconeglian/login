@@ -25,8 +25,7 @@ export const AuthServiceLazy = {
   OAuthRedirect: ({ children }) =>
     children({ loading: true, action: () => {} }),
 
-  OAuthPopup: ({ children }) =>
-    children({ loading: true, action: () => {} }),
+  OAuthPopup: ({ children }) => children({ loading: true, action: () => {} }),
 
   SetPassword: ({ children }) =>
     children({
@@ -61,4 +60,8 @@ AuthStateLazy.IdentityProviders = jest.fn(({ children }) =>
   })
 )
 
-export { AuthStateLazy }
+const serviceHooks = {
+  useSendAccessKey: () => [() => {}, { loading: false, error: false }],
+}
+
+export { AuthStateLazy, serviceHooks }
