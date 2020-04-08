@@ -41,6 +41,12 @@ This app reads the following Query String Parameters:
 
 - `oAuthRedirect` - If this parameter is present, the user is directly redirected to the given OAuth Provider page before logging in, instead of displaying the login options. For this to work, the given OAuth Provider must be one of the login options. The parameter value is case sensitive and must be `Google`, `Facebook` or the registered name of the chosen OAuth Provider.
 
+- `userEmail` - The default value for user email fields.
+
+- `flowState` - The default state of the login flow to begin in. The possible values are from an enum with the following strings:
+
+  - `createPass` - Create password state. When this is used, the query string `userEmail` must also be defined. On page view, an email will be sent to the user with the code required to create password.
+
 ## Usage
 
 This app uses our store builder with the blocks architecture. To know more about Store Builder [click here.](https://help.vtex.com/en/tutorial/understanding-storebuilder-and-stylesbuilder#structuring-and-configuring-our-store-with-object-object)
