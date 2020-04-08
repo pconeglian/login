@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.29.0] - 2020-04-08
+
 ### Added
 
 - `userEmail` query string to set default email
