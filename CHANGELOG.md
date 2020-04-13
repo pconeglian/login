@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- `react-device-detect` dependency removed to fix broken SSR
+- Password tooltip opening direction depended on device type rather than screen size
+
 ## [2.29.0] - 2020-04-08
 
 ### Added
