@@ -15,6 +15,13 @@ const getSessionPromise = () =>
 
 const onLoginPage = current => current === 'store.login'
 
+const isBrowserSupported = () => {
+  if (!window || !window.navigator || !window.navigator.userAgent) return false
+
+  const { userAgent: ua } = window.navigator
+  return ua.indexOf('Chrome') >= 0 || ua.indexOf('Firefox') >= 0
+}
+
 const OneTapSignin = ({ shouldOpen }) => {
   const formRef = useRef()
   const { account } = useRuntime()
@@ -97,7 +104,7 @@ OneTapSignin.propTypes = {
 const Wrapper = props => {
   const { page } = useRuntime()
 
-  if (onLoginPage(page) || !window.location) return null
+  if (onLoginPage(page) || !isBrowserSupported() || !window.location) return null
 
   return (
     <Suspense fallback={null}>
