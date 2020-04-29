@@ -133,14 +133,22 @@ class LoginComponent extends Component {
       onOutSideBoxClick,
       sessionProfile,
       mirrorTooltipToRight,
-      EXPERIMENTAL_enableGoogleOneTap,
+      hasGoogleOneTap,
+     googleOneTapAlignment,
+     googleOneTaMarginTop,
     } = this.props
 
     return (
       <div className={`${styles.container} flex items-center fr`}>
         <div className="relative">
           {this.renderIcon()}
-          {EXPERIMENTAL_enableGoogleOneTap && <OneTapSignin shouldOpen={!sessionProfile}/>}
+          {hasGoogleOneTap && (
+            <OneTapSignin
+              alignment={googleOneTapAlignment}
+              marginTop={googleOneTaMarginTop}
+              shouldOpen={!sessionProfile}
+            />
+          )}
           {isBoxOpen && (
             <Overlay>
               <OutsideClickHandler onOutsideClick={onOutSideBoxClick}>

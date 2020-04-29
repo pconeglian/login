@@ -5,3 +5,7 @@ export const ButtonBehavior = {
   POPOVER: 'popover',
   LINK: 'link',
 }
+export const GoogleOneTapAlignment = {
+  RIGHT: 'Right',
+  LEFT: 'Left',
+}
