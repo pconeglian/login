@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { useRuntime, Helmet } from 'vtex.render-runtime'
 import { AuthStateLazy, serviceHooks } from 'vtex.react-vtexid' // why not AuthStateLazy
 
+import { GoogleOneTapAlignment } from '../common/global'
 import { getProfile } from '../utils/profile'
 import { SELF_APP_NAME_AND_VERSION } from '../common/global'
 
@@ -22,7 +23,7 @@ const isBrowserSupported = () => {
   return ua.indexOf('Chrome') >= 0 || ua.indexOf('Firefox') >= 0
 }
 
-const OneTapSignin = ({ shouldOpen }) => {
+const OneTapSignin = ({ shouldOpen, marginTop, alignment }) => {
   const formRef = useRef()
   const { account } = useRuntime()
   const [startSession] = serviceHooks.useStartLoginSession()
@@ -32,6 +33,7 @@ const OneTapSignin = ({ shouldOpen }) => {
       client_id: clientId,
       auto_select: window.localStorage && localStorage.gsi_auto === 'true',
       prompt_parent_id: 'gsi_container',
+      cancel_on_tap_outside: false,
       callback: ({ credential }) => {
         if (window.localStorage) localStorage.setItem('gsi_auto', 'true')
         const form = formRef.current
@@ -87,7 +89,13 @@ const OneTapSignin = ({ shouldOpen }) => {
       )}
       <div
         id="gsi_container"
-        style={{ position: 'fixed', top: '3rem', right: '1rem' }}
+        style={{
+          position: 'fixed',
+          top: marginTop || '3rem',
+          ...(alignment === GoogleOneTapAlignment.LEFT
+            ? { left: '1rem' }
+            : { right: '1rem' }),
+        }}
       />
       <form className="dn" ref={formRef}>
         <input name="account" value={account} />
@@ -99,6 +107,8 @@ const OneTapSignin = ({ shouldOpen }) => {
 
 OneTapSignin.propTypes = {
   shouldOpen: PropTypes.bool.isRequired,
+  marginTop: PropTypes.string,
+  alignment: PropTypes.string,
 }
 
 const Wrapper = props => {
