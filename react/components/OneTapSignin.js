@@ -114,7 +114,7 @@ OneTapSignin.propTypes = {
 const Wrapper = props => {
   const { page } = useRuntime()
 
-  if (onLoginPage(page) || !isBrowserSupported() || !window.location) return null
+  if (!onLoginPage(page) || !isBrowserSupported() || !window.location) return null
 
   return (
     <Suspense fallback={null}>
