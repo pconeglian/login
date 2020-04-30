@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Added support for [Google's One-tap sign-up and auto sign-in](https://developers.google.com/identity/one-tap/web/)
-- New `EXPERIMENTAL_enableGoogleOneTap` prop to the site-editor
+- New `hasGoogleOneTap` prop to the site-editor
 
 ## [2.30.2] - 2020-05-18
 

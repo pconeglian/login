@@ -125,7 +125,9 @@ Through the Storefront, you can change the `login`'s behavior and interface. How
 | `accountOptionsButtonBehavior`                     | `Enum`    | Set account options button behavior. `"popover"` for popover, `"link"` for a link to the `/account` page | "popover"     |
 | `accountOptionLinks`                               | `Array`   | Determines more specific account option links to replace the `My Account` link.<br>Each array element is an object with the properties:<br><ul><li>`label` [`string`] - Link text</li><li>`path` [`string`] - Relative path to where the link leads</li><li>`cssClass` [`string`] - CSS class the link receives</li></ul>                           | -             |
 | `termsAndConditions`                               | `String`  | Sets a markdown text below the login options, meant to warn the user about terms & conditions            | -             |
-| `EXPERIMENTAL_enableGoogleOneTap`                   | `Boolean` | **This is an EXPERIMENTAL feature**.<br>Enables [Google's One-tap sign-up and auto sign-in](https://developers.google.com/identity/one-tap/web/) | -             |
+| `hasGoogleOneTap`                                  | `Boolean` | **This is an EXPERIMENTAL feature**.<br>Enables [Google's One-tap sign-up and auto sign-in](https://developers.google.com/identity/one-tap/web/) | -             |
+| `googleOneTapAlignment`                            | `Enum`    | **This is an EXPERIMENTAL feature**.<br>Sets Google One-tap pop-up alignment. The values supported are `"Left"` and `"Right"` | "Right"       |
+| `googleOneTaMarginTop`                             | `String`  | **This is an EXPERIMENTAL feature**.<br>Sets Google One-tap pop-up top margin. The values supported are the same as the CSS property `top`. | "3rem"       |
 
 You can also change the `login-content`'s behaviour and interface through the Store front.
 
