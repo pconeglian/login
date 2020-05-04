@@ -86,109 +86,114 @@ class RecoveryPassword extends Component {
     } = this.state
 
     return (
-      <Form
-        className={`${styles.emailVerification} ${styles.forgotPasswordForm} w-100`}
-        title={translate('store/login.createPassword', intl)}
-        onSubmit={e => this.handleOnSubmit(e)}
-        content={
-          <Fragment>
-            <div className={`${styles.inputContainer} ${styles.inputContainerAccessCode} pv3`}>
-              <AuthStateLazy.Token>
-                {({ value, setValue }) => (
+      <AuthStateLazy.Email>
+        {({ value: email }) => (
+          <Form
+            className={`${styles.emailVerification} ${styles.forgotPasswordForm} w-100`}
+            title={translate('store/login.createPassword', intl)}
+            subtitle={intl.formatMessage({ id: 'store/login.createPasswordSubtitle'} , { email })}
+            onSubmit={e => this.handleOnSubmit(e)}
+            content={
+              <Fragment>
+                <div className={`${styles.inputContainer} ${styles.inputContainerAccessCode} pv3`}>
+                  <AuthStateLazy.Token>
+                    {({ value, setValue }) => (
+                      <Input
+                        token
+                        name="token"
+                        onChange={e => {
+                          setValue(e.target.value)
+                          this.setState({ isInvalidCode: false, isWrongCode: false })
+                        }}
+                        value={value || ''}
+                        placeholder={
+                          accessCodePlaceholder ||
+                          translate('store/login.accessCode.placeholder', intl)
+                        }
+                      />
+                    )}
+                  </AuthStateLazy.Token>
+                </div>
+                <FormError show={isInvalidCode}>
+                  {translate('store/login.invalidCode', intl)}
+                </FormError>
+                <FormError show={isWrongCode}>
+                  {translate('store/login.wrongCode', intl)}
+                </FormError>
+                <div className={`${styles.inputContainer} ${styles.inputContainerPassword} pv3`}>
+                  <AuthStateLazy.Password>
+                    {({ value, setValue }) => (
+                      <PasswordInput
+                        onStateChange={({ password }) => {
+                          setValue(password)
+                          this.setState({ isInvalidPassword: false })
+                        }}
+                        placeholder={passwordPlaceholder || translate('store/login.password.placeholder', intl)}
+                        password={value || ''}
+                        showPasswordVerificationIntoTooltip={
+                          showPasswordVerificationIntoTooltip
+                        }
+                      />
+                    )}
+                  </AuthStateLazy.Password>
+                </div>
+                <FormError show={isInvalidPassword}>
+                  {translate('store/login.invalidPassword', intl)}
+                </FormError>
+                <FormError show={isUserBlocked}>
+                  {translate('store/login.userBlocked', intl)}
+                </FormError>
+                <div className={`${styles.inputContainer} ${styles.inputContainerPassword} pv3`}>
                   <Input
-                    token
-                    name="token"
-                    onChange={e => {
-                      setValue(e.target.value)
-                      this.setState({ isInvalidCode: false, isWrongCode: false })
-                    }}
-                    value={value || ''}
-                    placeholder={
-                      accessCodePlaceholder ||
-                      translate('store/login.accessCode.placeholder', intl)
-                    }
+                    type="password"
+                    onChange={this.handleConfirmPasswordChange}
+                    placeholder={translate('store/login.confirmPassword', intl)}
                   />
-                )}
-              </AuthStateLazy.Token>
-            </div>
-            <FormError show={isInvalidCode}>
-              {translate('store/login.invalidCode', intl)}
-            </FormError>
-            <FormError show={isWrongCode}>
-              {translate('store/login.wrongCode', intl)}
-            </FormError>
-            <div className={`${styles.inputContainer} ${styles.inputContainerPassword} pv3`}>
-              <AuthStateLazy.Password>
-                {({ value, setValue }) => (
-                  <PasswordInput
-                    onStateChange={({ password }) => {
-                      setValue(password)
-                      this.setState({ isInvalidPassword: false })
-                    }}
-                    placeholder={passwordPlaceholder || translate('store/login.password.placeholder', intl)}
-                    password={value || ''}
-                    showPasswordVerificationIntoTooltip={
-                      showPasswordVerificationIntoTooltip
-                    }
-                  />
-                )}
-              </AuthStateLazy.Password>
-            </div>
-            <FormError show={isInvalidPassword}>
-              {translate('store/login.invalidPassword', intl)}
-            </FormError>
-            <FormError show={isUserBlocked}>
-              {translate('store/login.userBlocked', intl)}
-            </FormError>
-            <div className={`${styles.inputContainer} ${styles.inputContainerPassword} pv3`}>
-              <Input
-                type="password"
-                onChange={this.handleConfirmPasswordChange}
-                placeholder={translate('store/login.confirmPassword', intl)}
-              />
-            </div>
-            <FormError show={!isPasswordsMatch}>
-              {translate('store/login.invalidMatch', intl)}
-            </FormError>
-          </Fragment>
-        }
-        footer={
-          <Fragment>
-            <GoBackButton
-              onStateChange={onStateChange}
-              changeTab={{ step: previous }}
-            />
-            <div className={`${styles.sendButton} ml-auto`}>
-              <AuthServiceLazy.SetPassword
-                onSuccess={this.handleSuccess}
-                onFailure={this.handleFailure}
-              >
-                {({
-                  state: { password, token },
-                  loading,
-                  action: setPassword,
-                  validation: {
-                    validatePassword,
-                  },
-                }) => (
-                  <Button
-                    variation="primary"
-                    size="small"
-                    type="submit"
-                    onClick={e => this.handleOnSubmit(e, password, token, setPassword)}
-                    isLoading={loading}
-                    disabled={!validatePassword(password)}
+                </div>
+                <FormError show={!isPasswordsMatch}>
+                  {translate('store/login.invalidMatch', intl)}
+                </FormError>
+              </Fragment>
+            }
+            footer={
+              <Fragment>
+                <GoBackButton
+                  onStateChange={onStateChange}
+                  changeTab={{ step: previous }}
+                />
+                <div className={`${styles.sendButton} ml-auto`}>
+                  <AuthServiceLazy.SetPassword
+                    onSuccess={this.handleSuccess}
+                    onFailure={this.handleFailure}
                   >
-                    <span className="t-small">
-                      {translate('store/login.create', intl)}
-                    </span>
-                  </Button>
-                )}
-              </AuthServiceLazy.SetPassword>
-            </div>
-          </Fragment>
-        }
-      />
+                    {({
+                      state: { password, token },
+                      loading,
+                      action: setPassword,
+                      validation: {
+                        validatePassword,
+                      },
+                    }) => (
+                      <Button
+                        variation="primary"
+                        size="small"
+                        type="submit"
+                        onClick={e => this.handleOnSubmit(e, password, token, setPassword)}
+                        isLoading={loading}
+                        disabled={!validatePassword(password)}
+                      >
+                        <span className="t-small">
+                          {translate('store/login.create', intl)}
+                        </span>
+                      </Button>
+                    )}
+                  </AuthServiceLazy.SetPassword>
+                </div>
+              </Fragment>
+            }
+          />
+        )}
+      </AuthStateLazy.Email>
     )
   }
 }
