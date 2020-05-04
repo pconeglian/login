@@ -127,7 +127,7 @@ Through the Storefront, you can change the `login`'s behavior and interface. How
 | `termsAndConditions`                               | `String`  | Sets a markdown text below the login options, meant to warn the user about terms & conditions            | -             |
 | `hasGoogleOneTap`                                  | `Boolean` | **This is an EXPERIMENTAL feature**.<br>Enables [Google's One-tap sign-up and auto sign-in](https://developers.google.com/identity/one-tap/web/) | -             |
 | `googleOneTapAlignment`                            | `Enum`    | **This is an EXPERIMENTAL feature**.<br>Sets Google One-tap pop-up alignment. The values supported are `"Left"` and `"Right"` | "Right"       |
-| `googleOneTaMarginTop`                             | `String`  | **This is an EXPERIMENTAL feature**.<br>Sets Google One-tap pop-up top margin. The values supported are the same as the CSS property `top`. | "3rem"       |
+| `googleOneTapMarginTop`                             | `String`  | **This is an EXPERIMENTAL feature**.<br>Sets Google One-tap pop-up top margin. The values supported are the same as the CSS property `top`. | "3rem"       |
 
 You can also change the `login-content`'s behaviour and interface through the Store front.
 
