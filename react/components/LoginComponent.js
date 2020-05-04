@@ -135,7 +135,7 @@ class LoginComponent extends Component {
       mirrorTooltipToRight,
       hasGoogleOneTap,
      googleOneTapAlignment,
-     googleOneTaMarginTop,
+     googleOneTapMarginTop,
     } = this.props
 
     return (
@@ -145,7 +145,7 @@ class LoginComponent extends Component {
           {hasGoogleOneTap && (
             <OneTapSignin
               alignment={googleOneTapAlignment}
-              marginTop={googleOneTaMarginTop}
+              marginTop={googleOneTapMarginTop}
               shouldOpen={!sessionProfile}
             />
           )}

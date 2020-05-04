@@ -153,7 +153,7 @@ Login.getSchema = () => ({
               enum: [GoogleOneTapAlignment.RIGHT, GoogleOneTapAlignment.LEFT],
               default: GoogleOneTapAlignment.RIGHT,
             },
-            googleOneTaMarginTop:{
+            googleOneTapMarginTop:{
               title: 'admin/editor.login.googleOneTap.marginTop',
               type: 'string',
               default: '3rem',
@@ -174,7 +174,7 @@ Login.uiSchema = {
     'accountOptionLinks',
     'hasGoogleOneTap',
     'googleOneTapAlignment',
-    'googleOneTaMarginTop',
+    'googleOneTapMarginTop',
   ],
 }
 
