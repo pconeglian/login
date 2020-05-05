@@ -90,6 +90,8 @@
   white-space: pre-line;
 }
 
+.formSubtitle {}
+
 .box {
   top: 100%;
   visibility: visible;

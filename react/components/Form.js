@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import FormTitle from './FormTitle'
 import FormFooter from './FormFooter'
+import styles from '../styles.css'
 
 export default function Form({
   className,
@@ -17,7 +18,11 @@ export default function Form({
     <div className={className}>
       <FormTitle>
         {title}
-        {subtitle && <div className="mt5 t-body c-muted-1">{subtitle}</div>}
+        {subtitle && (
+          <div className={`${styles.formSubtitle} mt5 t-body c-muted-1`}>
+            {subtitle}
+          </div>
+        )}
       </FormTitle>
       <form onSubmit={onSubmit}>
         {content}
