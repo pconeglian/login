@@ -23,6 +23,7 @@
   "store/login.wrongCredentials": "store/login.wrongCredentials",
   "store/login.userBlocked": "store/login.userBlocked",
   "store/login.createPassword": "store/login.createPassword",
+  "store/login.createPasswordSubtitle": "store/login.createPasswordSubtitle",
   "admin/editor.login.title": "admin/editor.login.title",
   "admin/editor.loginPage.title": "admin/editor.loginPage.title",
   "store/login.confirmPassword": "store/login.confirmPassword",

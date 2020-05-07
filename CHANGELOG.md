@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Subtitle to create password screen
+
+### Changed
+
+- Title of create password screen
+
 ## [2.29.1] - 2020-04-13
 
 ### Fixed
