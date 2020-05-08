@@ -112,7 +112,7 @@ OneTapSignin.propTypes = {
 }
 
 const Wrapper = props => {
-  const { page } = useRuntime()
+  const { page, rootPath } = useRuntime()
 
   if (!isBrowserSupported() || !window.location) return null
 
@@ -122,7 +122,7 @@ const Wrapper = props => {
         skip
         scope="STORE"
         parentAppId={SELF_APP_NAME_AND_VERSION}
-        returnUrl={window.location.href}
+        returnUrl={onLoginPage(page) ? (rootPath || '/') : window.location.href}
       >
         <OneTapSignin {...props} page={page} />
       </AuthStateLazy>
