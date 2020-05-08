@@ -23,7 +23,12 @@ const isBrowserSupported = () => {
   return ua.indexOf('Chrome') >= 0 || ua.indexOf('Firefox') >= 0
 }
 
-const OneTapSignin = ({ shouldOpen, marginTop, alignment, page }) => {
+const OneTapSignin = ({
+  shouldOpen,
+  page,
+  marginTop = '3rem',
+  alignment = GoogleOneTapAlignment.RIGHT,
+}) => {
   const formRef = useRef()
   const { account } = useRuntime()
   const [startSession] = serviceHooks.useStartLoginSession()
@@ -31,7 +36,10 @@ const OneTapSignin = ({ shouldOpen, marginTop, alignment, page }) => {
   const prompt = useCallback(clientId => {
     google.accounts.id.initialize({
       client_id: clientId,
-      auto_select: onLoginPage(page) && window.localStorage && localStorage.gsi_auto === 'true',
+      auto_select:
+        onLoginPage(page) &&
+        window.localStorage &&
+        localStorage.gsi_auto === 'true',
       prompt_parent_id: 'gsi_container',
       cancel_on_tap_outside: false,
       callback: ({ credential }) => {
@@ -91,7 +99,7 @@ const OneTapSignin = ({ shouldOpen, marginTop, alignment, page }) => {
         id="gsi_container"
         style={{
           position: 'fixed',
-          top: marginTop || '3rem',
+          top: marginTop,
           ...(alignment === GoogleOneTapAlignment.LEFT
             ? { left: '1rem' }
             : { right: '1rem' }),
