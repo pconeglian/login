@@ -96,9 +96,8 @@ const OneTapSignin = ({
         </Helmet>
       )}
       <div
-        id="gsi_container"
+        id="gsi_container z-999 fixed"
         style={{
-          position: 'fixed',
           top: marginTop,
           ...(alignment === GoogleOneTapAlignment.LEFT
             ? { left: '1rem' }
