@@ -23,7 +23,7 @@ const isBrowserSupported = () => {
   return ua.indexOf('Chrome') >= 0 || ua.indexOf('Firefox') >= 0
 }
 
-const OneTapSignin = ({ shouldOpen, marginTop, alignment }) => {
+const OneTapSignin = ({ shouldOpen, marginTop, alignment, page }) => {
   const formRef = useRef()
   const { account } = useRuntime()
   const [startSession] = serviceHooks.useStartLoginSession()
@@ -31,7 +31,7 @@ const OneTapSignin = ({ shouldOpen, marginTop, alignment }) => {
   const prompt = useCallback(clientId => {
     google.accounts.id.initialize({
       client_id: clientId,
-      auto_select: window.localStorage && localStorage.gsi_auto === 'true',
+      auto_select: onLoginPage(page) && window.localStorage && localStorage.gsi_auto === 'true',
       prompt_parent_id: 'gsi_container',
       cancel_on_tap_outside: false,
       callback: ({ credential }) => {
@@ -124,7 +124,7 @@ const Wrapper = props => {
         parentAppId={SELF_APP_NAME_AND_VERSION}
         returnUrl={window.location.href}
       >
-        <OneTapSignin {...props} />
+        <OneTapSignin {...props} page={page} />
       </AuthStateLazy>
     </Suspense>
   )
