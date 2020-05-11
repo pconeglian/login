@@ -31,7 +31,7 @@ import styles from '../styles.css'
 
 const STEPS = [
   /* eslint-disable react/display-name, react/prop-types */
-  (props, state, func, isOptionsMenuDisplayed) => {
+  ({ props, state, handleStateChange, isOptionsMenuDisplayed }) => {
     return style => (
       <div style={style} key={0}>
         <EmailVerification
@@ -40,13 +40,13 @@ const STEPS = [
           isCreatePassword={state.isCreatePassword}
           title={props.accessCodeTitle}
           emailPlaceholder={props.emailPlaceholder}
-          onStateChange={func}
+          onStateChange={handleStateChange}
           showBackButton={!isOptionsMenuDisplayed}
         />
       </div>
     )
   },
-  (props, state, func, isOptionsMenuDisplayed) => {
+  ({ props, handleStateChange, isOptionsMenuDisplayed }) => {
     return style => (
       <div style={style} key={1}>
         <EmailAndPassword
@@ -58,7 +58,7 @@ const STEPS = [
           showPasswordVerificationIntoTooltip={
             props.showPasswordVerificationIntoTooltip
           }
-          onStateChange={func}
+          onStateChange={handleStateChange}
           showBackButton={!isOptionsMenuDisplayed}
           loginCallback={props.loginCallback}
           identifierPlaceholder={props.hasIdentifierExtension ? props.identifierPlaceholder : ''}
@@ -67,27 +67,27 @@ const STEPS = [
       </div>
     )
   },
-  (props, state, func) => {
+  ({ props, handleStateChange }) => {
     return style => (
       <div style={style} key={2}>
         <CodeConfirmation
           next={steps.ACCOUNT_OPTIONS}
           previous={steps.EMAIL_VERIFICATION}
           accessCodePlaceholder={props.accessCodePlaceholder}
-          onStateChange={func}
+          onStateChange={handleStateChange}
           loginCallback={props.loginCallback}
         />
       </div>
     )
   },
-  (props) => {
+  ({ props }) => {
     return style => (
       <div style={style} key={3}>
         <AccountOptions optionLinks={props.accountOptionLinks} />
       </div>
     )
   },
-  (props, state, func) => {
+  ({ props, handleStateChange }) => {
     return style => (
       <div style={style} key={4}>
         <RecoveryPassword
@@ -98,7 +98,7 @@ const STEPS = [
             props.showPasswordVerificationIntoTooltip
           }
           accessCodePlaceholder={props.accessCodePlaceholder}
-          onStateChange={func}
+          onStateChange={handleStateChange}
           loginCallback={props.loginCallback}
         />
       </div>
@@ -213,7 +213,7 @@ class LoginContent extends Component {
     return [true, oAuthProviders[0]]
   }
 
-  handleUpdateState = state => {
+  handleStateChange = state => {
     if (state.hasOwnProperty('step')) {
       if (state.step === -1) {
         state.step = 0
@@ -343,12 +343,14 @@ class LoginContent extends Component {
 
     const renderForm = STEPS[step](
       {
-        ...this.props,
-        loginCallback: this.onLoginSuccess,
-      },
-      this.state,
-      this.handleUpdateState,
-      this.shouldRenderLoginOptions
+        props: {
+          ...this.props,
+          loginCallback: this.onLoginSuccess,
+        },
+        state: this.state,
+        handleStateChange: this.handleStateChange,
+        isOptionsMenuDisplayed: this.shouldRenderLoginOptions,
+      }
     )
 
     const className = classNames(
