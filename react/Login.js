@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import { withSession } from 'vtex.render-runtime'
 import { injectIntl } from 'react-intl'
 
 import { ButtonBehavior } from './common/global'
@@ -148,4 +147,4 @@ Login.uiSchema = {
   'ui:order': ['*', 'hasIdentifierExtension', 'identifierPlaceholder', 'invalidIdentifierError', 'accountOptionLinks']
 }
 
-const LoginWithSession = withSession({ renderWhileLoading: true })(injectIntl(LoginComponent))
+const LoginWithSession = injectIntl(LoginComponent)
