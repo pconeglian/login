@@ -109,14 +109,14 @@ const STEPS = [
 
 class LoginContent extends Component {
   static propTypes = {
+    /** Whether this is rendered by the header component (LoginComponent) */
+    isHeaderLogin: PropTypes.bool,
     /** User profile information */
     profile: PropTypes.shape({}),
     /** Which screen option will renderize  */
     isInitialScreenOptionOnly: PropTypes.bool,
     /** Step that will be render first */
     defaultOption: PropTypes.number,
-    /** Function called after login success */
-    loginCallback: PropTypes.func,
     /** Runtime context. */
     runtime: PropTypes.shape({
       navigate: PropTypes.func,
@@ -248,16 +248,12 @@ class LoginContent extends Component {
       fallbackToWindowLocation: true,
     })
   }
-
-  /**
-   * Action after login success. If loginCallback isn't
-   * a prop, it will call a root page redirect as default.
-   */
+  
   onLoginSuccess = () => {
-    const { loginCallback } = this.props
+    const { isHeaderLogin } = this.props
     return this.context.patchSession().then(() => {
-      if (loginCallback) {
-        loginCallback()
+      if (isHeaderLogin) {
+        window && window.location && window.location.reload()
       } else {
         this.props.redirectAfterLogin()
       }

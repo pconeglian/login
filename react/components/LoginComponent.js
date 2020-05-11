@@ -43,11 +43,6 @@ const ProfileIcon = ({ iconSize, labelClasses, classes }) => {
 class LoginComponent extends Component {
   static propTypes = LoginPropTypes
 
-  /** Function called after login success */
-  onClickLoginButton = () => {
-    window.location.reload()
-  }
-
   renderIcon = () => {
     const {
       iconSize,
@@ -150,8 +145,8 @@ class LoginComponent extends Component {
                   <Suspense fallback={<Loading />}>
                     <LoginContent
                       profile={sessionProfile}
-                      loginCallback={this.onClickLoginButton}
                       isInitialScreenOptionOnly
+                      isHeaderLogin
                       {...this.props}
                     />
                   </Suspense>
