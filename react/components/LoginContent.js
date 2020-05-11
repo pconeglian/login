@@ -46,7 +46,7 @@ const STEPS = [
       </div>
     )
   },
-  ({ props, handleStateChange, isOptionsMenuDisplayed }) => {
+  ({ props, handleStateChange, isOptionsMenuDisplayed, handleLoginSuccess }) => {
     return style => (
       <div style={style} key={1}>
         <EmailAndPassword
@@ -60,14 +60,14 @@ const STEPS = [
           }
           onStateChange={handleStateChange}
           showBackButton={!isOptionsMenuDisplayed}
-          loginCallback={props.loginCallback}
+          loginCallback={handleLoginSuccess}
           identifierPlaceholder={props.hasIdentifierExtension ? props.identifierPlaceholder : ''}
           invalidIdentifierError={props.hasIdentifierExtension ? props.invalidIdentifierError : ''}
         />
       </div>
     )
   },
-  ({ props, handleStateChange }) => {
+  ({ props, handleStateChange, handleLoginSuccess }) => {
     return style => (
       <div style={style} key={2}>
         <CodeConfirmation
@@ -75,7 +75,7 @@ const STEPS = [
           previous={steps.EMAIL_VERIFICATION}
           accessCodePlaceholder={props.accessCodePlaceholder}
           onStateChange={handleStateChange}
-          loginCallback={props.loginCallback}
+          loginCallback={handleLoginSuccess}
         />
       </div>
     )
@@ -87,7 +87,7 @@ const STEPS = [
       </div>
     )
   },
-  ({ props, handleStateChange }) => {
+  ({ props, handleStateChange, handleLoginSuccess }) => {
     return style => (
       <div style={style} key={4}>
         <RecoveryPassword
@@ -99,7 +99,7 @@ const STEPS = [
           }
           accessCodePlaceholder={props.accessCodePlaceholder}
           onStateChange={handleStateChange}
-          loginCallback={props.loginCallback}
+          loginCallback={handleLoginSuccess}
         />
       </div>
     )
@@ -249,7 +249,7 @@ class LoginContent extends Component {
     })
   }
   
-  onLoginSuccess = () => {
+  handleLoginSuccess = () => {
     const { isHeaderLogin } = this.props
     return this.context.patchSession().then(() => {
       if (isHeaderLogin) {
@@ -304,7 +304,7 @@ class LoginContent extends Component {
                 }
                 isAlwaysShown={!isInitialScreenOptionOnly}
                 onOptionsClick={this.handleOptionsClick}
-                loginCallback={this.onLoginSuccess}
+                loginCallback={this.handleLoginSuccess}
                 providerPasswordButtonLabel={providerPasswordButtonLabel}
               />
             )
@@ -343,13 +343,11 @@ class LoginContent extends Component {
 
     const renderForm = STEPS[step](
       {
-        props: {
-          ...this.props,
-          loginCallback: this.onLoginSuccess,
-        },
+        props: this.props,
         state: this.state,
         handleStateChange: this.handleStateChange,
         isOptionsMenuDisplayed: this.shouldRenderLoginOptions,
+        handleLoginSuccess: this.handleLoginSuccess,
       }
     )
 
