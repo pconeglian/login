@@ -7,7 +7,7 @@ import { LoginSchema } from './schema'
 import { setCookie } from './utils/set-cookie'
 import { LoginContainerProptypes } from './propTypes'
 import LoginComponent from './components/LoginComponent'
-import { getProfile } from './utils/profile'
+import getSessionProfile from './utils/getSessionProfile'
 
 const DEFAULT_CLASSES = 'gray'
 
@@ -27,11 +27,6 @@ export default class Login extends Component {
     sessionProfile: null,
   }
 
-  getSessionPromiseFromWindow = () =>
-    !window.__RENDER_8_SESSION__ || !window.__RENDER_8_SESSION__.sessionPromise
-      ? Promise.resolve(null)
-      : window.__RENDER_8_SESSION__.sessionPromise
-
   componentDidMount() {
     window.addEventListener('resize', this.handleResize)
     this.handleResize()
@@ -40,9 +35,7 @@ export default class Login extends Component {
       setCookie(location.href)
     }
 
-    this.getSessionPromiseFromWindow().then(data => {
-      const sessionResponse = (data || {}).response
-      const sessionProfile = getProfile(sessionResponse)
+    getSessionProfile().then(sessionProfile => {
       if (sessionProfile) {
         this.setState({ sessionProfile })
       }
