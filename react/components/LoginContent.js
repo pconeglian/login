@@ -1,11 +1,10 @@
 import React, { Component, Suspense, useMemo } from 'react'
 
-import { compose, path } from 'ramda'
+import { path } from 'ramda'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { graphql } from 'react-apollo'
 import { injectIntl } from 'react-intl'
-import { withSession, withRuntimeContext } from 'vtex.render-runtime'
+import { withRuntimeContext } from 'vtex.render-runtime'
 import Markdown from 'react-markdown'
 
 import Loading from './Loading'
@@ -22,12 +21,11 @@ import { setCookie } from '../utils/set-cookie'
 import FlowState from '../utils/FlowState'
 
 import { LoginPropTypes } from '../propTypes'
-import { getProfile } from '../utils/profile'
-import session from 'vtex.store-resources/QuerySession'
 import { AuthStateLazy, serviceHooks } from 'vtex.react-vtexid'
 import { SELF_APP_NAME_AND_VERSION } from '../common/global'
 import getUserEmailQuery from '../utils/getUserEmailQuery'
 import getFlowStateQuery from '../utils/getFlowStateQuery'
+import getSessionProfile from '../utils/getSessionProfile'
 
 import styles from '../styles.css'
 
@@ -161,6 +159,7 @@ class LoginContent extends Component {
   }
 
   state = {
+    sessionProfile: this.props.profile,
     isOnInitialScreen: !this.props.profile,
     isCreatePassword: this.props.defaultIsCreatePassword,
     step: this.props.defaultOption,
@@ -173,6 +172,12 @@ class LoginContent extends Component {
     if (location.href.indexOf('accountAuthCookieName') > 0) {
       setCookie(location.href)
     }
+
+    getSessionProfile().then(sessionProfile => {
+      if (sessionProfile) {
+        this.setState({ sessionProfile })
+      }
+    })
   }
 
   get shouldRenderLoginOptions() {
@@ -321,14 +326,13 @@ class LoginContent extends Component {
       profile,
       isInitialScreenOptionOnly,
       defaultOption,
-      session,
     } = this.props
 
-    const { isOnInitialScreen } = this.state
+    const { isOnInitialScreen, sessionProfile } = this.state
 
     // Check if the user is already logged and redirect to the return URL if it didn't receive
     // the profile by the props and current endpoint are /login, if receive it, should render the account options.
-    if (getProfile(session) && !profile) {
+    if (sessionProfile && !profile) {
       if (location.pathname.includes('/login')) {
         this.redirect()
       }
@@ -478,16 +482,6 @@ const LoginContentProvider = props => {
   )
 }
 
-const config = {
-  name: 'session',
-  options: () => ({ ssr: false, fetchPolicy: 'no-cache' }),
-}
-
-const content = withSession()(
-  compose(
-    injectIntl,
-    graphql(session, config)
-  )(LoginContentProvider)
+export default withRuntimeContext(
+  injectIntl(LoginContentProvider)
 )
-
-export default withRuntimeContext(content)
