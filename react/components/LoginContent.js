@@ -60,7 +60,7 @@ const STEPS = [
           }
           onStateChange={handleStateChange}
           showBackButton={!isOptionsMenuDisplayed}
-          loginCallback={handleLoginSuccess}
+          onLoginSuccess={handleLoginSuccess}
           identifierPlaceholder={props.hasIdentifierExtension ? props.identifierPlaceholder : ''}
           invalidIdentifierError={props.hasIdentifierExtension ? props.invalidIdentifierError : ''}
         />
@@ -75,7 +75,7 @@ const STEPS = [
           previous={steps.EMAIL_VERIFICATION}
           accessCodePlaceholder={props.accessCodePlaceholder}
           onStateChange={handleStateChange}
-          loginCallback={handleLoginSuccess}
+          onLoginSuccess={handleLoginSuccess}
         />
       </div>
     )
@@ -99,7 +99,7 @@ const STEPS = [
           }
           accessCodePlaceholder={props.accessCodePlaceholder}
           onStateChange={handleStateChange}
-          loginCallback={handleLoginSuccess}
+          onLoginSuccess={handleLoginSuccess}
         />
       </div>
     )
@@ -304,7 +304,7 @@ class LoginContent extends Component {
                 }
                 isAlwaysShown={!isInitialScreenOptionOnly}
                 onOptionsClick={this.handleOptionsClick}
-                loginCallback={this.handleLoginSuccess}
+                onLoginSuccess={this.handleLoginSuccess}
                 providerPasswordButtonLabel={providerPasswordButtonLabel}
               />
             )

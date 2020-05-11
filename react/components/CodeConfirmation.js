@@ -23,8 +23,6 @@ class CodeConfirmation extends Component {
     }
   }
 
-  handleSuccess = () => this.props.loginCallback()
-
   handleFailure = err => {
     err.code === 'WrongCredentials'
       ? this.setState({ isWrongCredentials: true })
@@ -41,7 +39,7 @@ class CodeConfirmation extends Component {
   }
 
   render() {
-    const { intl, onStateChange, previous, accessCodePlaceholder } = this.props
+    const { intl, onStateChange, previous, accessCodePlaceholder, onLoginSuccess } = this.props
     const { isInvalidCode, isWrongCredentials } = this.state
 
     return (
@@ -86,7 +84,7 @@ class CodeConfirmation extends Component {
             />
             <div className={`${styles.sendButton} ml-auto`}>
               <AuthServiceLazy.LoginWithAccessKey
-                onSuccess={this.handleSuccess}
+                onSuccess={onLoginSuccess}
                 onFailure={this.handleFailure}
               >
                 {({ state: { token }, loading, action: confirmToken }) => (
@@ -123,7 +121,7 @@ CodeConfirmation.propTypes = {
   /** Placeholder to access code input */
   accessCodePlaceholder: PropTypes.string,
   /** Function called after login success */
-  loginCallback: PropTypes.func,
+  onLoginSuccess: PropTypes.func.isRequired,
 }
 
 export default injectIntl(CodeConfirmation)

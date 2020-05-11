@@ -25,14 +25,14 @@ class OAuth extends Component {
     /** Actual button */
     children: PropTypes.node,
     /** Function called after login success */
-    loginCallback: PropTypes.func,
+    onLoginSuccess: PropTypes.func.isRequired,
   }
 
   render() {
-    const { intl, children, provider, loginCallback } = this.props
+    const { intl, children, provider, onLoginSuccess } = this.props
     return (
       <div className={className(styles.button, styles.buttonSocial, styleByProviderName[provider] || styles.customOAuthOptionBtn)}>
-        <AuthServiceLazy.OAuthPopup useNewSession provider={provider} onSuccess={() => loginCallback()}>
+        <AuthServiceLazy.OAuthPopup useNewSession provider={provider} onSuccess={() => onLoginSuccess()}>
           {({ loading, action: openOAuthPopup }) => (
             <Button
               isLoading={loading}

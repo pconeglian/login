@@ -39,7 +39,7 @@ class LoginOptions extends Component {
       title,
       fallbackTitle,
       options,
-      loginCallback,
+      onLoginSuccess,
       intl,
       isAlwaysShown,
       providerPasswordButtonLabel,
@@ -111,7 +111,7 @@ class LoginOptions extends Component {
                   >
                     <OAuth
                       provider={providerName}
-                      loginCallback={loginCallback}
+                      onLoginSuccess={onLoginSuccess}
                     >
                       {hasIcon
                         ? React.createElement(
@@ -162,7 +162,7 @@ LoginOptions.propTypes = {
   /** Current option being displayed */
   currentStep: PropTypes.string,
   /** Function called after login success */
-  loginCallback: PropTypes.func,
+  onLoginSuccess: PropTypes.func.isRequired,
   /** Password login button text */
   providerPasswordButtonLabel: PropTypes.string,
 }

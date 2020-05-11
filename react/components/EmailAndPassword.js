@@ -39,7 +39,7 @@ class EmailAndPassword extends Component {
     /** Whether to display the back button */
     showBackButton: PropTypes.bool,
     /** Function called after login success */
-    loginCallback: PropTypes.func,
+    onLoginSuccess: PropTypes.func.isRequired,
     /* Whether the user identifier interface has been extended */
     hasUserIdentifierExtension: PropTypes.bool,
     /** Placeholder for the identifier extension */
@@ -67,10 +67,6 @@ class EmailAndPassword extends Component {
       isOnInitialScreen: false,
     })
     event.preventDefault()
-  }
-
-  handleSuccess = () => {
-    this.props.loginCallback()
   }
 
   handleFailure = err => {
@@ -119,6 +115,7 @@ class EmailAndPassword extends Component {
       hasUserIdentifierExtension,
       identifierPlaceholder,
       invalidIdentifierError,
+      onLoginSuccess
     } = this.props
 
     const {
@@ -234,7 +231,7 @@ class EmailAndPassword extends Component {
             <div className={`${styles.sendButton} ml-auto`}>
               <AuthServiceLazy.LoginWithPassword
                 useNewSession
-                onSuccess={this.handleSuccess}
+                onSuccess={onLoginSuccess}
                 onFailure={this.handleFailure}
               >
                 {({
