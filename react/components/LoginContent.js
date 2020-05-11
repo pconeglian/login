@@ -452,8 +452,10 @@ const LoginContentProvider = props => {
         returnUrl: returnUrlQueryString,
       },
     } = runtime
-    const currentUrl = page !== 'store.login' ? `${pathname}${search}` : '/' 
-    return returnUrlQueryString || currentUrl
+    if (returnUrlQueryString) {
+      return returnUrlQueryString
+    }
+    return page !== 'store.login' ? `${pathname}${search}` : '/' 
   }, [runtime])
 
   const userEmail = getUserEmailQuery()
