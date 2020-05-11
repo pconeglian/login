@@ -3,8 +3,8 @@ import React, { Component, Suspense, useMemo } from 'react'
 import { path } from 'ramda'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { injectIntl } from 'react-intl'
-import { withRuntimeContext } from 'vtex.render-runtime'
+import { useIntl } from 'react-intl'
+import { useRuntime } from 'vtex.render-runtime'
 import Markdown from 'react-markdown'
 
 import Loading from './Loading'
@@ -440,18 +440,19 @@ const LoginContentWrapper = props => {
 }
 
 const LoginContentProvider = props => {
+  const runtime = useRuntime()
+  const intl = useIntl()
+
   const returnUrl = useMemo(() => {
     const {
-      runtime: {
-        page,
-        history: {
-          location: { pathname, search },
-        },
+      page,
+      history: {
+        location: { pathname, search },
       },
-    } = props
+    } = runtime
     const currentUrl = page !== 'store.login' ? `${pathname}${search}` : '/'
     return path(['query', 'returnUrl'], props) || currentUrl
-  }, [props])
+  }, [runtime])
 
   const userEmail = getUserEmailQuery()
 
@@ -470,12 +471,10 @@ const LoginContentProvider = props => {
           </div>
         }
         return (
-        <LoginContentWrapper {...props} returnUrl={returnUrl} />
+        <LoginContentWrapper {...props} intl={intl} runtime={runtime} returnUrl={returnUrl} />
       )}}
     </AuthStateLazy>
   )
 }
 
-export default withRuntimeContext(
-  injectIntl(LoginContentProvider)
-)
+export default LoginContentProvider
