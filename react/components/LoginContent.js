@@ -1,6 +1,5 @@
 import React, { Component, Suspense, useMemo } from 'react'
 
-import { path } from 'ramda'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { useIntl } from 'react-intl'
@@ -449,9 +448,12 @@ const LoginContentProvider = props => {
       history: {
         location: { pathname, search },
       },
+      query : {
+        returnUrl: returnUrlQueryString,
+      },
     } = runtime
-    const currentUrl = page !== 'store.login' ? `${pathname}${search}` : '/'
-    return path(['query', 'returnUrl'], props) || currentUrl
+    const currentUrl = page !== 'store.login' ? `${pathname}${search}` : '/' 
+    return returnUrlQueryString || currentUrl
   }, [runtime])
 
   const userEmail = getUserEmailQuery()
