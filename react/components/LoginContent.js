@@ -241,13 +241,6 @@ class LoginContent extends Component {
       isCreatePassword: false,
     })
   }
-
-  redirect = () => {
-    this.props.runtime.navigate({
-      to: this.props.returnUrl,
-      fallbackToWindowLocation: true,
-    })
-  }
   
   handleLoginSuccess = () => {
     const { isHeaderLogin } = this.props
@@ -322,6 +315,8 @@ class LoginContent extends Component {
       profile,
       isInitialScreenOptionOnly,
       defaultOption,
+      runtime,
+      returnUrl,
     } = this.props
 
     const { isOnInitialScreen, sessionProfile } = this.state
@@ -330,7 +325,10 @@ class LoginContent extends Component {
     // the profile by the props and current endpoint are /login, if receive it, should render the account options.
     if (sessionProfile && !profile) {
       if (location.pathname.includes('/login')) {
-        this.redirect()
+        runtime.navigate({
+          to: returnUrl,
+          fallbackToWindowLocation: true,
+        })
       }
     }
 
