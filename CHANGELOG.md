@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Use `vtex.react-vtexid` lib to call `/api/vtexid/pub/authentication/redirect`
+
+### Fixed
+
+- User was not being redirected when already logged in
+
+### Removed
+
+- Unused dependencies
+
 ## [2.30.1] - 2020-05-13
 
 ## [2.30.0] - 2020-05-07
