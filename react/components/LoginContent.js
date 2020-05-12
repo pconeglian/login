@@ -25,6 +25,7 @@ import { SELF_APP_NAME_AND_VERSION } from '../common/global'
 import getUserEmailQuery from '../utils/getUserEmailQuery'
 import getFlowStateQuery from '../utils/getFlowStateQuery'
 import getSessionProfile from '../utils/getSessionProfile'
+import { getReturnUrl, getDefaultRedirectUrl, jsRedirect } from '../utils/redirect'
 
 import styles from '../styles.css'
 
@@ -442,21 +443,10 @@ const LoginContentProvider = props => {
   const runtime = useRuntime()
   const intl = useIntl()
 
-  const returnUrl = useMemo(() => {
-    const {
-      page,
-      history: {
-        location: { pathname, search },
-      },
-      query : {
-        returnUrl: returnUrlQueryString,
-      },
-    } = runtime
-    if (returnUrlQueryString) {
-      return returnUrlQueryString
-    }
-    return page !== 'store.login' ? `${pathname}${search}` : '/' 
-  }, [runtime])
+  const redirectUrl = useMemo(() =>
+    getReturnUrl() || getDefaultRedirectUrl(props.isHeaderLogin),
+    [props.isHeaderLogin]
+  )
 
   const userEmail = getUserEmailQuery()
 
@@ -465,7 +455,7 @@ const LoginContentProvider = props => {
       skip={!!props.profile}
       scope="STORE"
       parentAppId={SELF_APP_NAME_AND_VERSION}
-      returnUrl={returnUrl}
+      returnUrl={redirectUrl}
       email={userEmail}
     >
       {({ loading }) => {
@@ -475,7 +465,7 @@ const LoginContentProvider = props => {
           </div>
         }
         return (
-        <LoginContentWrapper {...props} intl={intl} runtime={runtime} returnUrl={returnUrl} />
+        <LoginContentWrapper {...props} intl={intl} runtime={runtime} returnUrl={redirectUrl} />
       )}}
     </AuthStateLazy>
   )
