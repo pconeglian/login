@@ -20,7 +20,7 @@ import { setCookie } from '../utils/set-cookie'
 import FlowState from '../utils/FlowState'
 
 import { LoginPropTypes } from '../propTypes'
-import { AuthStateLazy, serviceHooks } from 'vtex.react-vtexid'
+import { AuthStateLazy, AuthServiceLazy, serviceHooks } from 'vtex.react-vtexid'
 import { SELF_APP_NAME_AND_VERSION } from '../common/global'
 import getUserEmailQuery from '../utils/getUserEmailQuery'
 import getFlowStateQuery from '../utils/getFlowStateQuery'
@@ -143,9 +143,8 @@ class LoginContent extends Component {
     invalidIdentifierError: PropTypes.string,
     /** Terms and conditions text in markdown */
     termsAndConditions: PropTypes.string,
-    returnUrl: PropTypes.string,
     defaultIsCreatePassword: PropTypes.bool,
-    redirectAfterLogin: PropTypes.func.isRequired,
+    apiRedirect: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -243,12 +242,17 @@ class LoginContent extends Component {
   }
   
   handleLoginSuccess = () => {
-    const { isHeaderLogin } = this.props
+    const { isHeaderLogin, apiRedirect } = this.props
     return this.context.patchSession().then(() => {
       if (isHeaderLogin) {
         window && window.location && window.location.reload()
       } else {
-        this.props.redirectAfterLogin()
+        // the use of apiRedirect here, instead of
+        // the redirect method, is because on CSR the
+        // components using authentication and relying
+        // on the session cookie haven't been updated yet,
+        // so the refresh is intentional.
+        apiRedirect()
       }
     })
   }
@@ -316,7 +320,7 @@ class LoginContent extends Component {
       isInitialScreenOptionOnly,
       defaultOption,
       runtime,
-      returnUrl,
+      isHeaderLogin,
     } = this.props
 
     const { isOnInitialScreen, sessionProfile } = this.state
@@ -325,10 +329,7 @@ class LoginContent extends Component {
     // the profile by the props and current endpoint are /login, if receive it, should render the account options.
     if (sessionProfile && !profile) {
       if (location.pathname.includes('/login')) {
-        runtime.navigate({
-          to: returnUrl,
-          fallbackToWindowLocation: true,
-        })
+        jsRedirect({ runtime, isHeaderLogin })
       }
     }
 
@@ -409,8 +410,6 @@ const LoginContentWrapper = props => {
       email: userEmail,
     },
   })
-  
-  const [redirectAfterLogin] = serviceHooks.useRedirectAfterLogin()
 
   if (isCreatePassFlow && (!userEmail || errorSendAccessKey)) {
     return (
@@ -418,7 +417,6 @@ const LoginContentWrapper = props => {
         {...props}
         defaultOption={steps.EMAIL_VERIFICATION}
         defaultIsCreatePassword
-        redirectAfterLogin={redirectAfterLogin}
       />
     )
   }
@@ -434,7 +432,6 @@ const LoginContentWrapper = props => {
     <LoginContent
       {...props}
       defaultOption={defaultOption}
-      redirectAfterLogin={redirectAfterLogin}
     />
   )
 }
@@ -465,7 +462,11 @@ const LoginContentProvider = props => {
           </div>
         }
         return (
-        <LoginContentWrapper {...props} intl={intl} runtime={runtime} returnUrl={redirectUrl} />
+          <AuthServiceLazy.RedirectAfterLogin>
+            {({ action: apiRedirect }) => (
+              <LoginContentWrapper {...props} intl={intl} runtime={runtime} apiRedirect={apiRedirect} />
+            )}
+          </AuthServiceLazy.RedirectAfterLogin>
       )}}
     </AuthStateLazy>
   )
