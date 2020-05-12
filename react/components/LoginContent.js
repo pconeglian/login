@@ -147,6 +147,7 @@ class LoginContent extends Component {
     termsAndConditions: PropTypes.string,
     returnUrl: PropTypes.string,
     defaultIsCreatePassword: PropTypes.bool,
+    redirectAfterLogin: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -253,16 +254,7 @@ class LoginContent extends Component {
       if (loginCallback) {
         loginCallback()
       } else {
-        // the use of location.assign here, instead of
-        // the redirect method, is because on CSR the
-        // components using authentication and relying
-        // on the session cookie haven't been updated yet,
-        // so the refresh is intentional.
-        location.assign(
-          `/api/vtexid/pub/authentication/redirect?returnUrl=${encodeURIComponent(
-            this.props.returnUrl
-          )}`
-        )
+        this.props.redirectAfterLogin()
       }
     })
   }
@@ -419,6 +411,8 @@ const LoginContentWrapper = props => {
       email: userEmail,
     },
   })
+  
+  const [redirectAfterLogin] = serviceHooks.useRedirectAfterLogin()
 
   if (isCreatePassFlow && (!userEmail || errorSendAccessKey)) {
     return (
@@ -426,6 +420,7 @@ const LoginContentWrapper = props => {
         {...props}
         defaultOption={steps.EMAIL_VERIFICATION}
         defaultIsCreatePassword
+        redirectAfterLogin={redirectAfterLogin}
       />
     )
   }
@@ -437,7 +432,13 @@ const LoginContentWrapper = props => {
       </div>
     )
   }
-  return <LoginContent {...props} defaultOption={defaultOption} />
+  return (
+    <LoginContent
+      {...props}
+      defaultOption={defaultOption}
+      redirectAfterLogin={redirectAfterLogin}
+    />
+  )
 }
 
 const LoginContentProvider = props => {
