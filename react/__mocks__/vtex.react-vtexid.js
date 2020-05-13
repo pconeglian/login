@@ -34,6 +34,8 @@ export const AuthServiceLazy = {
       action: () => {},
       validation: { validatePassword: () => true },
     }),
+
+  RedirectAfterLogin: ({ children }) => children({ action: () => {} }),
 }
 
 const AuthStateLazy = jest.fn(({ children }) => children({ loading: false }))

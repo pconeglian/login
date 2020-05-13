@@ -10,18 +10,21 @@ export const Link = ({ page, className, children }) => (
   </a>
 )
 
+const mockedRuntime = {
+  page: '',
+  history: {
+    location: {
+      pathname: '',
+      search: '',
+    },
+  },
+}
+
 // eslint-disable-next-line react/display-name
 export const withRuntimeContext = WrappedComponent => props => {
-  const mockedRuntime = {
-    page: '',
-    history: {
-      location: {
-        pathname: '',
-        search: '',
-      },
-    },
-  }
   return <WrappedComponent {...props} runtime={mockedRuntime} />
 }
+
+export const useRuntime = () => mockedRuntime
 
 export const withSession = () => comp => comp
