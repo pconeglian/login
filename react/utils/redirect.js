@@ -12,7 +12,7 @@ export const getDefaultRedirectUrl = isHeaderLogin => {
   if (isHeaderLogin) {
     return `${window.location.pathname}${window.location.search}`
   }
-  return '/'
+  return null
 }
 
 export const jsRedirect = ({ runtime, isHeaderLogin }) => {
