@@ -58,6 +58,7 @@ class LoginComponent extends Component {
     } = this.props
 
     const pathname = history && history.location && history.location.pathname
+    const search = history && history.location && history.location.search
 
     const iconClasses = 'flex items-center'
     const iconLabel = iconLabelProfile || translate('store/login.signIn', intl)
@@ -85,7 +86,7 @@ class LoginComponent extends Component {
     if (loginButtonAsLink) {
       const linkTo = sessionProfile ? 'store.account' : 'store.login'
       const returnUrl =
-        !sessionProfile && `returnUrl=${encodeURIComponent(pathname)}`
+        !sessionProfile && `returnUrl=${encodeURIComponent(`${pathname}${search}`)}`
       return (
         <div className={styles.buttonLink}>
           <ButtonWithIcon
