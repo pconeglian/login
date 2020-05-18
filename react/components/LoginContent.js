@@ -1,11 +1,9 @@
 import React, { Component, Suspense, useMemo } from 'react'
 
-import { compose, path } from 'ramda'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { graphql } from 'react-apollo'
-import { injectIntl } from 'react-intl'
-import { withSession, withRuntimeContext } from 'vtex.render-runtime'
+import { useIntl } from 'react-intl'
+import { useRuntime } from 'vtex.render-runtime'
 import Markdown from 'react-markdown'
 
 import Loading from './Loading'
@@ -22,18 +20,18 @@ import { setCookie } from '../utils/set-cookie'
 import FlowState from '../utils/FlowState'
 
 import { LoginPropTypes } from '../propTypes'
-import { getProfile } from '../utils/profile'
-import session from 'vtex.store-resources/QuerySession'
-import { AuthStateLazy, serviceHooks } from 'vtex.react-vtexid'
+import { AuthStateLazy, AuthServiceLazy, serviceHooks } from 'vtex.react-vtexid'
 import { SELF_APP_NAME_AND_VERSION } from '../common/global'
 import getUserEmailQuery from '../utils/getUserEmailQuery'
 import getFlowStateQuery from '../utils/getFlowStateQuery'
+import getSessionProfile from '../utils/getSessionProfile'
+import { getReturnUrl, getDefaultRedirectUrl, jsRedirect } from '../utils/redirect'
 
 import styles from '../styles.css'
 
 const STEPS = [
   /* eslint-disable react/display-name, react/prop-types */
-  (props, state, func, isOptionsMenuDisplayed) => {
+  ({ props, state, handleStateChange, isOptionsMenuDisplayed }) => {
     return style => (
       <div style={style} key={0}>
         <EmailVerification
@@ -42,13 +40,13 @@ const STEPS = [
           isCreatePassword={state.isCreatePassword}
           title={props.accessCodeTitle}
           emailPlaceholder={props.emailPlaceholder}
-          onStateChange={func}
+          onStateChange={handleStateChange}
           showBackButton={!isOptionsMenuDisplayed}
         />
       </div>
     )
   },
-  (props, state, func, isOptionsMenuDisplayed) => {
+  ({ props, handleStateChange, isOptionsMenuDisplayed, handleLoginSuccess }) => {
     return style => (
       <div style={style} key={1}>
         <EmailAndPassword
@@ -60,36 +58,36 @@ const STEPS = [
           showPasswordVerificationIntoTooltip={
             props.showPasswordVerificationIntoTooltip
           }
-          onStateChange={func}
+          onStateChange={handleStateChange}
           showBackButton={!isOptionsMenuDisplayed}
-          loginCallback={props.loginCallback}
+          onLoginSuccess={handleLoginSuccess}
           identifierPlaceholder={props.hasIdentifierExtension ? props.identifierPlaceholder : ''}
           invalidIdentifierError={props.hasIdentifierExtension ? props.invalidIdentifierError : ''}
         />
       </div>
     )
   },
-  (props, state, func) => {
+  ({ props, handleStateChange, handleLoginSuccess }) => {
     return style => (
       <div style={style} key={2}>
         <CodeConfirmation
           next={steps.ACCOUNT_OPTIONS}
           previous={steps.EMAIL_VERIFICATION}
           accessCodePlaceholder={props.accessCodePlaceholder}
-          onStateChange={func}
-          loginCallback={props.loginCallback}
+          onStateChange={handleStateChange}
+          onLoginSuccess={handleLoginSuccess}
         />
       </div>
     )
   },
-  (props) => {
+  ({ props }) => {
     return style => (
       <div style={style} key={3}>
         <AccountOptions optionLinks={props.accountOptionLinks} />
       </div>
     )
   },
-  (props, state, func) => {
+  ({ props, handleStateChange, handleLoginSuccess }) => {
     return style => (
       <div style={style} key={4}>
         <RecoveryPassword
@@ -100,8 +98,8 @@ const STEPS = [
             props.showPasswordVerificationIntoTooltip
           }
           accessCodePlaceholder={props.accessCodePlaceholder}
-          onStateChange={func}
-          loginCallback={props.loginCallback}
+          onStateChange={handleStateChange}
+          onLoginSuccess={handleLoginSuccess}
         />
       </div>
     )
@@ -111,14 +109,14 @@ const STEPS = [
 
 class LoginContent extends Component {
   static propTypes = {
+    /** Whether this is rendered by the header component (LoginComponent) */
+    isHeaderLogin: PropTypes.bool,
     /** User profile information */
     profile: PropTypes.shape({}),
     /** Which screen option will renderize  */
     isInitialScreenOptionOnly: PropTypes.bool,
     /** Step that will be render first */
     defaultOption: PropTypes.number,
-    /** Function called after login success */
-    loginCallback: PropTypes.func,
     /** Runtime context. */
     runtime: PropTypes.shape({
       navigate: PropTypes.func,
@@ -145,9 +143,8 @@ class LoginContent extends Component {
     invalidIdentifierError: PropTypes.string,
     /** Terms and conditions text in markdown */
     termsAndConditions: PropTypes.string,
-    returnUrl: PropTypes.string,
     defaultIsCreatePassword: PropTypes.bool,
-    redirectAfterLogin: PropTypes.func.isRequired,
+    apiRedirect: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -161,6 +158,7 @@ class LoginContent extends Component {
   }
 
   state = {
+    sessionProfile: this.props.profile,
     isOnInitialScreen: !this.props.profile,
     isCreatePassword: this.props.defaultIsCreatePassword,
     step: this.props.defaultOption,
@@ -173,6 +171,12 @@ class LoginContent extends Component {
     if (location.href.indexOf('accountAuthCookieName') > 0) {
       setCookie(location.href)
     }
+
+    getSessionProfile().then(sessionProfile => {
+      if (sessionProfile) {
+        this.setState({ sessionProfile })
+      }
+    })
   }
 
   get shouldRenderLoginOptions() {
@@ -208,7 +212,7 @@ class LoginContent extends Component {
     return [true, oAuthProviders[0]]
   }
 
-  handleUpdateState = state => {
+  handleStateChange = state => {
     if (state.hasOwnProperty('step')) {
       if (state.step === -1) {
         state.step = 0
@@ -236,25 +240,19 @@ class LoginContent extends Component {
       isCreatePassword: false,
     })
   }
-
-  redirect = () => {
-    this.props.runtime.navigate({
-      to: this.props.returnUrl,
-      fallbackToWindowLocation: true,
-    })
-  }
-
-  /**
-   * Action after login success. If loginCallback isn't
-   * a prop, it will call a root page redirect as default.
-   */
-  onLoginSuccess = () => {
-    const { loginCallback } = this.props
+  
+  handleLoginSuccess = () => {
+    const { isHeaderLogin, apiRedirect } = this.props
     return this.context.patchSession().then(() => {
-      if (loginCallback) {
-        loginCallback()
+      if (isHeaderLogin && window && window.location) {
+        window.location.reload()
       } else {
-        this.props.redirectAfterLogin()
+        // the use of apiRedirect here, instead of
+        // the redirect method, is because on CSR the
+        // components using authentication and relying
+        // on the session cookie haven't been updated yet,
+        // so the refresh is intentional.
+        apiRedirect()
       }
     })
   }
@@ -303,7 +301,7 @@ class LoginContent extends Component {
                 }
                 isAlwaysShown={!isInitialScreenOptionOnly}
                 onOptionsClick={this.handleOptionsClick}
-                loginCallback={this.onLoginSuccess}
+                onLoginSuccess={this.handleLoginSuccess}
                 providerPasswordButtonLabel={providerPasswordButtonLabel}
               />
             )
@@ -321,16 +319,17 @@ class LoginContent extends Component {
       profile,
       isInitialScreenOptionOnly,
       defaultOption,
-      session,
+      runtime,
+      isHeaderLogin,
     } = this.props
 
-    const { isOnInitialScreen } = this.state
+    const { isOnInitialScreen, sessionProfile } = this.state
 
     // Check if the user is already logged and redirect to the return URL if it didn't receive
     // the profile by the props and current endpoint are /login, if receive it, should render the account options.
-    if (getProfile(session) && !profile) {
+    if (sessionProfile && !profile) {
       if (location.pathname.includes('/login')) {
-        this.redirect()
+        jsRedirect({ runtime, isHeaderLogin })
       }
     }
 
@@ -343,12 +342,12 @@ class LoginContent extends Component {
 
     const renderForm = STEPS[step](
       {
-        ...this.props,
-        loginCallback: this.onLoginSuccess,
-      },
-      this.state,
-      this.handleUpdateState,
-      this.shouldRenderLoginOptions
+        props: this.props,
+        state: this.state,
+        handleStateChange: this.handleStateChange,
+        isOptionsMenuDisplayed: this.shouldRenderLoginOptions,
+        handleLoginSuccess: this.handleLoginSuccess,
+      }
     )
 
     const className = classNames(
@@ -411,8 +410,6 @@ const LoginContentWrapper = props => {
       email: userEmail,
     },
   })
-  
-  const [redirectAfterLogin] = serviceHooks.useRedirectAfterLogin()
 
   if (isCreatePassFlow && (!userEmail || errorSendAccessKey)) {
     return (
@@ -420,7 +417,6 @@ const LoginContentWrapper = props => {
         {...props}
         defaultOption={steps.EMAIL_VERIFICATION}
         defaultIsCreatePassword
-        redirectAfterLogin={redirectAfterLogin}
       />
     )
   }
@@ -436,24 +432,18 @@ const LoginContentWrapper = props => {
     <LoginContent
       {...props}
       defaultOption={defaultOption}
-      redirectAfterLogin={redirectAfterLogin}
     />
   )
 }
 
 const LoginContentProvider = props => {
-  const returnUrl = useMemo(() => {
-    const {
-      runtime: {
-        page,
-        history: {
-          location: { pathname, search },
-        },
-      },
-    } = props
-    const currentUrl = page !== 'store.login' ? `${pathname}${search}` : '/'
-    return path(['query', 'returnUrl'], props) || currentUrl
-  }, [props])
+  const runtime = useRuntime()
+  const intl = useIntl()
+
+  const redirectUrl = useMemo(() =>
+    getReturnUrl() || getDefaultRedirectUrl(props.isHeaderLogin),
+    [props.isHeaderLogin]
+  )
 
   const userEmail = getUserEmailQuery()
 
@@ -462,7 +452,7 @@ const LoginContentProvider = props => {
       skip={!!props.profile}
       scope="STORE"
       parentAppId={SELF_APP_NAME_AND_VERSION}
-      returnUrl={returnUrl}
+      returnUrl={redirectUrl}
       email={userEmail}
     >
       {({ loading }) => {
@@ -472,22 +462,14 @@ const LoginContentProvider = props => {
           </div>
         }
         return (
-        <LoginContentWrapper {...props} returnUrl={returnUrl} />
+          <AuthServiceLazy.RedirectAfterLogin>
+            {({ action: apiRedirect }) => (
+              <LoginContentWrapper {...props} intl={intl} runtime={runtime} apiRedirect={apiRedirect} />
+            )}
+          </AuthServiceLazy.RedirectAfterLogin>
       )}}
     </AuthStateLazy>
   )
 }
 
-const config = {
-  name: 'session',
-  options: () => ({ ssr: false, fetchPolicy: 'no-cache' }),
-}
-
-const content = withSession()(
-  compose(
-    injectIntl,
-    graphql(session, config)
-  )(LoginContentProvider)
-)
-
-export default withRuntimeContext(content)
+export default LoginContentProvider

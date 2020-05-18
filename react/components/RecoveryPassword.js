@@ -40,7 +40,7 @@ class RecoveryPassword extends Component {
   handleSuccess = () => {
     const { onStateChange, next } = this.props
     onStateChange({ step: next })
-    this.props.loginCallback()
+    this.props.onLoginSuccess()
   }
 
   handleFailure = err => {
@@ -214,7 +214,7 @@ RecoveryPassword.propTypes = {
   /** Placeholder to access code input */
   accessCodePlaceholder: PropTypes.string,
   /** Function called after login success */
-  loginCallback: PropTypes.func,
+  onLoginSuccess: PropTypes.func.isRequired,
 }
 
 export default injectIntl(RecoveryPassword)
