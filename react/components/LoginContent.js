@@ -244,8 +244,8 @@ class LoginContent extends Component {
   handleLoginSuccess = () => {
     const { isHeaderLogin, apiRedirect } = this.props
     return this.context.patchSession().then(() => {
-      if (isHeaderLogin) {
-        window && window.location && window.location.reload()
+      if (isHeaderLogin && window && window.location) {
+        window.location.reload()
       } else {
         // the use of apiRedirect here, instead of
         // the redirect method, is because on CSR the
