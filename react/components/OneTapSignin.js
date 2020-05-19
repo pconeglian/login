@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useRef, Suspense } from 'react'
 import PropTypes from 'prop-types'
 import { useRuntime, Helmet } from 'vtex.render-runtime'
-import { AuthStateLazy, serviceHooks } from 'vtex.react-vtexid' // why not AuthStateLazy
+import { AuthStateLazy, serviceHooks } from 'vtex.react-vtexid'
 
 import { GoogleOneTapAlignment } from '../common/global'
 import { getProfile } from '../utils/profile'
