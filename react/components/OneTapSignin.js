@@ -6,13 +6,7 @@ import { AuthStateLazy, serviceHooks } from 'vtex.react-vtexid'
 import { GoogleOneTapAlignment } from '../common/global'
 import { getProfile } from '../utils/profile'
 import { SELF_APP_NAME_AND_VERSION } from '../common/global'
-
-const getSessionPromise = () =>
-  !window ||
-  !window.__RENDER_8_SESSION__ ||
-  !window.__RENDER_8_SESSION__.sessionPromise
-    ? Promise.resolve(null)
-    : window.__RENDER_8_SESSION__.sessionPromise
+import getSessionProfile from '../utils/getSessionProfile'
 
 const onLoginPage = current => current === 'store.login'
 
@@ -60,9 +54,8 @@ const OneTapSignin = ({
   useEffect(() => {
     if (!shouldOpen) return
 
-    getSessionPromise().then(async data => {
-      const sessionProfile = getProfile((data || {}).response)
-      if (sessionProfile) return
+    getSessionProfile().then(async data => {
+      if (data) return
 
       const { href: baseUrl } = window.location
       const resp = await fetch(
