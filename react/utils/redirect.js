@@ -22,9 +22,10 @@ export const jsRedirect = ({ runtime, isHeaderLogin }) => {
   const url = getReturnUrl() || getDefaultRedirectUrl(isHeaderLogin)
 
   if (!url) {
-    const queryString = new URLSearchParams({
-      __bindingAddress: getBindingAddress(),
-    }).toString()
+    const __bindingAddress = getBindingAddress()
+    const queryString = __bindingAddress
+      ? new URLSearchParams({ __bindingAddress }).toString()
+      : ''
     return `${ROOT_PATH}/?${queryString}`
   }
 
