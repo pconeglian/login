@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { injectIntl } from 'react-intl'
 
-import { ButtonBehavior } from './common/global'
+import { ButtonBehavior, GoogleOneTapAlignment } from './common/global'
 import { LoginSchema } from './schema'
 import { setCookie } from './utils/set-cookie'
 import { LoginContainerProptypes } from './propTypes'
@@ -132,12 +132,50 @@ Login.getSchema = () => ({
           }
         }
       }
-    }
+    },
+    hasGoogleOneTap: {
+      title: 'admin/editor.login.googleOneTap.title',
+      type: 'boolean',
+    },
+  },
+  dependencies: {
+    ...LoginSchema.dependencies,
+    hasGoogleOneTap: {
+      oneOf: [
+        {
+          properties: {
+            hasGoogleOneTap: {
+              enum: [true],
+            },
+            googleOneTapAlignment:{
+              title: 'admin/editor.login.googleOneTap.alignment',
+              type: 'string',
+              enum: [GoogleOneTapAlignment.RIGHT, GoogleOneTapAlignment.LEFT],
+              default: GoogleOneTapAlignment.RIGHT,
+            },
+            googleOneTapMarginTop:{
+              title: 'admin/editor.login.googleOneTap.marginTop',
+              type: 'string',
+              default: '3rem',
+            },
+          },
+        },
+      ],
+    },
   },
 })
 
 Login.uiSchema = {
-  'ui:order': ['*', 'hasIdentifierExtension', 'identifierPlaceholder', 'invalidIdentifierError', 'accountOptionLinks']
+  'ui:order': [
+    '*',
+    'hasIdentifierExtension',
+    'identifierPlaceholder',
+    'invalidIdentifierError',
+    'accountOptionLinks',
+    'hasGoogleOneTap',
+    'googleOneTapAlignment',
+    'googleOneTapMarginTop',
+  ],
 }
 
 const LoginWithSession = injectIntl(LoginComponent)

@@ -60,5 +60,8 @@
   "admin/editor.login.accountOptionLabelTitle": "admin/editor.login.accountOptionLabelTitle",
   "admin/editor.login.accountOptionPathTitle": "admin/editor.login.accountOptionPathTitle",
   "admin/editor.login.accountOptionCssClassTitle": "admin/editor.login.accountOptionCssClassTitle",
-  "admin/editor.login.termsAndConditions": "admin/editor.login.termsAndConditions"
+  "admin/editor.login.termsAndConditions": "admin/editor.login.termsAndConditions",
+  "admin/editor.login.googleOneTap.title": "[Experimental] Enable Google One-tap sign-up",
+  "admin/editor.login.googleOneTap.alignment": "Google One-tap alignment",
+  "admin/editor.login.googleOneTap.marginTop": "Google One-tap top margin"
 }

@@ -14,6 +14,7 @@ import { ButtonWithIcon } from 'vtex.styleguide'
 import { truncateString } from '../utils/format-string'
 import { translate } from '../utils/translate'
 import { LoginPropTypes } from '../propTypes'
+import OneTapSignin from './OneTapSignin'
 
 import styles from '../styles.css'
 import Loading from './Loading'
@@ -132,12 +133,22 @@ class LoginComponent extends Component {
       onOutSideBoxClick,
       sessionProfile,
       mirrorTooltipToRight,
+      hasGoogleOneTap,
+     googleOneTapAlignment,
+     googleOneTapMarginTop,
     } = this.props
 
     return (
       <div className={`${styles.container} flex items-center fr`}>
         <div className="relative">
           {this.renderIcon()}
+          {hasGoogleOneTap && (
+            <OneTapSignin
+              alignment={googleOneTapAlignment}
+              marginTop={googleOneTapMarginTop}
+              shouldOpen={!sessionProfile}
+            />
+          )}
           {isBoxOpen && (
             <Overlay>
               <OutsideClickHandler onOutsideClick={onOutSideBoxClick}>

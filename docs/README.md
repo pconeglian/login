@@ -125,6 +125,11 @@ Through the Storefront, you can change the `login`'s behavior and interface. How
 | `accountOptionsButtonBehavior`                     | `Enum`    | Set account options button behavior. `"popover"` for popover, `"link"` for a link to the `/account` page | "popover"     |
 | `accountOptionLinks`                               | `Array`   | Determines more specific account option links to replace the `My Account` link.<br>Each array element is an object with the properties:<br><ul><li>`label` [`string`] - Link text</li><li>`path` [`string`] - Relative path to where the link leads</li><li>`cssClass` [`string`] - CSS class the link receives</li></ul>                           | -             |
 | `termsAndConditions`                               | `String`  | Sets a markdown text below the login options, meant to warn the user about terms & conditions            | -             |
+| `hasGoogleOneTap`   | `boolean` | ![https://img.shields.io/badge/-Beta-red](https://img.shields.io/badge/-Beta-red) Defines whether the [Google's One-tap sign-up and auto sign-in](https://developers.google.com/identity/one-tap/web/) solution is enabled (`true`) or not (`false`) .  |  `false`  |
+| `googleOneTapAlignment`     | `enum`    |  ![https://img.shields.io/badge/-Beta-red](https://img.shields.io/badge/-Beta-red) Defines pop-up alignment for the Google One-tap login. Possible values are `Left` and `Right`. | `Right`    |
+| `googleOneTapMarginTop`  | `string`  | ![https://img.shields.io/badge/-Beta-red](https://img.shields.io/badge/-Beta-red) Defines the pop-up top margin for the Google One-tap login. The values supported are the same supported by the CSS property `top`. | `3rem`       |
+
+Note that the Google One Tap props are in Beta. Although they are ready to be used, you can expect some UX and customization improvements. 
 
 You can also change the `login-content`'s behaviour and interface through the Store front.
 
