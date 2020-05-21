@@ -1,5 +1,4 @@
 import { ROOT_PATH } from '../common/global'
-import composeQueryString from './composeQueryString'
 import getBindingAddress from './getBindingAddress'
 
 export const getReturnUrl = () => {
@@ -20,15 +19,13 @@ export const getDefaultRedirectUrl = isHeaderLogin => {
 }
 
 export const jsRedirect = ({ runtime, isHeaderLogin }) => {
-  const url =
-    getReturnUrl() ||
-    getDefaultRedirectUrl(isHeaderLogin) ||
-    `${ROOT_PATH}/?${composeQueryString({
-      __bindingAddress: getBindingAddress(),
-    })}`
+  const url = getReturnUrl() || getDefaultRedirectUrl(isHeaderLogin)
 
   if (!url) {
-    return
+    const queryString = new URLSearchParams({
+      __bindingAddress: getBindingAddress(),
+    }).toString()
+    return `${ROOT_PATH}/?${queryString}`
   }
 
   runtime.navigate({
