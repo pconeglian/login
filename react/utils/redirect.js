@@ -1,5 +1,6 @@
-import { BINDING_ADDRESS, ROOT_PATH } from '../common/global'
+import { ROOT_PATH } from '../common/global'
 import composeQueryString from './composeQueryString'
+import getBindingAddress from './getBindingAddress'
 
 export const getReturnUrl = () => {
   if (!window || !window.location) {
@@ -23,7 +24,7 @@ export const jsRedirect = ({ runtime, isHeaderLogin }) => {
     getReturnUrl() ||
     getDefaultRedirectUrl(isHeaderLogin) ||
     `${ROOT_PATH}/?${composeQueryString({
-      __bindingAddress: BINDING_ADDRESS,
+      __bindingAddress: getBindingAddress(),
     })}`
 
   if (!url) {

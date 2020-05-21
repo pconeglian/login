@@ -9,8 +9,4 @@ export const GoogleOneTapAlignment = {
   RIGHT: 'Right',
   LEFT: 'Left',
 }
-export const ROOT_PATH =
-  (window && window.__RUNTIME__ && window.__RUNTIME__.rootPath) || ''
-const search = window && window.location && window.location.search
-const searchParams = new URLSearchParams(search)
-export const BINDING_ADDRESS = searchParams.get('__bindingAddress')
+export const ROOT_PATH = (__RUNTIME__ && __RUNTIME__.rootPath) || ''
