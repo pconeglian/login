@@ -299,6 +299,7 @@ class LoginContent extends Component {
                     ? 'store/loginOptions.emailVerification'
                     : 'store/loginOptions.emailAndPassword'
                 }
+                step={step}
                 isAlwaysShown={!isInitialScreenOptionOnly}
                 onOptionsClick={this.handleOptionsClick}
                 onLoginSuccess={this.handleLoginSuccess}
@@ -351,7 +352,7 @@ class LoginContent extends Component {
     )
 
     const className = classNames(
-      `${styles.content} flex relative bg-base justify-around overflow-visible pa4 center`,
+      `${styles.content} ${classNames(styles.step, `${styles.step}--${step}`)} flex relative bg-base justify-around overflow-visible pa4 center`,
       (this.shouldRenderForm && this.shouldRenderLoginOptions) ? 'items-start-ns' : 'items-baseline-ns',
       {
         [styles.contentInitialScreen]: this.state.isOnInitialScreen,

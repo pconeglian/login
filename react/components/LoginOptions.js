@@ -43,9 +43,10 @@ class LoginOptions extends Component {
       intl,
       isAlwaysShown,
       providerPasswordButtonLabel,
+      step
     } = this.props
 
-    const classes = classNames(styles.options, className, {
+    const classes = classNames(styles.options, classNames(styles.step, `${styles.step}--${step}`), className, {
       [styles.optionsSticky]: isAlwaysShown,
     })
 
