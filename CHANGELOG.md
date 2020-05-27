@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- Added step css handle to login content component
+### Added
+
+- `content` css handle modifiers for each login flow state
 
 ## [2.33.1] - 2020-06-01
 
