@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- When the header behavior is LINK, it passes `__bindingAddress` in navigation
+- When the header behavior is LINK, it adds the current query string to the `returnUrl`
+
+### Changed
+
+- When `returnUrl` doesn't exist, redirect to default url defined by `vtex.react-vtexid` or consider `rootPath` and `__bindingAddress`
+
 ## [2.32.0] - 2020-05-21
 ### Added
 

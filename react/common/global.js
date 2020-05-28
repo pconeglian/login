@@ -9,3 +9,4 @@ export const GoogleOneTapAlignment = {
   RIGHT: 'Right',
   LEFT: 'Left',
 }
+export const ROOT_PATH = (__RUNTIME__ && __RUNTIME__.rootPath) || ''

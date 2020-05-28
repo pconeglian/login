@@ -60,7 +60,7 @@ const AccountOptions = ({ intl, optionLinks }) => {
       </div>
       <hr className="mv2 o-30" />
       <div className="mv4 min-h-2 b--muted-4">
-        <AuthServiceLazy.RedirectLogout returnUrl="/">
+        <AuthServiceLazy.RedirectLogout>
           {({ action: logout }) => {
             if (hasOptionLinks) {
               return (
