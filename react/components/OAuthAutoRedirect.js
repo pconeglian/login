@@ -21,13 +21,16 @@ function OAuthAutoRedirect({ intl, provider, redirect }) {
             { provider }
           )}
         </p>
-        <div className={`self-center c-emphasis ${styles.oauthAutoRedirectLoading}`}>
+        <div
+          className={`self-center c-emphasis ${styles.oauthAutoRedirectLoading}`}
+        >
           <Spinner color="currentColor" size={24} />
         </div>
       </div>
     </div>
   )
 }
+
 OAuthAutoRedirect.propTypes = {
   redirect: PropTypes.func.isRequired,
   provider: PropTypes.string.isRequired,
@@ -49,6 +52,7 @@ function Wrapper({ provider, ...props }) {
     </AuthServiceLazy.OAuthRedirect>
   )
 }
+
 Wrapper.propTypes = {
   provider: PropTypes.string.isRequired,
 }
