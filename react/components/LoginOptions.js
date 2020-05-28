@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import React, { Component, Fragment, useCallback, useMemo } from 'react'
+import React, { Fragment, useCallback, useMemo, useState } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
 import { ExtensionContainer } from 'vtex.render-runtime'
 import { Button } from 'vtex.styleguide'
@@ -11,6 +11,7 @@ import { translate } from '../utils/translate'
 import FormTitle from './FormTitle'
 import OAuth from './OAuth'
 import styles from '../styles.css'
+import FormError from './FormError'
 
 const PROVIDERS_ICONS = {
   Google: GoogleIcon,
@@ -30,6 +31,10 @@ const LoginOptions = ({
   currentStep,
   onOptionsClick,
 }) => {
+  const [loginError, setLoginError] = useState(null)
+
+  const handleOAuthError = useCallback(err => setLoginError(err), [])
+
   const handleOptionClick = useCallback(
     el => () => {
       onOptionsClick(el)
@@ -44,7 +49,7 @@ const LoginOptions = ({
         ((options[option] && !isAlwaysShown) || currentStep !== optionName)
       )
     },
-    [isAlwaysShown, currentStep, options]
+    [options, isAlwaysShown, currentStep]
   )
 
   const classes = useMemo(
@@ -58,6 +63,7 @@ const LoginOptions = ({
   return (
     <div className={classes}>
       <FormTitle>{title || translate(fallbackTitle, intl)}</FormTitle>
+      <FormError show={loginError}>{loginError}</FormError>
       <ul className={`${styles.optionsList} list pa0`}>
         <Fragment>
           {options.accessKeyAuthentication &&
@@ -122,6 +128,7 @@ const LoginOptions = ({
                   <OAuth
                     provider={providerName}
                     onLoginSuccess={onLoginSuccess}
+                    onOAuthError={handleOAuthError}
                   >
                     {hasIcon
                       ? React.createElement(PROVIDERS_ICONS[providerName], null)
