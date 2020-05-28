@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import { Spinner } from 'vtex.styleguide'
 import { AuthServiceLazy } from 'vtex.react-vtexid'
 
+import { getRootPath } from '../common/global'
 import styles from '../styles.css'
 
 function OAuthAutoRedirect({ intl, provider, redirect }) {
@@ -39,8 +40,23 @@ OAuthAutoRedirect.propTypes = {
 }
 
 function Wrapper({ provider, ...props }) {
+  const errorFallbackUrl = useMemo(() => {
+    const location = window && window.location
+    const currentDomain = location && location.origin
+    const currentSearch = location && location.search
+    const currentHash = location && location.hash
+    return new URL(
+      `${getRootPath()}/login${currentSearch}${currentHash}`,
+      currentDomain
+    ).href
+  }, [])
+
   return (
-    <AuthServiceLazy.OAuthRedirect useNewSession provider={provider}>
+    <AuthServiceLazy.OAuthRedirect
+      errorFallbackUrl={errorFallbackUrl}
+      useNewSession
+      provider={provider}
+    >
       {({ loading, action: redirectToOAuthPage }) => (
         <OAuthAutoRedirect
           {...props}
