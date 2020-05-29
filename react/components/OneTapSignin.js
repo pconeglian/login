@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import { useRuntime, Helmet } from 'vtex.render-runtime'
 import { AuthStateLazy, serviceHooks } from 'vtex.react-vtexid'
 
-import { GoogleOneTapAlignment } from '../common/global'
+import {
+  GoogleOneTapAlignment,
+  SELF_APP_NAME_AND_VERSION,
+} from '../common/global'
 import { getProfile } from '../utils/profile'
-import { SELF_APP_NAME_AND_VERSION } from '../common/global'
 import getSessionProfile from '../utils/getSessionProfile'
 
 const onLoginPage = current => current === 'store.login'
@@ -98,7 +100,7 @@ const OneTapSignin = ({
         }}
       />
       <form className="dn" ref={formRef}>
-        <input name="account" value={account} />
+        <input name="account" value={account} onChange={() => {}} />
         <input name="credential" />
       </form>
     </>
@@ -122,7 +124,7 @@ const Wrapper = props => {
         skip
         scope="STORE"
         parentAppId={SELF_APP_NAME_AND_VERSION}
-        returnUrl={onLoginPage(page) ? (rootPath || '/') : window.location.href}
+        returnUrl={onLoginPage(page) ? rootPath || '/' : window.location.href}
       >
         <OneTapSignin {...props} page={page} />
       </AuthStateLazy>
