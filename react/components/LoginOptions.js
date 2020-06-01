@@ -43,7 +43,6 @@ class LoginOptions extends Component {
       intl,
       isAlwaysShown,
       providerPasswordButtonLabel,
-      step
     } = this.props
 
     const classes = classNames(styles.options, className, {

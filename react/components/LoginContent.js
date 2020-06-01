@@ -300,7 +300,6 @@ class LoginContent extends Component {
                     ? 'store/loginOptions.emailVerification'
                     : 'store/loginOptions.emailAndPassword'
                 }
-                step={step}
                 isAlwaysShown={!isInitialScreenOptionOnly}
                 onOptionsClick={this.handleOptionsClick}
                 onLoginSuccess={this.handleLoginSuccess}
