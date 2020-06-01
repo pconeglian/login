@@ -251,7 +251,7 @@ class LoginContent extends Component {
         // the redirect method, is because on CSR the
         // components using authentication and relying
         // on the session cookie haven't been updated yet,
-        // so the refresh is intentional.
+        // so the refresh is intentional. 
         apiRedirect()
       }
     })
