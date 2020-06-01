@@ -102,7 +102,7 @@ class LoginComponent extends Component {
               }
               const returnUrl =
                 !sessionProfile &&
-                `returnUrl=${encodeURIComponent(`${pathname}${search}`)}`
+                encodeURIComponent(`${pathname}${search}`)
               const bindingAddress = getBindingAddress()
               return navigate({
               page: linkTo,
