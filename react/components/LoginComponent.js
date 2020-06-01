@@ -99,7 +99,11 @@ class LoginComponent extends Component {
               )
             }
             iconPosition={showIconProfile ? 'left' : 'right'}
-            onClick={() => navigate({
+            onClick={() => {
+              if (!window || !URLSearchParams) {
+                return
+              }
+              return navigate({
               page: linkTo,
               query: new URLSearchParams({
                 returnUrl,
@@ -107,7 +111,7 @@ class LoginComponent extends Component {
                   bindingAddress,
                 }),
               }).toString()
-            })}
+            })}}
           >
             {buttonContent}
           </ButtonWithIcon>

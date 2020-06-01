@@ -1,8 +1,9 @@
 const getFlowStateQuery = () => {
-  if (window && window.location && window.location.search) {
-    return new URLSearchParams(window.location.search).get('flowState')
+  const search = window && window.location && window.location.search
+  if (!search || !URLSearchParams) {
+    return null
   }
-  return null
+  return new URLSearchParams(search).get('flowState')
 }
 
 export default getFlowStateQuery
