@@ -107,7 +107,9 @@ class LoginComponent extends Component {
               return navigate({
               page: linkTo,
               query: new URLSearchParams({
-                returnUrl,
+                ...(returnUrl && {
+                  returnUrl,
+                }),
                 ...(bindingAddress && {
                   bindingAddress,
                 }),
