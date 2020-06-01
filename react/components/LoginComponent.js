@@ -86,9 +86,6 @@ class LoginComponent extends Component {
 
     if (loginButtonAsLink) {
       const linkTo = sessionProfile ? 'store.account' : 'store.login'
-      const returnUrl =
-        !sessionProfile && `returnUrl=${encodeURIComponent(`${pathname}${search}`)}`
-      const bindingAddress = getBindingAddress()
       return (
         <div className={styles.buttonLink}>
           <ButtonWithIcon
@@ -99,15 +96,25 @@ class LoginComponent extends Component {
               )
             }
             iconPosition={showIconProfile ? 'left' : 'right'}
-            onClick={() => navigate({
+            onClick={() => {
+              if (!window || !URLSearchParams) {
+                return
+              }
+              const returnUrl =
+                !sessionProfile &&
+                encodeURIComponent(`${pathname}${search}`)
+              const bindingAddress = getBindingAddress()
+              return navigate({
               page: linkTo,
               query: new URLSearchParams({
-                returnUrl,
+                ...(returnUrl && {
+                  returnUrl,
+                }),
                 ...(bindingAddress && {
                   bindingAddress,
                 }),
               }).toString()
-            })}
+            })}}
           >
             {buttonContent}
           </ButtonWithIcon>

@@ -1,8 +1,9 @@
 const getUserEmailQuery = () => {
-  if (window && window.location && window.location.search) {
-    return new URLSearchParams(window.location.search).get('userEmail')
+  const search = window && window.location && window.location.search
+  if (!search || !URLSearchParams) {
+    return null
   }
-  return null
+  return new URLSearchParams(search).get('userEmail')
 }
 
 export default getUserEmailQuery

@@ -2,10 +2,11 @@ import { ROOT_PATH } from '../common/global'
 import getBindingAddress from './getBindingAddress'
 
 export const getReturnUrl = () => {
-  if (!window || !window.location) {
+  const search = window && window.location && window.location.search
+  if (!search || !URLSearchParams) {
     return null
   }
-  return new URLSearchParams(window.location.search).get('returnUrl')
+  return new URLSearchParams(search).get('returnUrl')
 }
 
 export const getDefaultRedirectUrl = isHeaderLogin => {
