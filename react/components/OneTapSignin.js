@@ -100,7 +100,7 @@ const OneTapSignin = ({
         }}
       />
       <form className="dn" ref={formRef}>
-        <input name="account" value={account} onChange={() => {}} />
+        <input name="account" value={account} readOnly />
         <input name="credential" />
       </form>
     </>
