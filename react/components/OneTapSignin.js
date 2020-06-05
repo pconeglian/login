@@ -29,6 +29,12 @@ const OneTapSignin = ({
   const { account } = useRuntime()
   const [startSession] = serviceHooks.useStartLoginSession()
 
+  const windowHasGoogleScript =
+    window &&
+    window.google &&
+    window.google.accounts &&
+    window.google.accounts.id
+
   const prompt = useCallback(clientId => {
     google.accounts.id.initialize({
       client_id: clientId,
@@ -69,7 +75,7 @@ const OneTapSignin = ({
 
       startSession()
 
-      if (window.google) {
+      if (windowHasGoogleScript) {
         prompt(clientId)
       } else {
         window.onGoogleLibraryLoad = () => {
@@ -78,14 +84,14 @@ const OneTapSignin = ({
       }
     })
     return () => {
-      if (!window || !window.google) return
+      if (!windowHasGoogleScript) return
       google.accounts.id.cancel()
     }
-  }, [account, prompt, shouldOpen, startSession])
+  }, [account, windowHasGoogleScript, prompt, shouldOpen, startSession])
 
   return shouldOpen ? (
     <>
-      {!window.google && (
+      {!windowHasGoogleScript && (
         <Helmet>
           <script src="https://accounts.google.com/gsi/client" />
         </Helmet>
@@ -135,6 +141,13 @@ const Wrapper = props => {
 export default Wrapper
 
 export const OneTapSignOut = () => {
-  window.localStorage && localStorage.setItem('gsi_auto', 'false')
-  window.google && google.accounts.id.disableAutoSelect()
+  if (!window) {
+    return
+  }
+  if (window.localStorage) {
+    localStorage.setItem('gsi_auto', 'false')
+  }
+  if (window.google && window.google.accounts && window.google.accounts.id) {
+    google.accounts.id.disableAutoSelect()
+  }
 }
