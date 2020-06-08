@@ -19,6 +19,9 @@ const isBrowserSupported = () => {
   return ua.indexOf('Chrome') >= 0 || ua.indexOf('Firefox') >= 0
 }
 
+const getWindowHasGoogleScript = () =>
+  window && window.google && window.google.accounts && window.google.accounts.id
+
 const OneTapSignin = ({
   shouldOpen,
   page,
@@ -28,12 +31,6 @@ const OneTapSignin = ({
   const formRef = useRef()
   const { account } = useRuntime()
   const [startSession] = serviceHooks.useStartLoginSession()
-
-  const windowHasGoogleScript =
-    window &&
-    window.google &&
-    window.google.accounts &&
-    window.google.accounts.id
 
   const prompt = useCallback(clientId => {
     google.accounts.id.initialize({
@@ -75,7 +72,7 @@ const OneTapSignin = ({
 
       startSession()
 
-      if (windowHasGoogleScript) {
+      if (getWindowHasGoogleScript()) {
         prompt(clientId)
       } else {
         window.onGoogleLibraryLoad = () => {
@@ -84,14 +81,14 @@ const OneTapSignin = ({
       }
     })
     return () => {
-      if (!windowHasGoogleScript) return
+      if (!getWindowHasGoogleScript()) return
       google.accounts.id.cancel()
     }
-  }, [account, windowHasGoogleScript, prompt, shouldOpen, startSession])
+  }, [account, prompt, shouldOpen, startSession])
 
   return shouldOpen ? (
     <>
-      {!windowHasGoogleScript && (
+      {!getWindowHasGoogleScript() && (
         <Helmet>
           <script src="https://accounts.google.com/gsi/client" />
         </Helmet>
@@ -147,7 +144,7 @@ export const OneTapSignOut = () => {
   if (window.localStorage) {
     localStorage.setItem('gsi_auto', 'false')
   }
-  if (window.google && window.google.accounts && window.google.accounts.id) {
+  if (getWindowHasGoogleScript()) {
     google.accounts.id.disableAutoSelect()
   }
 }
