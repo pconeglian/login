@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Injected google scripts (like `google map`) breaking the login
+
 ## [2.34.1] - 2020-06-04
 
 ### Fixed
