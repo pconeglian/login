@@ -19,6 +19,9 @@ const isBrowserSupported = () => {
   return ua.indexOf('Chrome') >= 0 || ua.indexOf('Firefox') >= 0
 }
 
+const getWindowHasGoogleScript = () =>
+  window && window.google && window.google.accounts && window.google.accounts.id
+
 const OneTapSignin = ({
   shouldOpen,
   page,
@@ -69,7 +72,7 @@ const OneTapSignin = ({
 
       startSession()
 
-      if (window.google) {
+      if (getWindowHasGoogleScript()) {
         prompt(clientId)
       } else {
         window.onGoogleLibraryLoad = () => {
@@ -78,14 +81,14 @@ const OneTapSignin = ({
       }
     })
     return () => {
-      if (!window || !window.google) return
+      if (!getWindowHasGoogleScript()) return
       google.accounts.id.cancel()
     }
   }, [account, prompt, shouldOpen, startSession])
 
   return shouldOpen ? (
     <>
-      {!window.google && (
+      {!getWindowHasGoogleScript() && (
         <Helmet>
           <script src="https://accounts.google.com/gsi/client" />
         </Helmet>
@@ -135,6 +138,13 @@ const Wrapper = props => {
 export default Wrapper
 
 export const OneTapSignOut = () => {
-  window.localStorage && localStorage.setItem('gsi_auto', 'false')
-  window.google && google.accounts.id.disableAutoSelect()
+  if (!window) {
+    return
+  }
+  if (window.localStorage) {
+    localStorage.setItem('gsi_auto', 'false')
+  }
+  if (getWindowHasGoogleScript()) {
+    google.accounts.id.disableAutoSelect()
+  }
 }
