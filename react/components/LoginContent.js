@@ -405,6 +405,7 @@ const LoginContentWrapper = props => {
     ,
     { loading: loadingSendAccessKey, error: errorSendAccessKey },
   ] = serviceHooks.useSendAccessKey({
+    parentAppId: SELF_APP_NAME_AND_VERSION,
     autorun: isCreatePassFlow,
     actionArgs: {
       useNewSession: true,
