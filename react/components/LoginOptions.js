@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import React, { Fragment, useCallback, useMemo, useState } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
-import { ExtensionContainer } from 'vtex.render-runtime'
+import { ExtensionContainer, useRuntime } from 'vtex.render-runtime'
 import { Button } from 'vtex.styleguide'
 
 import FacebookIcon from '../images/FacebookIcon'
@@ -12,6 +12,7 @@ import FormTitle from './FormTitle'
 import OAuth from './OAuth'
 import styles from '../styles.css'
 import FormError from './FormError'
+import getErrorQuery from '../utils/getErrorQuery'
 
 const PROVIDERS_ICONS = {
   Google: GoogleIcon,
@@ -31,7 +32,9 @@ const LoginOptions = ({
   currentStep,
   onOptionsClick,
 }) => {
-  const [loginError, setLoginError] = useState(null)
+  const runtime = useRuntime()
+  const errorQuery = useMemo(() => getErrorQuery(runtime), [runtime])
+  const [loginError, setLoginError] = useState(errorQuery)
 
   const handleOAuthError = useCallback(err => setLoginError(err), [])
 
