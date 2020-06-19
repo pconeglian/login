@@ -1,4 +1,7 @@
 {
+  "store/error.oauth.unknown": "Sorry, an unexpected error occurred. Please, try again.",
+  "store/error.oauth.refresh": "Sorry, it is likely that you tried to refresh the browser during the process. Please, try again.",
+  "store/error.oauth.missingEmail": "Sorry, we didn't receive your e-mail. Please, check your permissions or contact the responsible company.",
   "store/loginOptions.title": "Choose a sign-in option",
   "store/loginOptions.emailVerification": "Receive access code by e-mail",
   "store/loginOptions.emailAndPassword": "Sign in with e-mail and password",

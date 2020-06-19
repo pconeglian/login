@@ -13,6 +13,7 @@ import OAuth from './OAuth'
 import styles from '../styles.css'
 import FormError from './FormError'
 import getErrorQuery from '../utils/getErrorQuery'
+import getOAuthErrorMessage from '../utils/getOAuthErrorMessage'
 
 const PROVIDERS_ICONS = {
   Google: GoogleIcon,
@@ -33,10 +34,16 @@ const LoginOptions = ({
   onOptionsClick,
 }) => {
   const runtime = useRuntime()
-  const errorQuery = useMemo(() => getErrorQuery(runtime), [runtime])
-  const [loginError, setLoginError] = useState(errorQuery)
+  const initialOAuthErrorMessage = useMemo(() => {
+    const errorQuery = getErrorQuery(runtime)
+    return errorQuery && getOAuthErrorMessage(errorQuery)
+  }, [runtime])
+  const [loginError, setLoginError] = useState(initialOAuthErrorMessage)
 
-  const handleOAuthError = useCallback(err => setLoginError(err), [])
+  const handleOAuthError = useCallback(err => {
+    const msg = getOAuthErrorMessage(err)
+    setLoginError(msg)
+  }, [])
 
   const handleOptionClick = useCallback(
     el => () => {

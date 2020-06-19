@@ -1,4 +1,7 @@
 {
+  "store/error.oauth.unknown": "Lo sentimos, se produjo un error inesperado. Por favor, inténtelo de nuevo.",
+  "store/error.oauth.refresh": "Lo sentimos, probablemente trató de actualizar su navegador durante el proceso. Por favor, inténtelo de nuevo.",
+  "store/error.oauth.missingEmail": "Lo sentimos, no recibimos su correo electrónico. Por favor, compruebe sus permisos o póngase en contacto con la empresa responsable.",
   "store/loginOptions.title": "Escoja una opción para entrar",
   "store/loginOptions.emailVerification": "Recibir código de acceso por e-mail",
   "store/loginOptions.emailAndPassword": "Entrar con e-mail y contraseña",
