@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Google OneTap not working
+- Unit tests were broken
+
 ## [2.34.2] - 2020-06-09
 
 ### Fixed
