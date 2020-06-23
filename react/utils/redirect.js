@@ -1,4 +1,4 @@
-import { ROOT_PATH } from '../common/global'
+import { getRootPath } from '../common/global'
 import getBindingAddress from './getBindingAddress'
 
 export const getReturnUrl = () => {
@@ -27,7 +27,7 @@ export const jsRedirect = ({ runtime, isHeaderLogin }) => {
     const queryString = __bindingAddress
       ? new URLSearchParams({ __bindingAddress }).toString()
       : ''
-    return `${ROOT_PATH}/?${queryString}`
+    return `${getRootPath()}/?${queryString}`
   }
 
   runtime.navigate({

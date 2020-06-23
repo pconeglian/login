@@ -99,7 +99,7 @@ exports[
               class="contentContainer shadow-3 mt3"
             >
               <div
-                class="content flex relative bg-base justify-around overflow-visible pa4 center items-start-ns contentInitialScreen items-baseline"
+                class="content content--accountOptions flex relative bg-base justify-around overflow-visible pa4 center items-start-ns contentInitialScreen items-baseline"
               >
                 <div
                   class="contentForm dn ph4 contentFormVisible db "
@@ -193,7 +193,7 @@ exports[
               class="contentContainer shadow-3 mt3"
             >
               <div
-                class="content flex relative bg-base justify-around overflow-visible pa4 center items-start-ns contentInitialScreen items-baseline"
+                class="content content--accountOptions flex relative bg-base justify-around overflow-visible pa4 center items-start-ns contentInitialScreen items-baseline"
               >
                 <div
                   class="contentForm dn ph4 contentFormVisible db "
@@ -285,7 +285,7 @@ exports[`<Login /> component should match snapshot without profile 1`] = `
               class="contentContainer shadow-3 mt3"
             >
               <div
-                class="content flex relative bg-base justify-around overflow-visible pa4 center items-baseline-ns contentInitialScreen items-baseline"
+                class="content content--emailVerification flex relative bg-base justify-around overflow-visible pa4 center items-baseline-ns contentInitialScreen items-baseline"
               >
                 <div
                   class="options"

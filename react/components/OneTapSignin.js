@@ -29,8 +29,12 @@ const OneTapSignin = ({
   alignment = GoogleOneTapAlignment.RIGHT,
 }) => {
   const formRef = useRef()
-  const { account } = useRuntime()
-  const [startSession] = serviceHooks.useStartLoginSession()
+  const { account, rootPath } = useRuntime()
+  const [startSession] = serviceHooks.useStartLoginSession({
+    actionArgs: {
+      returnUrl: onLoginPage(page) ? rootPath || '/' : window.location.href,
+    },
+  })
 
   const prompt = useCallback(clientId => {
     google.accounts.id.initialize({
@@ -117,18 +121,13 @@ OneTapSignin.propTypes = {
 }
 
 const Wrapper = props => {
-  const { page, rootPath } = useRuntime()
+  const { page } = useRuntime()
 
   if (!isBrowserSupported() || !window.location) return null
 
   return (
     <Suspense fallback={null}>
-      <AuthStateLazy
-        skip
-        scope="STORE"
-        parentAppId={SELF_APP_NAME_AND_VERSION}
-        returnUrl={onLoginPage(page) ? rootPath || '/' : window.location.href}
-      >
+      <AuthStateLazy skip scope="STORE" parentAppId={SELF_APP_NAME_AND_VERSION}>
         <OneTapSignin {...props} page={page} />
       </AuthStateLazy>
     </Suspense>
