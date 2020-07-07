@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Usage of service hooks to address future breaking changes in `react-vtexid`
+
 ## [2.34.3] - 2020-06-23
 
 ### Fixed

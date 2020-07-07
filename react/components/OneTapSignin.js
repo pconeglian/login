@@ -31,6 +31,8 @@ const OneTapSignin = ({
   const formRef = useRef()
   const { account, rootPath } = useRuntime()
   const [startSession] = serviceHooks.useStartLoginSession({
+    scope: 'STORE',
+    parentAppId: SELF_APP_NAME_AND_VERSION,
     actionArgs: {
       returnUrl: onLoginPage(page) ? rootPath || '/' : window.location.href,
     },
