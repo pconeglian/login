@@ -11,7 +11,6 @@ import { IconProfile } from 'vtex.store-icons'
 import Overlay from 'vtex.react-portal/Overlay'
 import { ButtonWithIcon } from 'vtex.styleguide'
 
-import { truncateString } from '../utils/format-string'
 import { translate } from '../utils/translate'
 import { LoginPropTypes } from '../propTypes'
 import OneTapSignin from './OneTapSignin'
@@ -67,10 +66,10 @@ class LoginComponent extends Component {
       <Fragment>
         {sessionProfile ? (
           <span
-            className={`${styles.profile} t-action--small order-1 pl4 ${labelClasses} dn db-l`}
+            className={`${styles.profile} truncate t-action--small order-1 pl4 ${labelClasses} dn db-l`}
           >
             {translate('store/login.hello', intl)}{' '}
-            {sessionProfile.firstName || truncateString(sessionProfile.email)}
+            {sessionProfile.firstName || sessionProfile.email}
           </span>
         ) : (
           iconLabel && (

@@ -4,7 +4,9 @@
 
 .contentFormVisible {}
 
-.profile {}
+.profile {
+  max-width: 130px;
+}
 
 .label {}
 
