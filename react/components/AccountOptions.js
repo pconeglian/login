@@ -65,7 +65,7 @@ const AccountOptions = ({ intl, optionLinks }) => {
             if (hasOptionLinks) {
               return (
                 <button
-                  className={`${styles.logoutButton} t-small bn pa0 c-muted-1 hover-c-danger pointer`}
+                  className={`${styles.logoutButton} t-small bn pa0 c-muted-1 hover-c-danger bg-transparent pointer`}
                   onClick={() => {
                     OneTapSignOut()
                     logout()
