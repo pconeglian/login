@@ -414,7 +414,6 @@ const LoginContentWrapper = props => {
     parentAppId: SELF_APP_NAME_AND_VERSION,
     autorun: isCreatePassFlow,
     actionArgs: {
-      useNewSession: true,
       useNewLoginAttempt: true,
       email: userEmail,
     },
