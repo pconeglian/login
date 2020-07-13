@@ -409,6 +409,7 @@ const LoginContentWrapper = props => {
     autorun: isCreatePassFlow,
     actionArgs: {
       useNewSession: true,
+      useNewLoginAttempt: true,
       email: userEmail,
     },
   })
