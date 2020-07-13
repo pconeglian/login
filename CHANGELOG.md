@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.34.7] - 2020-07-13
+
 ### Changed
 
 - `react-vtexid` API names that will receive breaking changes
