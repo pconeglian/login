@@ -39,6 +39,9 @@ const OneTapSignin = ({
     actionArgs: {
       returnUrl: onLoginPage(page) ? rootPath || '/' : window.location.href,
     },
+    loginAttempt: {
+      returnUrl: onLoginPage(page) ? rootPath || '/' : window.location.href,
+    },
   })
 
   const prompt = useCallback(clientId => {
