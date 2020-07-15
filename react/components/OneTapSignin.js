@@ -34,9 +34,6 @@ const OneTapSignin = ({
   const [startSession] = serviceHooks.useStartLoginAttempt({
     scope: 'STORE',
     parentAppId: SELF_APP_NAME_AND_VERSION,
-    actionArgs: {
-      returnUrl: onLoginPage(page) ? rootPath || '/' : window.location.href,
-    },
     loginAttempt: {
       returnUrl: onLoginPage(page) ? rootPath || '/' : window.location.href,
     },
