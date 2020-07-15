@@ -401,16 +401,25 @@ const LoginContentWrapper = props => {
     [isCreatePassFlow, props.defaultOption]
   )
 
+  const redirectUrl = useMemo(() =>
+    getReturnUrl() || getDefaultRedirectUrl(props.isHeaderLogin),
+    [props.isHeaderLogin]
+  )
+
   const [
     ,
     { loading: loadingSendAccessKey, error: errorSendAccessKey },
   ] = serviceHooks.useSendAccessKey({
+    scope: 'STORE',
     parentAppId: SELF_APP_NAME_AND_VERSION,
     autorun: isCreatePassFlow,
     actionArgs: {
       useNewSession: true,
       useNewLoginAttempt: true,
       email: userEmail,
+    },
+    loginAttempt: {
+      returnUrl: redirectUrl,
     },
   })
 

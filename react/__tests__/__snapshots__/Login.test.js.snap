@@ -80,7 +80,7 @@ exports[
           class="flex pv2 items-center"
         >
           <span
-            class="profile t-action--small order-1 pl4 gray dn db-l"
+            class="profile truncate t-action--small order-1 pl4 gray dn db-l"
           >
             Hello, firstName
           </span>
@@ -174,9 +174,9 @@ exports[
           class="flex pv2 items-center"
         >
           <span
-            class="profile t-action--small order-1 pl4 gray dn db-l"
+            class="profile truncate t-action--small order-1 pl4 gray dn db-l"
           >
-            Hello, email@v...
+            Hello, email@vtex.com
           </span>
         </div>
       </button>
