@@ -30,15 +30,10 @@ const OneTapSignin = ({
 }) => {
   const formRef = useRef()
   const { account, rootPath } = useRuntime()
-  // This will be removed in the next PR
-  const useStartLoginAttempt =
-    serviceHooks.useStartLoginSession || serviceHooks.useStartLoginAttempt
-  const [startSession] = useStartLoginAttempt({
+
+  const [startSession] = serviceHooks.useStartLoginAttempt({
     scope: 'STORE',
     parentAppId: SELF_APP_NAME_AND_VERSION,
-    actionArgs: {
-      returnUrl: onLoginPage(page) ? rootPath || '/' : window.location.href,
-    },
     loginAttempt: {
       returnUrl: onLoginPage(page) ? rootPath || '/' : window.location.href,
     },
