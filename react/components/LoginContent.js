@@ -20,7 +20,7 @@ import { setCookie } from '../utils/set-cookie'
 import FlowState from '../utils/FlowState'
 
 import { LoginPropTypes } from '../propTypes'
-import { AuthStateLazy, AuthServiceLazy, serviceHooks } from 'vtex.react-vtexid'
+import { AuthStateLazy, AuthServiceLazy, useSendAccessKey } from 'vtex.react-vtexid'
 import { SELF_APP_NAME_AND_VERSION } from '../common/global'
 import getUserEmailQuery from '../utils/getUserEmailQuery'
 import getFlowStateQuery from '../utils/getFlowStateQuery'
@@ -413,7 +413,7 @@ const LoginContentWrapper = props => {
   const [
     ,
     { loading: loadingSendAccessKey, error: errorSendAccessKey },
-  ] = serviceHooks.useSendAccessKey({
+  ] = useSendAccessKey({
     scope: 'STORE',
     parentAppId: SELF_APP_NAME_AND_VERSION,
     autorun: isCreatePassFlow,
