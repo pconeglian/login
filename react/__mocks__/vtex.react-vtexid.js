@@ -62,8 +62,6 @@ AuthStateLazy.IdentityProviders = jest.fn(({ children }) =>
   })
 )
 
-const serviceHooks = {
-  useSendAccessKey: () => [() => {}, { loading: false, error: false }],
-}
+const useSendAccessKey = () => [() => {}, { loading: false, error: false }]
 
-export { AuthStateLazy, serviceHooks }
+export { AuthStateLazy, useSendAccessKey }
