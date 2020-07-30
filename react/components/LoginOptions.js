@@ -73,7 +73,7 @@ const LoginOptions = ({
   return (
     <div className={classes}>
       <FormTitle>{title || translate(fallbackTitle, intl)}</FormTitle>
-      <FormError show={loginError}>{loginError}</FormError>
+      <FormError show={!!loginError}>{loginError}</FormError>
       <ul className={`${styles.optionsList} list pa0`}>
         <Fragment>
           {options.accessKeyAuthentication &&
