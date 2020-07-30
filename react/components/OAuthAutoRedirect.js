@@ -41,10 +41,13 @@ OAuthAutoRedirect.propTypes = {
 
 function Wrapper({ provider, ...props }) {
   const errorFallbackUrl = useMemo(() => {
-    const location = window && window.location
-    const currentDomain = location && location.origin
-    const currentSearch = location && location.search
-    const currentHash = location && location.hash
+    const {
+      location: {
+        origin: currentDomain = '',
+        search: currentSearch = '',
+        hash: currentHash = '',
+      } = {},
+    } = window || {}
     return new URL(
       `${getRootPath()}/login${currentSearch}${currentHash}`,
       currentDomain
