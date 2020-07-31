@@ -188,13 +188,19 @@ class LoginContent extends Component {
   }
 
   get shouldRenderForm() {
-    if (this.props.profile) {
+    const {
+      isHeaderLogin,
+      isInitialScreenOptionOnly,
+    } = this.props
+    const {
+      sessionProfile,
+      isOnInitialScreen,
+    } = this.state
+
+    if (isHeaderLogin && sessionProfile) {
       return true
     }
-
-    return (
-      !this.props.isInitialScreenOptionOnly || !this.state.isOnInitialScreen
-    )
+    return !(isInitialScreenOptionOnly && isOnInitialScreen)
   }
 
   shouldRedirectToOAuth = loginOptions => {
@@ -264,16 +270,19 @@ class LoginContent extends Component {
 
   renderChildren = () => {
     const {
-      profile,
+      isHeaderLogin,
       isInitialScreenOptionOnly,
       optionsTitle,
       defaultOption,
       providerPasswordButtonLabel,
     } = this.props
-    const { isOnInitialScreen } = this.state
+    const {
+      isOnInitialScreen,
+      sessionProfile,
+    } = this.state
 
     let step = this.state.step
-    if (profile) {
+    if (isHeaderLogin && sessionProfile) {
       step = steps.ACCOUNT_OPTIONS
     } else if (isOnInitialScreen) {
       step = defaultOption
@@ -321,25 +330,25 @@ class LoginContent extends Component {
 
   render() {
     const {
-      profile,
+      isHeaderLogin,
       isInitialScreenOptionOnly,
       defaultOption,
       runtime,
-      isHeaderLogin,
     } = this.props
 
-    const { isOnInitialScreen, sessionProfile } = this.state
+    const {
+      isOnInitialScreen,
+      sessionProfile
+    } = this.state
 
-    // Check if the user is already logged and redirect to the return URL if it didn't receive
-    // the profile by the props and current endpoint are /login, if receive it, should render the account options.
-    if (sessionProfile && !profile) {
+    if (!isHeaderLogin && sessionProfile) {
       if (location.pathname.includes('/login')) {
         jsRedirect({ runtime, isHeaderLogin })
       }
     }
 
     let step = this.state.step
-    if (profile) {
+    if (isHeaderLogin && sessionProfile) {
       step = steps.ACCOUNT_OPTIONS
     } else if (isOnInitialScreen) {
       step = defaultOption
@@ -371,7 +380,7 @@ class LoginContent extends Component {
     
     return (
       <div className={className}>
-        {!profile && this.shouldRenderLoginOptions
+        {!(isHeaderLogin && sessionProfile) && this.shouldRenderLoginOptions
           ? this.renderChildren()
           : null}
         <div className={formClassName}>
