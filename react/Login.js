@@ -75,7 +75,9 @@ export default class Login extends Component {
     const { logInButtonBehavior, accountOptionsButtonBehavior } = this.props
     const { sessionProfile, isMobileScreen } = this.state
     const buttonLink = ButtonBehavior.LINK
-    const shouldBeLink = isMobileScreen || (sessionProfile ? accountOptionsButtonBehavior === buttonLink : logInButtonBehavior === buttonLink)
+
+    const { isAuthenticated } = sessionProfile || {}
+    const shouldBeLink = isMobileScreen || (isAuthenticated ? accountOptionsButtonBehavior === buttonLink : logInButtonBehavior === buttonLink)
     
     return (
       <LoginWithSession

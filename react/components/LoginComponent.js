@@ -53,7 +53,11 @@ class LoginComponent extends Component {
       intl,
       loginButtonAsLink,
       onProfileIconClick,
-      sessionProfile,
+      sessionProfile: {
+        isAuthenticated,
+        firstName,
+        email
+      } = {},
       showIconProfile,
       runtime: { history, navigate },
     } = this.props
@@ -66,12 +70,12 @@ class LoginComponent extends Component {
 
     const buttonContent = hideIconLabel ? (
       <></>
-    ) : sessionProfile ? (
+    ) : isAuthenticated ? (
       <span
         className={`${styles.profile} truncate t-action--small order-1 pl4 ${labelClasses} dn db-l`}
       >
         {translate('store/login.hello', intl)}{' '}
-        {sessionProfile.firstName || sessionProfile.email}
+        {firstName || email}
       </span>
     ) : (
       <span
@@ -82,7 +86,7 @@ class LoginComponent extends Component {
     )
 
     if (loginButtonAsLink) {
-      const linkTo = sessionProfile ? 'store.account' : 'store.login'
+      const linkTo = isAuthenticated ? 'store.account' : 'store.login'
       return (
         <div className={styles.buttonLink}>
           <ButtonWithIcon
@@ -98,7 +102,7 @@ class LoginComponent extends Component {
                 return
               }
               const returnUrl =
-                !sessionProfile &&
+                !isAuthenticated &&
                 encodeURIComponent(`${pathname}${search}`)
               const bindingAddress = getBindingAddress()
               return navigate({
@@ -153,6 +157,8 @@ class LoginComponent extends Component {
      googleOneTapMarginTop,
     } = this.props
 
+    const { isAuthenticated } = sessionProfile || {}
+
     return (
       <div className={`${styles.container} flex items-center fr`}>
         <div className="relative">
@@ -161,7 +167,7 @@ class LoginComponent extends Component {
             <OneTapSignin
               alignment={googleOneTapAlignment}
               marginTop={googleOneTapMarginTop}
-              shouldOpen={!sessionProfile}
+              shouldOpen={!isAuthenticated}
             />
           )}
           {isBoxOpen && (

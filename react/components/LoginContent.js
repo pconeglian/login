@@ -161,7 +161,7 @@ class LoginContent extends Component {
 
   state = {
     sessionProfile: this.props.profile,
-    isOnInitialScreen: !this.props.profile,
+    isOnInitialScreen: !this.props.profile || !this.props.profile.isAuthenticated,
     isCreatePassword: this.props.defaultIsCreatePassword,
     step: this.props.defaultOption,
     email: '',
@@ -193,11 +193,11 @@ class LoginContent extends Component {
       isInitialScreenOptionOnly,
     } = this.props
     const {
-      sessionProfile,
+      sessionProfile: { isAuthenticated } = {},
       isOnInitialScreen,
     } = this.state
 
-    if (isHeaderLogin && sessionProfile) {
+    if (isHeaderLogin && isAuthenticated) {
       return true
     }
     return !(isInitialScreenOptionOnly && isOnInitialScreen)
@@ -278,11 +278,11 @@ class LoginContent extends Component {
     } = this.props
     const {
       isOnInitialScreen,
-      sessionProfile,
+      sessionProfile: { isAuthenticated } = {},
     } = this.state
 
     let step = this.state.step
-    if (isHeaderLogin && sessionProfile) {
+    if (isHeaderLogin && isAuthenticated) {
       step = steps.ACCOUNT_OPTIONS
     } else if (isOnInitialScreen) {
       step = defaultOption
@@ -338,17 +338,17 @@ class LoginContent extends Component {
 
     const {
       isOnInitialScreen,
-      sessionProfile
+      sessionProfile: { isAuthenticated } = {}
     } = this.state
 
-    if (!isHeaderLogin && sessionProfile) {
+    if (!isHeaderLogin && isAuthenticated) {
       if (location.pathname.includes('/login')) {
         jsRedirect({ runtime, isHeaderLogin })
       }
     }
 
     let step = this.state.step
-    if (isHeaderLogin && sessionProfile) {
+    if (isHeaderLogin && isAuthenticated) {
       step = steps.ACCOUNT_OPTIONS
     } else if (isOnInitialScreen) {
       step = defaultOption
@@ -380,7 +380,7 @@ class LoginContent extends Component {
     
     return (
       <div className={className}>
-        {!(isHeaderLogin && sessionProfile) && this.shouldRenderLoginOptions
+        {!(isHeaderLogin && isAuthenticated) && this.shouldRenderLoginOptions
           ? this.renderChildren()
           : null}
         <div className={formClassName}>
@@ -473,7 +473,7 @@ const LoginContentProvider = props => {
 
   return (
     <AuthStateLazy
-      skip={!!props.profile}
+      skip={!!(props.profile && props.profile.isAuthenticated)}
       scope="STORE"
       parentAppId={SELF_APP_NAME_AND_VERSION}
       returnUrl={redirectUrl}
