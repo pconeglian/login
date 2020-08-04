@@ -11,6 +11,8 @@ import getSessionProfile from './utils/getSessionProfile'
 
 const DEFAULT_CLASSES = 'gray'
 
+const LoginWithSession = injectIntl(LoginComponent)
+
 /** Canonical login that calls a mutation to retrieve the authentication token */
 
 export default class Login extends Component {
@@ -185,4 +187,3 @@ Login.uiSchema = {
   ],
 }
 
-const LoginWithSession = injectIntl(LoginComponent)
