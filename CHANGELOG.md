@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- OAuth error handling (for both popup and redirect flows), showing messages in case of errors
+
 ## [2.34.9] - 2020-07-16
 
 ### Removed

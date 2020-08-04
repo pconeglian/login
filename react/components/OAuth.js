@@ -26,13 +26,18 @@ class OAuth extends Component {
     children: PropTypes.node,
     /** Function called after login success */
     onLoginSuccess: PropTypes.func.isRequired,
+    /** Function called if oauth flow ends in an error */
+    onOAuthError: PropTypes.func.isRequired,
   }
 
+  handleOAuthPopupFailure = err =>
+    this.props.onOAuthError(err.details)
+
   render() {
-    const { intl, children, provider, onLoginSuccess } = this.props
+    const { intl, children, provider, onLoginSuccess, onLoginError } = this.props
     return (
       <div className={className(styles.button, styles.buttonSocial, styleByProviderName[provider] || styles.customOAuthOptionBtn)}>
-        <AuthServiceLazy.OAuthPopup useNewSession provider={provider} onSuccess={() => onLoginSuccess()}>
+        <AuthServiceLazy.OAuthPopup useNewSession provider={provider} onSuccess={() => onLoginSuccess()} onFailure={this.handleOAuthPopupFailure}>
           {({ loading, action: openOAuthPopup }) => (
             <Button
               isLoading={loading}

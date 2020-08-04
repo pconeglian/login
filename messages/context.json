@@ -1,4 +1,7 @@
 {
+  "store/error.oauth.unknown": "store/error.oauth.unknown",
+  "store/error.oauth.refresh": "store/error.oauth.refresh",
+  "store/error.oauth.missingEmail": "store/error.oauth.missingEmail",
   "store/loginOptions.title": "store/loginOptions.title",
   "store/loginOptions.emailVerification": "store/loginOptions.emailVerification",
   "store/loginOptions.emailAndPassword": "store/loginOptions.emailAndPassword",

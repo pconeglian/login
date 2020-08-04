@@ -1,9 +1,8 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import React, { Component, Fragment } from 'react'
+import React, { Fragment, useCallback, useMemo, useState } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
-import { ExtensionContainer } from 'vtex.render-runtime'
-
+import { ExtensionContainer, useRuntime } from 'vtex.render-runtime'
 import { Button } from 'vtex.styleguide'
 
 import FacebookIcon from '../images/FacebookIcon'
@@ -11,8 +10,10 @@ import GoogleIcon from '../images/GoogleIcon'
 import { translate } from '../utils/translate'
 import FormTitle from './FormTitle'
 import OAuth from './OAuth'
-
 import styles from '../styles.css'
+import FormError from './FormError'
+import getErrorQuery from '../utils/getErrorQuery'
+import getOAuthErrorMessage from '../utils/getOAuthErrorMessage'
 
 const PROVIDERS_ICONS = {
   Google: GoogleIcon,
@@ -20,123 +21,145 @@ const PROVIDERS_ICONS = {
 }
 
 /** LoginOptions tab component. Displays a list of login options */
-class LoginOptions extends Component {
-  handleOptionClick = el => () => {
-    this.props.onOptionsClick(el)
-  }
+const LoginOptions = ({
+  className,
+  title,
+  fallbackTitle,
+  options,
+  onLoginSuccess,
+  intl,
+  isAlwaysShown,
+  providerPasswordButtonLabel,
+  currentStep,
+  onOptionsClick,
+}) => {
+  const runtime = useRuntime()
+  const initialOAuthErrorMessage = useMemo(() => {
+    const errorQuery = getErrorQuery(runtime)
+    return errorQuery && getOAuthErrorMessage(errorQuery)
+  }, [runtime])
+  const [loginError, setLoginError] = useState(initialOAuthErrorMessage)
 
-  showOption = (option, optionName) => {
-    const { isAlwaysShown, currentStep, options } = this.props
-    return (
-      options &&
-      ((options[option] && !isAlwaysShown) || currentStep !== optionName)
-    )
-  }
+  const handleOAuthError = useCallback(err => {
+    const msg = getOAuthErrorMessage(err)
+    setLoginError(msg)
+  }, [])
 
-  render() {
-    const {
-      className,
-      title,
-      fallbackTitle,
-      options,
-      onLoginSuccess,
-      intl,
-      isAlwaysShown,
-      providerPasswordButtonLabel,
-    } = this.props
+  const handleOptionClick = useCallback(
+    el => () => {
+      onOptionsClick(el)
+    },
+    [onOptionsClick]
+  )
 
-    const classes = classNames(styles.options, className, {
-      [styles.optionsSticky]: isAlwaysShown,
-    })
+  const showOption = useCallback(
+    (option, optionName) => {
+      return (
+        options &&
+        ((options[option] && !isAlwaysShown) || currentStep !== optionName)
+      )
+    },
+    [options, isAlwaysShown, currentStep]
+  )
 
-    return (
-      <div className={classes}>
-        <FormTitle>{title || translate(fallbackTitle, intl)}</FormTitle>
-        <ul className={`${styles.optionsList} list pa0`}>
-          <Fragment>
-            {options.accessKeyAuthentication &&
-              this.showOption(
-                'accessKeyAuthentication',
-                'store/loginOptions.emailVerification'
-              ) && (
+  const classes = useMemo(
+    () =>
+      classNames(styles.options, className, {
+        [styles.optionsSticky]: isAlwaysShown,
+      }),
+    [className, isAlwaysShown]
+  )
+
+  return (
+    <div className={classes}>
+      <FormTitle>{title || translate(fallbackTitle, intl)}</FormTitle>
+      <FormError show={!!loginError}>{loginError}</FormError>
+      <ul className={`${styles.optionsList} list pa0`}>
+        <Fragment>
+          {options.accessKeyAuthentication &&
+            showOption(
+              'accessKeyAuthentication',
+              'store/loginOptions.emailVerification'
+            ) && (
               <li className={`${styles.optionsListItem} mb3`}>
-                <div className={classNames(styles.button, styles.accessCodeOptionBtn)}>
+                <div
+                  className={classNames(
+                    styles.button,
+                    styles.accessCodeOptionBtn
+                  )}
+                >
                   <Button
                     variation="secondary"
-                    onClick={this.handleOptionClick(
+                    onClick={handleOptionClick(
                       'store/loginOptions.emailVerification'
                     )}
                   >
                     <span>
-                      {translate(
-                        'store/loginOptions.emailVerification',
-                        intl
-                      )}
+                      {translate('store/loginOptions.emailVerification', intl)}
                     </span>
                   </Button>
                 </div>
               </li>
             )}
-            {options.classicAuthentication &&
-              this.showOption(
-                'classicAuthentication',
-                'store/loginOptions.emailAndPassword'
-              ) && (
+          {options.classicAuthentication &&
+            showOption(
+              'classicAuthentication',
+              'store/loginOptions.emailAndPassword'
+            ) && (
               <li className={`${styles.optionsListItem} mb3`}>
-                <div className={classNames(styles.button, styles.emailPasswordOptionBtn)}>
+                <div
+                  className={classNames(
+                    styles.button,
+                    styles.emailPasswordOptionBtn
+                  )}
+                >
                   <Button
                     variation="secondary"
-                    onClick={this.handleOptionClick(
+                    onClick={handleOptionClick(
                       'store/loginOptions.emailAndPassword'
                     )}
                   >
                     <span>
                       {providerPasswordButtonLabel ||
-                          translate(
-                            'store/loginOptions.emailAndPassword',
-                            intl
-                          )}
+                        translate('store/loginOptions.emailAndPassword', intl)}
                     </span>
                   </Button>
                 </div>
               </li>
             )}
-            {options.providers &&
-              options.providers.map(({ providerName }, index) => {
-                const hasIcon = PROVIDERS_ICONS.hasOwnProperty(providerName)
-                return (
-                  <li
-                    className={`${styles.optionsListItem} mb3`}
-                    key={`${providerName}-${index}`}
+          {options.providers &&
+            options.providers.map(({ providerName }, index) => {
+              const hasIcon = PROVIDERS_ICONS.hasOwnProperty(providerName)
+              return (
+                <li
+                  className={`${styles.optionsListItem} mb3`}
+                  key={`${providerName}-${index}`}
+                >
+                  <OAuth
+                    provider={providerName}
+                    onLoginSuccess={onLoginSuccess}
+                    onOAuthError={handleOAuthError}
                   >
-                    <OAuth
-                      provider={providerName}
-                      onLoginSuccess={onLoginSuccess}
-                    >
-                      {hasIcon
-                        ? React.createElement(
-                          PROVIDERS_ICONS[providerName],
-                          null
-                        )
-                        : null}
-                    </OAuth>
-                  </li>
-                )
-              })}
-          </Fragment>
-          <li
-            className={`${styles.optionsListItem} ${styles.optionsListItemContainer} mb3`}
-          >
-            <ExtensionContainer id="container" />
-          </li>
-        </ul>
-      </div>
-    )
-  }
+                    {hasIcon
+                      ? React.createElement(PROVIDERS_ICONS[providerName], null)
+                      : null}
+                  </OAuth>
+                </li>
+              )
+            })}
+        </Fragment>
+        <li
+          className={`${styles.optionsListItem} ${styles.optionsListItemContainer} mb3`}
+        >
+          <ExtensionContainer id="container" />
+        </li>
+      </ul>
+    </div>
+  )
 }
 
 LoginOptions.propTypes = {
-  /** Intl object*/
+  /** Intl object */
   intl: intlShape,
   /** Function to change de active tab */
   onOptionsClick: PropTypes.func.isRequired,

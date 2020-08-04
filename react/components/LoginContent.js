@@ -24,6 +24,7 @@ import { AuthStateLazy, AuthServiceLazy, serviceHooks } from 'vtex.react-vtexid'
 import { SELF_APP_NAME_AND_VERSION } from '../common/global'
 import getUserEmailQuery from '../utils/getUserEmailQuery'
 import getFlowStateQuery from '../utils/getFlowStateQuery'
+import getErrorQuery from '../utils/getErrorQuery'
 import getSessionProfile from '../utils/getSessionProfile'
 import { getReturnUrl, getDefaultRedirectUrl, jsRedirect } from '../utils/redirect'
 import styleModifierByStep from '../utils/styleModifierByStep'
@@ -200,6 +201,9 @@ class LoginContent extends Component {
     if (!loginOptions) return [false, null]
     const { accessKey, oAuthProviders, password } = loginOptions
     const { runtime } = this.props
+    if (getErrorQuery(runtime)) {
+      return [false, null]
+    }
     if (runtime && runtime.query && runtime.query.oAuthRedirect) {
       const redirectProvider =
         oAuthProviders &&

@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import { Spinner } from 'vtex.styleguide'
 import { AuthServiceLazy } from 'vtex.react-vtexid'
 
+import { getRootPath } from '../common/global'
 import styles from '../styles.css'
 
 function OAuthAutoRedirect({ intl, provider, redirect }) {
@@ -21,13 +22,16 @@ function OAuthAutoRedirect({ intl, provider, redirect }) {
             { provider }
           )}
         </p>
-        <div className={`self-center c-emphasis ${styles.oauthAutoRedirectLoading}`}>
+        <div
+          className={`self-center c-emphasis ${styles.oauthAutoRedirectLoading}`}
+        >
           <Spinner color="currentColor" size={24} />
         </div>
       </div>
     </div>
   )
 }
+
 OAuthAutoRedirect.propTypes = {
   redirect: PropTypes.func.isRequired,
   provider: PropTypes.string.isRequired,
@@ -36,8 +40,26 @@ OAuthAutoRedirect.propTypes = {
 }
 
 function Wrapper({ provider, ...props }) {
+  const errorFallbackUrl = useMemo(() => {
+    const {
+      location: {
+        origin: currentDomain = '',
+        search: currentSearch = '',
+        hash: currentHash = '',
+      } = {},
+    } = window || {}
+    return new URL(
+      `${getRootPath()}/login${currentSearch}${currentHash}`,
+      currentDomain
+    ).href
+  }, [])
+
   return (
-    <AuthServiceLazy.OAuthRedirect useNewSession provider={provider}>
+    <AuthServiceLazy.OAuthRedirect
+      errorFallbackUrl={errorFallbackUrl}
+      useNewSession
+      provider={provider}
+    >
       {({ loading, action: redirectToOAuthPage }) => (
         <OAuthAutoRedirect
           {...props}
@@ -49,6 +71,7 @@ function Wrapper({ provider, ...props }) {
     </AuthServiceLazy.OAuthRedirect>
   )
 }
+
 Wrapper.propTypes = {
   provider: PropTypes.string.isRequired,
 }
