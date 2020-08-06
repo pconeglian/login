@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `hideIconLabel` prop to `login` interface
+- `hideIconLabel` prop to site-editor
+
 ## [2.35.4] - 2020-08-12
 
 ### Changed
