@@ -137,6 +137,11 @@ Login.getSchema = () => ({
       title: 'admin/editor.login.googleOneTap.title',
       type: 'boolean',
     },
+    hideIconLabel: {
+      title: 'admin/editor.login.hideIconLabel',
+      type: 'boolean',
+      default: false,
+    },
   },
   dependencies: {
     ...LoginSchema.dependencies,
