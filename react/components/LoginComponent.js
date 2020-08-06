@@ -48,6 +48,7 @@ class LoginComponent extends Component {
     const {
       iconSize,
       iconLabel: iconLabelProfile,
+      hideIconLabel,
       labelClasses,
       intl,
       loginButtonAsLink,
@@ -61,7 +62,7 @@ class LoginComponent extends Component {
     const search = history && history.location && history.location.search
 
     const iconClasses = 'flex items-center'
-    const iconLabel = iconLabelProfile || translate('store/login.signIn', intl)
+    const iconLabel = !hideIconLabel && (iconLabelProfile || translate('store/login.signIn', intl))
     const buttonContent = (
       <Fragment>
         {sessionProfile ? (

@@ -20,6 +20,8 @@ export const LoginContainerProptypes = {
   iconSize: PropTypes.number,
   /** Icon's label */
   iconLabel: PropTypes.string,
+  /** Hide icon label */
+  hideIconLabel: PropTypes.bool,
   /** Label's classnames */
   labelClasses: PropTypes.string,
   /** Determines if the icon profile will be hidden */
