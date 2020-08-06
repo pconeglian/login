@@ -61,7 +61,7 @@ class LoginComponent extends Component {
     const pathname = history && history.location && history.location.pathname
     const search = history && history.location && history.location.search
 
-    const iconClasses = 'flex items-center'
+    const iconClasses = `flex items-center ${hideIconLabel ? 'nr4' : ''}`
     const iconLabel = !hideIconLabel && (iconLabelProfile || translate('store/login.signIn', intl))
     const buttonContent = (
       <Fragment>
@@ -92,7 +92,7 @@ class LoginComponent extends Component {
             variation="tertiary"
             icon={
               showIconProfile && (
-                <ProfileIcon iconSize={iconSize} labelClasses={labelClasses} iconClasses={iconClasses} />
+                <ProfileIcon iconSize={iconSize} labelClasses={labelClasses} classes={iconClasses} />
               )
             }
             iconPosition={showIconProfile ? 'left' : 'right'}
@@ -127,7 +127,7 @@ class LoginComponent extends Component {
         variation="tertiary"
         icon={
           showIconProfile && (
-            <ProfileIcon iconSize={iconSize} labelClasses={labelClasses} />
+            <ProfileIcon iconSize={iconSize} labelClasses={labelClasses} classes={iconClasses} />
           )
         }
         iconPosition={showIconProfile ? 'left' : 'right'}
