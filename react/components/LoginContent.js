@@ -1,4 +1,4 @@
-import React, { Component, Suspense, useMemo } from 'react'
+import React, { Component, Suspense, useMemo, useState, useEffect } from 'react'
 
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
@@ -475,6 +475,15 @@ const LoginContentProvider = props => {
     [props.isHeaderLogin]
   )
 
+  const [profile, setProfile] = useState(props.profile)
+
+  useEffect(async () => {
+    const sessionProfile = await getSessionProfile()
+    if (sessionProfile) {
+      setProfile(sessionProfile)
+    }
+  }, [])
+
   const userEmail = getUserEmailQuery()
 
   return (
@@ -494,7 +503,13 @@ const LoginContentProvider = props => {
         return (
           <AuthServiceLazy.RedirectAfterLogin>
             {({ action: apiRedirect }) => (
-              <LoginContentWrapper {...props} intl={intl} runtime={runtime} apiRedirect={apiRedirect} />
+              <LoginContentWrapper
+                {...props}
+                profile={profile}
+                intl={intl}
+                runtime={runtime}
+                apiRedirect={apiRedirect}
+              />
             )}
           </AuthServiceLazy.RedirectAfterLogin>
       )}}
