@@ -52,6 +52,7 @@
   "admin/editor.login.showPasswordVerificationIntoTooltip.title": "admin/editor.login.showPasswordVerificationIntoTooltip.title",
   "admin/editor.login.showIconProfile": "admin/editor.login.showIconProfile",
   "admin/editor.login.iconLabel": "admin/editor.login.iconLabel",
+  "admin/editor.login.hideIconLabel": "admin/editor.login.hideIconLabel",
   "admin/editor.login.providerPasswordButtonLabel": "admin/editor.login.providerPasswordButtonLabel",
   "admin/editor.login.hasIdentifierExtension": "admin/editor.login.hasIdentifierExtension",
   "admin/editor.login.identifierPlaceholder": "admin/editor.login.identifierPlaceholder",
