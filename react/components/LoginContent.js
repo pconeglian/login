@@ -469,15 +469,21 @@ const LoginContentProvider = props => {
   )
 
   const [profile, setProfile] = useState(props.profile)
+  const [loadingProfile, setLoadingProfile] = useState(!props.profile)
 
   useEffect(async () => {
     const sessionProfile = await getSessionProfile()
     if (sessionProfile) {
       setProfile(sessionProfile)
     }
+    setLoadingProfile(false)
   }, [])
 
-  const userEmail = getUserEmailQuery()
+  const userEmail = (profile && profile.email) || getUserEmailQuery()
+  
+  if (loadingProfile) {
+    return <Loading />
+  }
 
   return (
     <AuthStateLazy
