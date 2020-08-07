@@ -160,7 +160,6 @@ class LoginContent extends Component {
   }
 
   state = {
-    sessionProfile: this.props.profile,
     isOnInitialScreen: !(this.props.profile && this.props.profile.isAuthenticated),
     isCreatePassword: this.props.defaultIsCreatePassword,
     step: this.props.defaultOption,
@@ -173,12 +172,6 @@ class LoginContent extends Component {
     if (location.href.indexOf('accountAuthCookieName') > 0) {
       setCookie(location.href)
     }
-
-    getSessionProfile().then(sessionProfile => {
-      if (sessionProfile) {
-        this.setState({ sessionProfile })
-      }
-    })
   }
 
   get shouldRenderLoginOptions() {
@@ -191,13 +184,13 @@ class LoginContent extends Component {
     const {
       isHeaderLogin,
       isInitialScreenOptionOnly,
+      profile,
     } = this.props
     const {
-      sessionProfile,
       isOnInitialScreen,
     } = this.state
 
-    const { isAuthenticated } = sessionProfile || {}
+    const { isAuthenticated } = profile || {}
 
     if (isHeaderLogin && isAuthenticated) {
       return true
@@ -277,13 +270,13 @@ class LoginContent extends Component {
       optionsTitle,
       defaultOption,
       providerPasswordButtonLabel,
+      profile,
     } = this.props
     const {
       isOnInitialScreen,
-      sessionProfile,
     } = this.state
 
-    const { isAuthenticated } = sessionProfile || {}
+    const { isAuthenticated } = profile || {}
 
     let step = this.state.step
     if (isHeaderLogin && isAuthenticated) {
@@ -338,14 +331,14 @@ class LoginContent extends Component {
       isInitialScreenOptionOnly,
       defaultOption,
       runtime,
+      profile,
     } = this.props
 
     const {
       isOnInitialScreen,
-      sessionProfile,
     } = this.state
 
-    const { isAuthenticated } = sessionProfile || {}
+    const { isAuthenticated } = profile || {}
 
     if (!isHeaderLogin && isAuthenticated) {
       if (location.pathname.includes('/login')) {
