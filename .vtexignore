@@ -6,7 +6,6 @@ react/node_modules/
 .prettierrc
 package.json
 README.md
-CHANGELOG.md
 react/.babelrc
 react/**/__tests__/**
 react/**/__mocks__/**
