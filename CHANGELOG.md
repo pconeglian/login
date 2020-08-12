@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.35.4] - 2020-08-12
+
 ### Changed
 
 - Import hooks directly instead of the whole "serviceHooks" bundle
