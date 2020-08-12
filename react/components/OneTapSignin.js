@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useRef, Suspense } from 'react'
 import PropTypes from 'prop-types'
 import { useRuntime, Helmet } from 'vtex.render-runtime'
-import { AuthStateLazy, serviceHooks } from 'vtex.react-vtexid'
+import { AuthStateLazy, useStartLoginAttempt } from 'vtex.react-vtexid'
 
 import {
   GoogleOneTapAlignment,
@@ -31,7 +31,7 @@ const OneTapSignin = ({
   const formRef = useRef()
   const { account, rootPath } = useRuntime()
 
-  const [startSession] = serviceHooks.useStartLoginAttempt({
+  const [startSession] = useStartLoginAttempt({
     scope: 'STORE',
     parentAppId: SELF_APP_NAME_AND_VERSION,
     loginAttempt: {
