@@ -193,9 +193,11 @@ class LoginContent extends Component {
       isInitialScreenOptionOnly,
     } = this.props
     const {
-      sessionProfile: { isAuthenticated } = {},
+      sessionProfile,
       isOnInitialScreen,
     } = this.state
+
+    const { isAuthenticated } = sessionProfile || {}
 
     if (isHeaderLogin && isAuthenticated) {
       return true
@@ -278,8 +280,10 @@ class LoginContent extends Component {
     } = this.props
     const {
       isOnInitialScreen,
-      sessionProfile: { isAuthenticated } = {},
+      sessionProfile,
     } = this.state
+
+    const { isAuthenticated } = sessionProfile || {}
 
     let step = this.state.step
     if (isHeaderLogin && isAuthenticated) {
@@ -338,8 +342,10 @@ class LoginContent extends Component {
 
     const {
       isOnInitialScreen,
-      sessionProfile: { isAuthenticated } = {}
+      sessionProfile,
     } = this.state
+
+    const { isAuthenticated } = sessionProfile || {}
 
     if (!isHeaderLogin && isAuthenticated) {
       if (location.pathname.includes('/login')) {

@@ -65,7 +65,9 @@ const OneTapSignin = ({
   useEffect(() => {
     if (!shouldOpen) return
 
-    getSessionProfile().then(async ({ isAuthenticated } = {}) => {
+    getSessionProfile().then(async sessionProfile => {
+      const { isAuthenticated } = sessionProfile || {}
+
       if (isAuthenticated) return
 
       const { href: baseUrl } = window.location

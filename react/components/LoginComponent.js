@@ -53,14 +53,16 @@ class LoginComponent extends Component {
       intl,
       loginButtonAsLink,
       onProfileIconClick,
-      sessionProfile: {
-        isAuthenticated,
-        firstName,
-        email
-      } = {},
+      sessionProfile,
       showIconProfile,
       runtime: { history, navigate },
     } = this.props
+
+    const {
+      isAuthenticated,
+      firstName,
+      email
+    } = sessionProfile || {}
 
     const pathname = history && history.location && history.location.pathname
     const search = history && history.location && history.location.search

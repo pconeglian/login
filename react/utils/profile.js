@@ -13,11 +13,8 @@ const getProfileFromQueryResponse = data => {
 }
 
 const getProfileFromApiResponse = data => {
-  if (!data || !data.namespaces) {
-    return null
-  }
-
-  const { namespaces: { profile } = {} } = data
+  const { namespaces } = data || {}
+  const { profile } = namespaces || {}
   if (!profile) {
     return null
   }
