@@ -22,8 +22,10 @@ const getProfileFromApiResponse = data => {
   const {
     email: { value: email } = { value: null },
     firstName: { value: firstName } = { value: null },
-    isAuthenticated: { value: isAuthenticated } = { value: false },
+    isAuthenticated: { value: isAuthenticatedValue } = { value: false },
   } = profile
+
+  const isAuthenticated = isAuthenticatedValue === 'true'
 
   if (isAuthenticated && !email) {
     return null
