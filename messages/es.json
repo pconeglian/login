@@ -52,6 +52,7 @@
   "admin/editor.login.showPasswordVerificationIntoTooltip.title": "Mostrar verificación del formato de contraseña como tooltip",
   "admin/editor.login.showIconProfile": "Mostrar ícono de perfil",
   "admin/editor.login.iconLabel": "Título del botón de login",
+  "admin/editor.login.hideIconLabel": "",
   "admin/editor.login.providerPasswordButtonLabel": "Etiqueta del botón de login con Email/Password",
   "admin/editor.login.hasIdentifierExtension": "Extensión del identificador de usuario de Email/Password",
   "admin/editor.login.identifierPlaceholder": "Placeholder del campo de identificador",

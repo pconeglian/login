@@ -115,6 +115,7 @@ Through the Storefront, you can change the `login`'s behavior and interface. How
 | `showIconProfile`                                  | `Boolean` | Enables icon `hpa-profile`                                                                               | -             |
 | `iconSize` (DEPRECATED - use icon blocks instead)  | `Number`  | Set size of the profile icon                                                                             | -             |
 | `iconLabel`                                        | `String`  | Set label of the login button                                                                            | -             |
+| `hideIconLabel`  | `boolean` | Whether the Login button label should be hidden (`true`) or not (`false`).    | `false`     |
 | `labelClasses`                                     | `String`  | Label's classnames                                                                                       | -             |
 | `providerPasswordButtonLabel`                      | `String`  | Set Password login button text                                                                           | -             |
 | `hasIdentifierExtension`                           | `Boolean` | Enables identifier extension configurations                                                              | -             |
