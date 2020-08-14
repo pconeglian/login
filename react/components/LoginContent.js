@@ -28,6 +28,7 @@ import getErrorQuery from '../utils/getErrorQuery'
 import getSessionProfile from '../utils/getSessionProfile'
 import { getReturnUrl, getDefaultRedirectUrl, jsRedirect } from '../utils/redirect'
 import styleModifierByStep from '../utils/styleModifierByStep'
+import useAsyncCallback from '../utils/useAsyncCallback'
 
 import styles from '../styles.css'
 
@@ -468,26 +469,32 @@ const LoginContentProvider = props => {
     [props.isHeaderLogin]
   )
 
-  const [profile, setProfile] = useState(props.profile)
-  const [loadingProfile, setLoadingProfile] = useState(!props.profile)
-
-  useEffect(async () => {
-    const sessionProfile = await getSessionProfile()
-    if (sessionProfile) {
-      setProfile(sessionProfile)
+  const [, {
+    value: profileFromSession,
+    loading: loadingProfileFromSession
+  }] = useAsyncCallback(() => getSessionProfile(), [], {
+    autorun: !props.isHeaderLogin,
+  })
+  const profile = useMemo(() => {
+    if (props.isHeaderLogin) {
+      return props.profile
     }
-    setLoadingProfile(false)
-  }, [])
+    return profileFromSession
+  }, [props.isHeaderLogin, props.profile, profileFromSession])
 
   const userEmail = (profile && profile.email) || getUserEmailQuery()
   
-  if (loadingProfile) {
-    return <Loading />
+  if (loadingProfileFromSession) {
+    return (
+      <div data-testid="loading-session">
+        <Loading />
+      </div>
+    )
   }
 
   return (
     <AuthStateLazy
-      skip={!!(props.profile && props.profile.isAuthenticated)}
+      skip={!!(profile && profile.isAuthenticated)}
       scope="STORE"
       parentAppId={SELF_APP_NAME_AND_VERSION}
       returnUrl={redirectUrl}
@@ -495,9 +502,11 @@ const LoginContentProvider = props => {
     >
       {({ loading }) => {
         if (loading) {
-          return <div data-testid="loading-session">
-            <Loading />
-          </div>
+          return (
+            <div data-testid="loading-session">
+              <Loading />
+            </div>
+          )
         }
         return (
           <AuthServiceLazy.RedirectAfterLogin>
