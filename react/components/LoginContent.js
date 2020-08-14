@@ -161,7 +161,7 @@ class LoginContent extends Component {
 
   state = {
     sessionProfile: this.props.profile,
-    isOnInitialScreen: !this.props.profile || !this.props.profile.isAuthenticated,
+    isOnInitialScreen: !(this.props.profile && this.props.profile.isAuthenticated),
     isCreatePassword: this.props.defaultIsCreatePassword,
     step: this.props.defaultOption,
     email: '',
