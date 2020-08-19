@@ -129,6 +129,7 @@ Through the Storefront, you can change the `login`'s behavior and interface. How
 | `hasGoogleOneTap`   | `boolean` | ![https://img.shields.io/badge/-Beta-red](https://img.shields.io/badge/-Beta-red) Defines whether the [Google's One-tap sign-up and auto sign-in](https://developers.google.com/identity/one-tap/web/) solution is enabled (`true`) or not (`false`) .  |  `false`  |
 | `googleOneTapAlignment`     | `enum`    |  ![https://img.shields.io/badge/-Beta-red](https://img.shields.io/badge/-Beta-red) Defines pop-up alignment for the Google One-tap login. Possible values are `Left` and `Right`. | `Right`    |
 | `googleOneTapMarginTop`  | `string`  | ![https://img.shields.io/badge/-Beta-red](https://img.shields.io/badge/-Beta-red) Defines the pop-up top margin for the Google One-tap login. The values supported are the same supported by the CSS property `top`. | `3rem`       |
+| `disabledEmailInputs`                 | `Boolean` | Disables all email inputs                                                                     | -             |
 
 Note that the Google One Tap props are in Beta. Although they are ready to be used, you can expect some UX and customization improvements. 
 
@@ -150,6 +151,7 @@ You can also change the `login-content`'s behaviour and interface through the St
 | `identifierPlaceholder`               | `String`  | Set placeholder for the identifier extension                                                  | -             |
 | `invalidIdentifierError`              | `String`  | Set error message for invalid user identifier                                                 | -             |
 | `termsAndConditions`                  | `String`  | Sets a markdown text below the login options, meant to warn the user about terms & conditions | -             |
+| `disabledEmailInputs`                 | `Boolean` | Disables all email inputs                                                                     | -             |
 
 ### Plugins API
 

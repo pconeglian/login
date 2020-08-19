@@ -44,6 +44,7 @@ const STEPS = [
           emailPlaceholder={props.emailPlaceholder}
           onStateChange={handleStateChange}
           showBackButton={!isOptionsMenuDisplayed}
+          disabledEmailInput={props.disabledEmailInputs}
         />
       </div>
     )
@@ -65,6 +66,7 @@ const STEPS = [
           onLoginSuccess={handleLoginSuccess}
           identifierPlaceholder={props.hasIdentifierExtension ? props.identifierPlaceholder : ''}
           invalidIdentifierError={props.hasIdentifierExtension ? props.invalidIdentifierError : ''}
+          disabledEmailInput={props.disabledEmailInputs}
         />
       </div>
     )
