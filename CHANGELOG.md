@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- `hideIconLabel` prop now hides the label when the user is logged in
+
 ## [2.36.0] - 2020-08-13
 
 ### Added
