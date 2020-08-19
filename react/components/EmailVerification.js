@@ -35,6 +35,8 @@ class EmailVerification extends Component {
     intl: intlShape,
     /** Whether to display the back button */
     showBackButton: PropTypes.bool,
+    /** Disables editing email input */
+    disabledEmailInput: PropTypes.bool,
   }
 
   state = {
@@ -60,6 +62,7 @@ class EmailVerification extends Component {
       isCreatePassword,
       showBackButton,
       emailPlaceholder,
+      disabledEmailInput,
     } = this.props
     const { isInvalidEmail, isUserBlocked } = this.state
 
@@ -77,6 +80,7 @@ class EmailVerification extends Component {
                     type="email"
                     name="email"
                     value={value || ''}
+                    disabled={disabledEmailInput}
                     onChange={e => setValue(e.target.value)}
                     placeholder={
                       emailPlaceholder ||

@@ -46,6 +46,8 @@ class EmailAndPassword extends Component {
     identifierPlaceholder: PropTypes.string,
     /** Error message for the user identifier */
     invalidIdentifierError: PropTypes.string,
+    /** Disables editing email input */
+    disabledEmailInput: PropTypes.bool,
   }
 
   state = {
@@ -115,7 +117,8 @@ class EmailAndPassword extends Component {
       hasUserIdentifierExtension,
       identifierPlaceholder,
       invalidIdentifierError,
-      onLoginSuccess
+      onLoginSuccess,
+      disabledEmailInput
     } = this.props
 
     const {
@@ -161,6 +164,7 @@ class EmailAndPassword extends Component {
                   return (
                     <Input
                       value={value || ''}
+                      disabled={disabledEmailInput}
                       onChange={e => {
                         setValue(e.target.value)
                         this.setState({ isInvalidEmail: false })
