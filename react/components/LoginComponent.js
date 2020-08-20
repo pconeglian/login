@@ -62,26 +62,23 @@ class LoginComponent extends Component {
     const search = history && history.location && history.location.search
 
     const iconClasses = `flex items-center ${hideIconLabel ? 'nr4' : ''}`
-    const iconLabel = !hideIconLabel && (iconLabelProfile || translate('store/login.signIn', intl))
-    const buttonContent = (
-      <Fragment>
-        {sessionProfile ? (
-          <span
-            className={`${styles.profile} truncate t-action--small order-1 pl4 ${labelClasses} dn db-l`}
-          >
-            {translate('store/login.hello', intl)}{' '}
-            {sessionProfile.firstName || sessionProfile.email}
-          </span>
-        ) : (
-          iconLabel && (
-            <span
-              className={`${styles.label} t-action--small pl4 ${labelClasses} dn db-l`}
-            >
-              {iconLabel}
-            </span>
-          )
-        )}
-      </Fragment>
+    const iconLabel = iconLabelProfile || translate('store/login.signIn', intl)
+
+    const buttonContent = hideIconLabel ? (
+      <></>
+    ) : sessionProfile ? (
+      <span
+        className={`${styles.profile} truncate t-action--small order-1 pl4 ${labelClasses} dn db-l`}
+      >
+        {translate('store/login.hello', intl)}{' '}
+        {sessionProfile.firstName || sessionProfile.email}
+      </span>
+    ) : (
+      <span
+        className={`${styles.label} t-action--small pl4 ${labelClasses} dn db-l`}
+      >
+        {iconLabel}
+      </span>
     )
 
     if (loginButtonAsLink) {
