@@ -30,8 +30,11 @@ class OAuth extends Component {
     onOAuthError: PropTypes.func.isRequired,
   }
 
-  handleOAuthPopupFailure = err =>
-    this.props.onOAuthError(err.details)
+  handleOAuthPopupFailure = err => {
+    if (err.code == 'OAuthError') {
+      this.props.onOAuthError(err.details)
+    }
+  }
 
   render() {
     const { intl, children, provider, onLoginSuccess, onLoginError } = this.props
