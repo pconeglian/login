@@ -22,16 +22,20 @@ export const getDefaultRedirectUrl = isHeaderLogin => {
 export const jsRedirect = ({ runtime, isHeaderLogin }) => {
   const url = getReturnUrl() || getDefaultRedirectUrl(isHeaderLogin)
 
-  if (!url) {
-    const __bindingAddress = getBindingAddress()
-    const queryString = __bindingAddress
-      ? new URLSearchParams({ __bindingAddress }).toString()
-      : ''
-    return `${getRootPath()}/?${queryString}`
+  if (url) {
+    runtime.navigate({
+      to: url,
+      fallbackToWindowLocation: true,
+    })
+    return
   }
 
+  const __bindingAddress = getBindingAddress()
+  const queryString = __bindingAddress
+    ? new URLSearchParams({ __bindingAddress }).toString()
+    : ''
   runtime.navigate({
-    to: url,
+    to: `${getRootPath()}/?${queryString}`,
     fallbackToWindowLocation: true,
   })
 }
