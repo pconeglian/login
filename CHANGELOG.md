@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- "Unknown error" message appeared when OAuth popup was closed
+
 ## [2.36.1] - 2020-08-20
 
 ### Fixed
