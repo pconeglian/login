@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- `/login` page not auto redirecting logged user when `returnUrl` didn't exist
+
 ## [2.36.2] - 2020-08-24
 
 ### Fixed
