@@ -55,6 +55,7 @@ export const LoginContainerProptypes = {
 export const LoginContainerDefaultProps = {
   labelClasses: DEFAULT_CLASSES,
   logInButtonBehavior: ButtonBehavior.POPOVER,
+  disabledEmailInputs: false,
 }
 
 export const LoginPropTypes = {

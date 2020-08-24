@@ -19,7 +19,7 @@ import { steps } from '../utils/steps'
 import { setCookie } from '../utils/set-cookie'
 import FlowState from '../utils/FlowState'
 
-import { LoginPropTypes } from '../propTypes'
+import { LoginPropTypes, LoginContainerDefaultProps } from '../propTypes'
 import { AuthStateLazy, AuthServiceLazy, useSendAccessKey } from 'vtex.react-vtexid'
 import { SELF_APP_NAME_AND_VERSION } from '../common/global'
 import getUserEmailQuery from '../utils/getUserEmailQuery'
@@ -155,6 +155,7 @@ class LoginContent extends Component {
     isInitialScreenOptionOnly: true,
     defaultOption: 0,
     optionsTitle: '',
+    disabledEmailInputs: LoginContainerDefaultProps.disabledEmailInputs,
   }
 
   static contextTypes = {
