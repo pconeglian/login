@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types'
 import { intlShape } from 'react-intl'
 
+import { ButtonBehavior } from './common/global'
+
+const DEFAULT_CLASSES = 'gray'
+
 export const LoginContainerProptypes = {
   /** Title of login options */
   optionsTitle: PropTypes.string,
@@ -46,6 +50,11 @@ export const LoginContainerProptypes = {
   termsAndConditions: PropTypes.string,
   /** Disables editing in all email inputs */
   disabledEmailInputs: PropTypes.bool,
+}
+
+export const LoginContainerDefaultProps = {
+  labelClasses: DEFAULT_CLASSES,
+  logInButtonBehavior: ButtonBehavior.POPOVER,
 }
 
 export const LoginPropTypes = {
