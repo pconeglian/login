@@ -93,7 +93,7 @@ const STEPS = [
     return style => (
       <div style={style} key={4}>
         <RecoveryPassword
-          next={steps.ACCOUNT_OPTIONS}
+          next={steps.CREATE_PASSWORD}
           previous={steps.EMAIL_PASSWORD}
           passwordPlaceholder={props.passwordPlaceholder}
           showPasswordVerificationIntoTooltip={
