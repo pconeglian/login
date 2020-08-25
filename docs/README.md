@@ -151,7 +151,7 @@ You can also change the `login-content`'s behaviour and interface through the St
 | `identifierPlaceholder`               | `String`  | Set placeholder for the identifier extension                                                  | -             |
 | `invalidIdentifierError`              | `String`  | Set error message for invalid user identifier                                                 | -             |
 | `termsAndConditions`                  | `String`  | Sets a markdown text below the login options, meant to warn the user about terms & conditions | -             |
-| `disabledEmailInputs`                 | `Boolean` | Disables all email inputs                                                                     | false         |
+| `disabledEmailInputs`                 | `boolean` | Whether Checkout should allow user email editing (`true`) or not (`false`).      | `false`         |
 
 ### Plugins API
 
