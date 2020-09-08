@@ -161,7 +161,7 @@ class LoginContent extends Component {
 
   state = {
     sessionProfile: this.props.profile,
-    isOnInitialScreen: !this.props.profile,
+    isOnInitialScreen: !(this.props.profile && this.props.profile.isAuthenticated),
     isCreatePassword: this.props.defaultIsCreatePassword,
     step: this.props.defaultOption,
     email: '',
@@ -188,13 +188,21 @@ class LoginContent extends Component {
   }
 
   get shouldRenderForm() {
-    if (this.props.profile) {
+    const {
+      isHeaderLogin,
+      isInitialScreenOptionOnly,
+    } = this.props
+    const {
+      sessionProfile,
+      isOnInitialScreen,
+    } = this.state
+
+    const { isAuthenticated } = sessionProfile || {}
+
+    if (isHeaderLogin && isAuthenticated) {
       return true
     }
-
-    return (
-      !this.props.isInitialScreenOptionOnly || !this.state.isOnInitialScreen
-    )
+    return !(isInitialScreenOptionOnly && isOnInitialScreen)
   }
 
   shouldRedirectToOAuth = loginOptions => {
@@ -264,16 +272,21 @@ class LoginContent extends Component {
 
   renderChildren = () => {
     const {
-      profile,
+      isHeaderLogin,
       isInitialScreenOptionOnly,
       optionsTitle,
       defaultOption,
       providerPasswordButtonLabel,
     } = this.props
-    const { isOnInitialScreen } = this.state
+    const {
+      isOnInitialScreen,
+      sessionProfile,
+    } = this.state
+
+    const { isAuthenticated } = sessionProfile || {}
 
     let step = this.state.step
-    if (profile) {
+    if (isHeaderLogin && isAuthenticated) {
       step = steps.ACCOUNT_OPTIONS
     } else if (isOnInitialScreen) {
       step = defaultOption
@@ -321,25 +334,27 @@ class LoginContent extends Component {
 
   render() {
     const {
-      profile,
+      isHeaderLogin,
       isInitialScreenOptionOnly,
       defaultOption,
       runtime,
-      isHeaderLogin,
     } = this.props
 
-    const { isOnInitialScreen, sessionProfile } = this.state
+    const {
+      isOnInitialScreen,
+      sessionProfile,
+    } = this.state
 
-    // Check if the user is already logged and redirect to the return URL if it didn't receive
-    // the profile by the props and current endpoint are /login, if receive it, should render the account options.
-    if (sessionProfile && !profile) {
+    const { isAuthenticated } = sessionProfile || {}
+
+    if (!isHeaderLogin && isAuthenticated) {
       if (location.pathname.includes('/login')) {
         jsRedirect({ runtime, isHeaderLogin })
       }
     }
 
     let step = this.state.step
-    if (profile) {
+    if (isHeaderLogin && isAuthenticated) {
       step = steps.ACCOUNT_OPTIONS
     } else if (isOnInitialScreen) {
       step = defaultOption
@@ -371,7 +386,7 @@ class LoginContent extends Component {
     
     return (
       <div className={className}>
-        {!profile && this.shouldRenderLoginOptions
+        {!(isHeaderLogin && isAuthenticated) && this.shouldRenderLoginOptions
           ? this.renderChildren()
           : null}
         <div className={formClassName}>
@@ -464,7 +479,7 @@ const LoginContentProvider = props => {
 
   return (
     <AuthStateLazy
-      skip={!!props.profile}
+      skip={!!(props.profile && props.profile.isAuthenticated)}
       scope="STORE"
       parentAppId={SELF_APP_NAME_AND_VERSION}
       returnUrl={redirectUrl}

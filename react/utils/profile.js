@@ -13,11 +13,8 @@ const getProfileFromQueryResponse = data => {
 }
 
 const getProfileFromApiResponse = data => {
-  if (!data || !data.namespaces) {
-    return null
-  }
-
-  const { namespaces: { profile } = {} } = data
+  const { namespaces } = data || {}
+  const { profile } = namespaces || {}
   if (!profile) {
     return null
   }
@@ -25,15 +22,19 @@ const getProfileFromApiResponse = data => {
   const {
     email: { value: email } = { value: null },
     firstName: { value: firstName } = { value: null },
+    isAuthenticated: { value: isAuthenticatedValue } = { value: false },
   } = profile
 
-  if (!email) {
+  const isAuthenticated = isAuthenticatedValue === 'true'
+
+  if (isAuthenticated && !email) {
     return null
   }
 
   return {
     email,
     firstName,
+    isAuthenticated,
   }
 }
 

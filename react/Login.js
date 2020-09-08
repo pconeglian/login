@@ -11,6 +11,8 @@ import getSessionProfile from './utils/getSessionProfile'
 
 const DEFAULT_CLASSES = 'gray'
 
+const LoginWithSession = injectIntl(LoginComponent)
+
 /** Canonical login that calls a mutation to retrieve the authentication token */
 
 export default class Login extends Component {
@@ -75,7 +77,9 @@ export default class Login extends Component {
     const { logInButtonBehavior, accountOptionsButtonBehavior } = this.props
     const { sessionProfile, isMobileScreen } = this.state
     const buttonLink = ButtonBehavior.LINK
-    const shouldBeLink = isMobileScreen || (sessionProfile ? accountOptionsButtonBehavior === buttonLink : logInButtonBehavior === buttonLink)
+
+    const { isAuthenticated } = sessionProfile || {}
+    const shouldBeLink = isMobileScreen || (isAuthenticated ? accountOptionsButtonBehavior === buttonLink : logInButtonBehavior === buttonLink)
     
     return (
       <LoginWithSession
@@ -183,4 +187,3 @@ Login.uiSchema = {
   ],
 }
 
-const LoginWithSession = injectIntl(LoginComponent)

@@ -7,7 +7,6 @@ import {
   GoogleOneTapAlignment,
   SELF_APP_NAME_AND_VERSION,
 } from '../common/global'
-import { getProfile } from '../utils/profile'
 import getSessionProfile from '../utils/getSessionProfile'
 
 const onLoginPage = current => current === 'store.login'
@@ -66,8 +65,10 @@ const OneTapSignin = ({
   useEffect(() => {
     if (!shouldOpen) return
 
-    getSessionProfile().then(async data => {
-      if (data) return
+    getSessionProfile().then(async sessionProfile => {
+      const { isAuthenticated } = sessionProfile || {}
+
+      if (isAuthenticated) return
 
       const { href: baseUrl } = window.location
       const resp = await fetch(
