@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Fill email fields by default with the value from session
+
 ## [2.37.1] - 2020-09-08
 
 ### Fixed
