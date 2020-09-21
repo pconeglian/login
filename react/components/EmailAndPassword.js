@@ -268,6 +268,14 @@ class EmailAndPassword extends Component {
           </Fragment>
         }
       >
+        <div className={`${styles.formLinkContainer} flex justify-center ph0 mt4`}>
+          <div className={`${styles.signUpButtonContainer}`}>
+            <p class={`${styles.signUpButtonParagraph}`}>Caso ainda não tenha acesso, clique no botão abaixo para se cadastrar.</p>
+            <a href="/seja-um-distribuidor" className={`${styles.signUpButton}`}>
+              Cadastrar-se
+            </a>
+          </div>
+        </div>
         <div
           className={`${styles.formLinkContainer} flex justify-center ph0 mt4`}
         >

@@ -88,6 +88,12 @@
 
 .eyeIcon {}
 
+.signUpButtonContainer {}
+
+.signUpButtonParagraph {}
+
+.signUpButton {}
+
 .formTitle {
   white-space: pre-line;
 }
@@ -138,7 +144,7 @@
 
 .tooltipContainer {
   width: max-content;
-} 
+}
 
 .tooltipContainerTop {
   bottom: 110%;
