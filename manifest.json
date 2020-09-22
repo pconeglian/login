@@ -1,7 +1,7 @@
 {
   "vendor": "distribuidorforeverliss",
   "name": "login-foreverliss",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "title": "VTEX Login",
   "defaultLocale": "pt-BR",
   "description": "The VTEX Login app",
